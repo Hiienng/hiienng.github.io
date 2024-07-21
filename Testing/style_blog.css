@@ -1,0 +1,208 @@
+body {
+    background: #000;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+nav {
+    height: 80px;
+    background: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem calc((100vw - 1300px) / 2);
+    position: relative;
+}
+
+.logo {
+    color: #fdcc04;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0 1.5rem;
+}
+
+.nav-items {
+    list-style: none;
+    display: flex;
+}
+
+.nav-items li {
+    padding: 0 1.5rem;
+}
+
+.nav-items a {
+    text-decoration: none;
+    color: #fdcc04;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    padding: 0 1.5rem;
+}
+
+.hamburger .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #fdcc04;
+    margin: 4px 0;
+    transition: all 0.3s;
+}
+
+/* Style cho màn hình laptop */
+@media only screen and (min-width: 768px) {
+    .hero-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        height: 95vh;
+        padding: 3rem calc((100vw - 1300px) / 2);
+    }
+
+    .column-left h1 {
+        font-size: 40px;
+    }
+
+    nav a {
+        font-size: 1rem;
+    }
+
+    .nav-items {
+        display: flex; /* Hiển thị thanh điều hướng đầy đủ trên laptop */
+    }
+
+    .hamburger {
+        display: none; /* Ẩn hamburger trên laptop */
+    }
+}
+
+/* Style cho màn hình điện thoại */
+@media only screen and (max-width: 767px) {
+    .hero-container {
+        display: block;
+        height: auto;
+        padding: 2rem;
+    }
+
+    .column-left h1 {
+        font-size: 30px;
+    }
+
+    .nav-items {
+        display: none; /* Ẩn thanh điều hướng đầy đủ */
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        background-color: #000;
+        border-top: 1px solid #fdcc04;
+    }
+
+    .nav-items li {
+        padding: 1rem 0;
+        border-bottom: 1px solid #fdcc04;
+    }
+
+    .nav-items a {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .hamburger {
+        display: flex; /* Hiển thị hamburger trên điện thoại */
+    }
+
+    .logo {
+        padding: 0 1rem;
+        margin-bottom: 1rem;
+    }
+
+    nav a {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem; /* Giảm kích thước font chữ */
+    }
+
+    button {
+        padding: 0.75rem 2rem; /* Giảm kích thước đệm x và y */
+        font-size: 0.875rem; /* Giảm kích thước font chữ */
+    }
+}
+
+/* Style chung cho cả hai loại màn hình */
+.hero {
+    background: #000;
+}
+
+.column-left,
+.column-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: beige;
+    padding: 0rem 2rem;
+}
+
+button {
+    padding: 1rem 3rem; /* Kích thước đệm x và y */
+    font-size: 1rem;
+    border: none;
+    color: antiquewhite;
+    background: #000;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: background 0.3s, color 0.3s, transform 0.3s ease; /* Thêm hiệu ứng chuyển đổi cho background, color và transform */
+}
+
+button:hover {
+    background: #fdcc04;
+    color: #000;
+    transform: scale(1.1); /* Phóng to nút khi di chuột qua */
+}
+
+.project {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)); /* Gradient từ trong suốt đến màu trắng */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    flex: 1 0 calc(33.333% - 2rem);
+    padding: 1rem;
+    position: relative;
+    
+}
+
+.project img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: auto;
+}
+
+.project-info {
+    flex: 1 0 calc(100% - 100px); /* Đảm bảo phần thông tin nằm bên phải của hình ảnh */
+    padding-left: 20px; /* Tạo khoảng cách giữa hình ảnh và phần thông tin */
+}
+
+.project-info h3,
+.project-info p {
+    margin: 0; /* Loại bỏ margin mặc định của h3 và p */
+}
+
+/* Điều chỉnh kích thước cho màn hình điện thoại */
+@media only screen and (max-width: 767px) {
+    .project {
+        flex-basis: calc(100% - 2rem);
+    }
+}

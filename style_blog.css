@@ -1,14 +1,50 @@
-nav ul {
-    list-style-type: none; /*Loại bỏ kiểu bullet points mặc định của danh sách*/
-    padding: 0; /*Loại bỏ khoảng cách đệm xung quanh danh sách, giữ các mục sát vào nhau*/
-    margin: 0; /* Loại bỏ khoảng cách lề xung quanh danh sách, đặt các mục vào vị trí gốc.*/
-    display: flex; /**/
-    flex-wrap: wrap;
-  }
-
-nav ul li {
-    margin-bottom: 10px;
+.top-nav {
+    height: 50px;
+    background: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem calc((100vw - 1300px)/2);
+    position: fixed; /* Để cố định thanh nav trên cùng */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Đảm bảo nó luôn ở trên các phần tử khác */
 }
+
+
+.logo {
+    color: #fdcc04;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0 1.5rem;
+}
+
+.top-nav a {
+    text-decoration: none;
+    color: #fdcc04;
+    padding: 0 1.5rem;
+}
+
+
+button {
+    padding: 1rem 3rem; /* Kích thước đệm x và y */
+    font-size: 1rem;
+    border: none;
+    color: antiquewhite;
+    background: #000;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: background 0.3s, color 0.3s, transform 0.3s ease; /* Thêm hiệu ứng chuyển đổi cho background, color và transform */
+}
+
+button:hover {
+    background: #fdcc04;
+    color: #000;
+    transform: scale(1.1); /* Phóng to nút khi di chuột qua */
+}
+
 body {
     font-family: Arial, sans-serif;
     color: #333;
@@ -17,22 +53,45 @@ body {
     display: flex;
 }
 
-nav {
-    width: 190px;
+main {
+    margin-top: 50px;
+    margin-left: 260px; /* Để tránh nội dung bị che bởi nav */
+    padding: 20px;
+    flex: 1;
+
+}
+
+.side-nav {
+    width: 220px;
+    margin-top: 50px;
     background-color: #f4f4f4;
     padding: 20px;
     position: fixed; /* Làm cho nav cố định */
     top: 0;
     left: 0;
     height: 100%; /* Đảm bảo nav chiếm toàn bộ chiều cao của trang */
-    overflow-y: auto; /* Thêm cuộn dọc nếu nội dung vượt quá chiều cao */
+    overflow-y: block; /* Thêm cuộn dọc nếu nội dung vượt quá chiều cao */
+}
+
+.toggle-icon {
+    display: inline-block;
+    text-align: right;
+    margin-left: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    margin-bottom: 10px;
 }
 
 nav ul li a {
     text-decoration: none;
     color: #333;
     display: block;
-    flex: 1; /* Để liên kết chiếm toàn bộ không gian còn lại */
 }
 
 nav ul li a:hover {
@@ -50,19 +109,6 @@ nav ul li ul.expanded {
     display: block; /* Hiển thị mục con nếu được mở rộng */
 }
 
-.toggle-icon {
-    display: inline-block;
-    width: auto; /* Điều chỉnh độ rộng tự động */
-    text-align: right;
-    margin-left: 10px;
-    cursor: pointer; /* Thêm con trỏ để hiển thị đây là phần tử có thể tương tác */
-}
-
-main {
-    margin-left: 220px; /* Để tránh nội dung bị che bởi nav */
-    padding: 20px;
-    flex: 1;
-}
 
 header {
     color: #333;
@@ -82,10 +128,10 @@ h2 {
     margin-bottom: 20px;
 }
 
-li, p {
+p {
     line-height: 1.5;
     text-align: justify;
-    color: #333;
+    color: #333
 }
 
 img {
@@ -94,3 +140,5 @@ img {
     display: block; /* Để ảnh là một block element */
     margin: 0 auto; /* Canh giữa ảnh */
 }
+
+

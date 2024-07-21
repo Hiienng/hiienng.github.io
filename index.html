@@ -5,29 +5,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style_index.css" />
 </head>
 <body>
     <nav>
-        <div class ="logo">DATA SCIENCE 101</div>
-        <div class = "nav-items">
-            <a href="http:/datascience101hub.com">Home</a>
-            <a href="http:/datascience101hub.com/index_blog_preface.html">Blog</a>
-            <a href="/">About us</a>
+        <a href="http:/datascience101hub.com">
+            <div class="logo">DATA SCIENCE 101</div>
+        </a>
+        <div class="nav-menu">
+            <div class="hamburger" id="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <ul class="nav-items" id="nav-items">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
         </div>
     </nav>
     <section class="hero">
         <div class="hero-container">
             <div class="column-left">
                 <h1>Every legend emerges from humble beginnings. Let's embark on yours!</h1>
-                <button>Get Started</button>
+                <button>Sign in</button>
             </div>
             <div class="column-right">
                 <div id="lottie-animation" class="hero-image"></div>
             </div>
         </div>
     </section>
-    
+    <!-- Sections with project details -->
+    <section class="projects">
+        <h2>Our project</h2>
+        <div class="project">
+            <img src="C:\Users\admin\Desktop\Hiensfolder\1. Working\Github\Hiienng.github.io\assets\galaxy3.jpg" alt="Project 1 Image">
+            <h3>Project: Financial Forecasting</h3>
+            <p>#MathematicsDataScience.</p>
+        </div>
+    </section>
+
+    <section class="projects">
+        <h2>Our blog</h2>
+        <div class="project">
+            <img src="C:\Users\admin\Desktop\Hiensfolder\1. Working\Github\Hiienng.github.io\assets\galaxy3.jpg" alt="Project 1 Image">
+            <h3>Blog: Mathematics</h3>
+            <p>#MathematicsDataScience.</p>
+        </div>
+        <div class="project">
+            <img src="C:\Users\admin\Desktop\Hiensfolder\1. Working\Github\Hiienng.github.io\assets\galaxy1.jpg" alt="Project 1 Image">
+            <h3>Blog: Data carrer</h3>
+            <p>#DataAnalysis, #BusinessIntelligence, #DataScience</p>
+        </div>
+    </section>
+    <script src="script.js"></script>
     <!-- Include Lottie library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
     <script>
@@ -40,6 +72,5 @@
             path: 'https://assets7.lottiefiles.com/packages/lf20_w51pcehl.json'
         });
     </script>
-    <!-- More sections with your HTML content -->
 </body>
 </html>
