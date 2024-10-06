@@ -1,195 +1,111 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng Nhập/Đăng Ký</title>
+    <title>Beautiful Login Form</title>
     <style>
-        * {
+        body, html {
+            height: 100%;
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #000; /* Nền tối đen */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-image: url('https://example.com/icon-gray-background.png'); /* Thay bằng link hình ảnh icon màu xám */
-            background-size: contain; /* Đảm bảo các icon được hiển thị một cách cân đối */
-            background-blend-mode: overlay; /* Giữ màu đen chủ đạo với icon mờ phía sau */
-        }
-
-        .login-register-container {
-            background: rgba(50, 50, 50, 0.9); /* Hộp màu xám trung tính, phù hợp với nền */
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.7);
-            width: 400px;
-        }
-
-        .tabs {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #333;
-        }
-
-        .tabs button {
-            width: 50%;
-            padding: 10px;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 18px;
-            cursor: pointer;
-            outline: none;
-            transition: background 0.3s;
-        }
-
-        .tabs button.active {
-            border-bottom: 2px solid #ff6600;
-            color: #ff6600;
-        }
-
-        .form-box {
-            display: none;
-        }
-
-        .form-box.active {
-            display: block;
-        }
-
-        .input-box {
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        .input-box input {
+        .bg-image {
+            background-image: url('https://source.unsplash.com/1600x900/?nature,water');
+            filter: blur(8px);
+            height: 100%; 
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: absolute;
             width: 100%;
-            padding: 10px;
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid #fff;
-            outline: none;
-            font-size: 16px;
-            color: #fff;
+            z-index: -1;
         }
 
-        .input-box label {
+        .login-container {
             position: absolute;
             top: 50%;
-            left: 10px;
-            transform: translateY(-50%);
-            color: #aaa; /* Màu xám nhạt cho label */
-            pointer-events: none;
-            transition: 0.5s;
-        }
-
-        .input-box input:focus ~ label,
-        .input-box input:valid ~ label {
-            top: -5px;
-            left: 0;
-            color: #ff6600; /* Màu cam nổi bật khi nhập */
-            font-size: 12px;
-        }
-
-        .btn {
-            width: 100%;
-            background-color: #ff6600;
-            border: none;
-            padding: 10px;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #ff8500;
-        }
-
-        .register-link {
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            margin-top: 20px;
         }
 
-        .register-link a {
-            color: #ff6600;
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #47a447;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background-color: #398439;
+        }
+
+        .forgot-link {
+            display: block;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #0066cc;
             text-decoration: none;
-            font-weight: bold;
         }
 
-        .register-link a:hover {
+        .forgot-link:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="login-register-container">
-        <div class="tabs">
-            <button class="tab-link active" onclick="openTab('login')">Đăng Nhập</button>
-            <button class="tab-link" onclick="openTab('register')">Đăng Ký</button>
-        </div>
-        
-        <div id="login" class="form-box active">
-            <form action="#" method="POST">
-                <div class="input-box">
-                    <input type="text" required>
-                    <label>Tên người dùng</label>
-                </div>
-                <div class="input-box">
-                    <input type="password" required>
-                    <label>Mật khẩu</label>
-                </div>
-                <button type="submit" class="btn">Đăng Nhập</button>
-                <div class="register-link">
-                    <p>Bạn chưa có tài khoản? <a href="#" onclick="openTab('register')">Đăng ký ngay</a></p>
-                </div>
-            </form>
-        </div>
-
-        <div id="register" class="form-box">
-            <form action="#" method="POST">
-                <div class="input-box">
-                    <input type="text" required>
-                    <label>Tên người dùng</label>
-                </div>
-                <div class="input-box">
-                    <input type="email" required>
-                    <label>Email</label>
-                </div>
-                <div class="input-box">
-                    <input type="password" required>
-                    <label>Mật khẩu</label>
-                </div>
-                <button type="submit" class="btn">Đăng Ký</button>
-            </form>
-        </div>
+    <div class="bg-image"></div>
+    <div class="login-container">
+        <h2>Sign In</h2>
+        <form action="/login" method="POST">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+            <a href="#" class="forgot-link">Forgot Password?</a>
+        </form>
     </div>
-
-    <script>
-        function openTab(tabName) {
-            // Ẩn tất cả các form
-            var forms = document.getElementsByClassName('form-box');
-            for (var i = 0; i < forms.length; i++) {
-                forms[i].classList.remove('active');
-            }
-
-            // Hiện form được chọn
-            document.getElementById(tabName).classList.add('active');
-
-            // Đổi trạng thái active của các tab
-            var tabs = document.getElementsByClassName('tab-link');
-            for (var i = 0; i < tabs.length; i++) {
-                tabs[i].classList.remove('active');
-            }
-            event.target.classList.add('active');
-        }
-    </script>
 </body>
 </html>
