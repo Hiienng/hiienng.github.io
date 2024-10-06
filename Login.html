@@ -3,95 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beautiful Login Form</title>
+    <title>Material Design Login Form</title>
     <style>
-        body, html {
-            height: 100%;
+        * {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .bg-image {
-            background-image: url('https://source.unsplash.com/1600x900/?nature,water');
-            filter: blur(8px);
-            height: 100%; 
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            position: absolute;
-            width: 100%;
-            z-index: -1;
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f1f1f1;
         }
 
         .login-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
+            width: 100%;
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: #fff;
             padding: 40px;
-            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 8px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .login-container h2 {
             margin-bottom: 20px;
             color: #333;
+            text-align: center;
         }
 
         .input-group {
             margin-bottom: 15px;
-            text-align: left;
+            position: relative;
         }
 
         .input-group label {
             display: block;
-            font-size: 14px;
             margin-bottom: 5px;
+            font-size: 14px;
             color: #555;
         }
 
         .input-group input {
             width: 100%;
-            padding: 10px;
+            padding: 10px 15px;
             font-size: 16px;
-            border: 1px solid #ccc;
+            border: 2px solid #e0e0e0;
             border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #6200ea;
         }
 
         .login-btn {
             width: 100%;
-            padding: 10px;
-            background-color: #47a447;
+            padding: 12px;
+            background-color: #6200ea;
             color: white;
             font-size: 16px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             margin-top: 10px;
+            transition: background-color 0.3s;
         }
 
         .login-btn:hover {
-            background-color: #398439;
+            background-color: #3700b3;
         }
 
-        .forgot-link {
+        .forgot-link, .signup-link {
             display: block;
+            text-align: center;
             margin-top: 10px;
             font-size: 14px;
-            color: #0066cc;
+            color: #6200ea;
             text-decoration: none;
         }
 
-        .forgot-link:hover {
+        .forgot-link:hover, .signup-link:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="bg-image"></div>
     <div class="login-container">
         <h2>Sign In</h2>
         <form action="/login" method="POST">
@@ -105,6 +102,7 @@
             </div>
             <button type="submit" class="login-btn">Login</button>
             <a href="#" class="forgot-link">Forgot Password?</a>
+            <a href="#" class="signup-link">Create New Account</a>
         </form>
     </div>
 </body>
