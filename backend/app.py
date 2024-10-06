@@ -30,27 +30,29 @@ if __name__ == '__main__':
 ######################################
 @app.route('/register', methods=['POST'])
 def register():
-    # Get data from request
-    data = request.get_json()
+    data = request.get_json()  # This will fail if form data is not sent as JSON.
+    
+    # Handling form data sent via POST request (non-JSON).
+    if not data:
+        email = request.form.get('email')
+        password = request.form.get('password')
+        if not email or not password:
+            return jsonify({'message': 'Email and password required'}), 400
 
-    # Check if email and password are present
-    if not data or not 'email' in data or not 'password' in data:
-        return jsonify({'message': 'Invalid request'}), 400
+        # Check if user exists
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            return jsonify({'message': 'User already exists'}), 409
 
-    # Check if user already exists
-    existing_user = User.query.filter_by(email=data['email']).first()
-    if existing_user:
-        return jsonify({'message': 'User already exists'}), 409
+        # Hash password and store user
+        hashed_password = hashpw(password.encode('utf-8'), gensalt())
+        new_user = User(email=email, password=hashed_password.decode('utf-8'))
+        db.session.add(new_user)
+        db.session.commit()
 
-    # Hash the password
-    hashed_password = hashpw(data['password'].encode('utf-8'), gensalt())
+        return jsonify({'message': 'User registered successfully'}), 201
+    return jsonify({'message': 'Invalid request'}), 400
 
-    # Create a new user
-    new_user = User(email=data['email'], password=hashed_password.decode('utf-8'))
-    db.session.add(new_user)
-    db.session.commit()
-
-    return jsonify({'message': 'User registered successfully'}), 201
 ######################################
 @app.route('/login', methods=['POST'])
 def login():
