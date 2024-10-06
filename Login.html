@@ -1,27 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SZ2PGMC55Q"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-SZ2PGMC55Q');
+    </script>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/icon_final.png">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gradient Login Form</title>
+    <title>DS101hub | Login</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style_index.css" />
+    
+    <!-- Inline Style for Basic Layout -->
     <style>
-        body {
-            margin: 0;
-            padding: 0;
+        body, html {
             height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            font-family: Arial, sans-serif;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient background */
         }
 
         .login-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 300px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
@@ -32,39 +49,45 @@
 
         .input-group {
             margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555;
         }
 
         .input-group input {
             width: 100%;
             padding: 10px;
             font-size: 16px;
-            border: none;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            margin-bottom: 10px;
-            background-color: #f1f1f1;
         }
 
         .login-btn {
             width: 100%;
-            padding: 12px;
-            background-color: #6a11cb;
+            padding: 10px;
+            background-color: #47a447;
             color: white;
             font-size: 16px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            margin-top: 10px;
         }
 
         .login-btn:hover {
-            background-color: #5a0db7;
+            background-color: #398439;
         }
 
         .forgot-link {
             display: block;
             margin-top: 10px;
             font-size: 14px;
-            color: #2575fc;
+            color: #0066cc;
             text-decoration: none;
         }
 
@@ -75,15 +98,19 @@
 </head>
 <body>
     <div class="login-container">
-        <h2>Login</h2>
+        <h2>Sign In</h2>
         <form action="/login" method="POST">
             <div class="input-group">
-                <input type="email" placeholder="Email" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
             </div>
             <div class="input-group">
-                <input type="password" placeholder="Password" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
             </div>
             <button type="submit" class="login-btn">Login</button>
-            <a href="#" class="forgot-link">Forgot Password?</a>
+            <a href="#" class="forgot-link">Forgot password?</a>
         </form>
     </div>
+</body>
+</html>
