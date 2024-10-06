@@ -1,157 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SZ2PGMC55Q"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-SZ2PGMC55Q');
-    </script>
-
-    <!-- Favicon -->
-    <link rel="icon" href="/assets/icon_final.png">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DS101hub | Login</title>
-
-    <!-- External CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Inline Style for Basic Layout -->
+    <title>Đăng Nhập</title>
     <style>
-        body, html {
-            height: 100%;
+        * {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: black; /* Background color set to black */
-            position: relative;
-            overflow: hidden;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Gray icons in the background */
-        .bg-icon {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.1); /* Light gray, almost transparent */
-            font-size: 100px;
-        }
-        
-        .icon1 {
-            top: 10%;
-            left: 5%;
-        }
-
-        .icon2 {
-            top: 20%;
-            right: 10%;
-        }
-
-        .icon3 {
-            bottom: 15%;
-            left: 10%;
-        }
-
-        .icon4 {
-            bottom: 5%;
-            right: 20%;
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .login-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #333;
+            outline: none;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .input-box label {
             position: absolute;
             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            padding: 40px;
-            background-color: rgba(255, 255, 255, 0.1); /* Transparent background */
-            border-radius: 8px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            color: white;
+            left: 10px;
+            transform: translateY(-50%);
+            color: #666;
+            pointer-events: none;
+            transition: 0.5s;
         }
 
-        .login-container h2 {
-            margin-bottom: 20px;
-            color: white;
+        .input-box input:focus ~ label,
+        .input-box input:valid ~ label {
+            top: -5px;
+            left: 0;
+            color: #333;
+            font-size: 12px;
         }
 
-        .input-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 14px;
-            margin-bottom: 5px;
-            color: #aaa;
-        }
-
-        .input-group input {
+        .btn {
             width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
             background-color: #333;
-            color: white;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 10px;
-            background-color: #47a447;
-            color: white;
-            font-size: 16px;
             border: none;
-            border-radius: 5px;
+            padding: 10px;
+            color: #fff;
+            font-size: 16px;
             cursor: pointer;
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            border-radius: 5px;
+            transition: background 0.3s ease;
         }
 
-        .login-btn:hover {
-            background-color: #398439;
+        .btn:hover {
+            background-color: #555;
         }
 
-        .forgot-link {
-            display: block;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #0066cc;
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .register-link a {
+            color: #333;
             text-decoration: none;
+            font-weight: bold;
         }
 
-        .forgot-link:hover {
+        .register-link a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <!-- Background icons -->
-    <i class="fas fa-lock bg-icon icon1"></i>
-    <i class="fas fa-user bg-icon icon2"></i>
-    <i class="fas fa-shield-alt bg-icon icon3"></i>
-    <i class="fas fa-key bg-icon icon4"></i>
-
     <div class="login-container">
-        <h2>Sign In</h2>
-        <form action="/login" method="POST">
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="login-btn">ĐĂNG NHẬP</button>
-            <a href="#" class="forgot-link">Đặt lại mật khẩu</a>
-        </form>
+        <div class="login-box">
+            <h2>Đăng Nhập</h2>
+            <form action="#" method="POST">
+                <div class="input-box">
+                    <input type="text" required>
+                    <label>Tên người dùng</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" required>
+                    <label>Mật khẩu</label>
+                </div>
+                <button type="submit" class="btn">Đăng Nhập</button>
+                <div class="register-link">
+                    <p>Bạn chưa có tài khoản? <a href="#">Đăng ký ngay</a></p>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>
