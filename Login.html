@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng Nhập</title>
+    <title>Login/Register</title>
     <style>
-        * {
+        /* Basic styling for the form */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f7f7f7;
+            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,104 +18,146 @@
         }
 
         .login-container {
-            background: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
-            width: 400px;
-        }
-
-        .login-box h2 {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
             text-align: center;
-            margin-bottom: 30px;
-            color: #333;
         }
 
-        .input-box {
-            position: relative;
-            margin-bottom: 30px;
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
 
-        .input-box input {
-            width: 100%;
+        .tabs button {
+            width: 50%;
             padding: 10px;
-            background: transparent;
+            background-color: #ddd;
             border: none;
-            border-bottom: 2px solid #333;
-            outline: none;
-            font-size: 16px;
-            color: #333;
-        }
-
-        .input-box label {
-            position: absolute;
-            top: 50%;
-            left: 10px;
-            transform: translateY(-50%);
-            color: #666;
-            pointer-events: none;
-            transition: 0.5s;
-        }
-
-        .input-box input:focus ~ label,
-        .input-box input:valid ~ label {
-            top: -5px;
-            left: 0;
-            color: #333;
-            font-size: 12px;
-        }
-
-        .btn {
-            width: 100%;
-            background-color: #333;
-            border: none;
-            padding: 10px;
-            color: #fff;
-            font-size: 16px;
             cursor: pointer;
-            border-radius: 5px;
-            transition: background 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #555;
-        }
-
-        .register-link {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .register-link a {
-            color: #333;
-            text-decoration: none;
+            font-size: 16px;
             font-weight: bold;
         }
 
-        .register-link a:hover {
+        .tabs button.active {
+            background-color: #47a447;
+            color: white;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #47a447;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background-color: #398439;
+        }
+
+        .forgot-link {
+            display: block;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .forgot-link:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <div class="login-box">
-            <h2>Đăng Nhập</h2>
-            <form action="#" method="POST">
-                <div class="input-box">
-                    <input type="text" required>
-                    <label>Tên người dùng</label>
-                </div>
-                <div class="input-box">
-                    <input type="password" required>
-                    <label>Mật khẩu</label>
-                </div>
-                <button type="submit" class="btn">Đăng Nhập</button>
-                <div class="register-link">
-                    <p>Bạn chưa có tài khoản? <a href="#">Đăng ký ngay</a></p>
-                </div>
-            </form>
+        <div class="tabs">
+            <button id="login-tab" class="active" onclick="showLogin()">Login</button>
+            <button id="register-tab" onclick="showRegister()">Register</button>
         </div>
+
+        <form id="auth-form" action="/login" method="POST">
+            <div id="login-fields">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+            </div>
+
+            <div id="register-fields" style="display: none;">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="register-email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="register-password" name="password" required>
+                </div>
+                <div class="input-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm_password" required>
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn" id="submit-btn">ĐĂNG NHẬP</button>
+        </form>
+
+        <a href="#" class="forgot-link" id="forgot-link">Forgot password?</a>
     </div>
+
+    <script>
+        // Show Login form and hide Register form
+        function showLogin() {
+            document.getElementById('auth-form').action = '/login';
+            document.getElementById('login-tab').classList.add('active');
+            document.getElementById('register-tab').classList.remove('active');
+            document.getElementById('login-fields').style.display = 'block';
+            document.getElementById('register-fields').style.display = 'none';
+            document.getElementById('submit-btn').textContent = 'ĐĂNG NHẬP';
+            document.getElementById('forgot-link').style.display = 'block'; // Show forgot password link
+        }
+
+        // Show Register form and hide Login form
+        function showRegister() {
+            document.getElementById('auth-form').action = '/register';
+            document.getElementById('register-tab').classList.add('active');
+            document.getElementById('login-tab').classList.remove('active');
+            document.getElementById('login-fields').style.display = 'none';
+            document.getElementById('register-fields').style.display = 'block';
+            document.getElementById('submit-btn').textContent = 'ĐĂNG KÝ';
+            document.getElementById('forgot-link').style.display = 'none'; // Hide forgot password link
+        }
+    </script>
 </body>
 </html>
