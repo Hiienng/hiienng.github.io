@@ -15,29 +15,33 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DS101hub | Login</title>
+    <title>DS101hub | Login/Register</title>
 
-    <!-- External CSS -->
+    <!-- External CSS for Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Inline Style for Basic Layout -->
+    <!-- Inline Style for Layout -->
     <style>
         body, html {
             height: 100%;
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
-            background-color: black; /* Background color set to black */
-            position: relative;
+            background-color: #121212;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             overflow: hidden;
+            position: relative;
         }
 
         /* Gray icons in the background */
         .bg-icon {
             position: absolute;
-            color: rgba(255, 255, 255, 0.1); /* Light gray, almost transparent */
+            color: rgba(255, 255, 255, 0.1);
             font-size: 100px;
         }
-        
+
         .icon1 {
             top: 10%;
             left: 5%;
@@ -58,23 +62,45 @@
             right: 20%;
         }
 
-        .login-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
+        /* Container for tabs */
+        .tabs-container {
+            width: 400px;
             padding: 40px;
-            background-color: rgba(255, 255, 255, 0.1); /* Transparent background */
-            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
             text-align: center;
-            color: white;
         }
 
-        .login-container h2 {
+        .tabs {
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 20px;
+        }
+
+        .tabs button {
+            flex: 1;
+            padding: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 18px;
             color: white;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tabs button.active {
+            border-bottom: 2px solid #47a447;
+            color: #47a447;
+        }
+
+        .form-box {
+            display: none;
+        }
+
+        .form-box.active {
+            display: block;
         }
 
         .input-group {
@@ -93,7 +119,7 @@
             width: 100%;
             padding: 10px;
             font-size: 16px;
-            border: 1px solid #ccc;
+            border: 1px solid #333;
             border-radius: 5px;
             background-color: #333;
             color: white;
@@ -108,10 +134,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            transition: background-color 0.3s;
         }
 
         .login-btn:hover {
@@ -129,6 +152,7 @@
         .forgot-link:hover {
             text-decoration: underline;
         }
+
     </style>
 </head>
 <body>
@@ -138,20 +162,72 @@
     <i class="fas fa-shield-alt bg-icon icon3"></i>
     <i class="fas fa-key bg-icon icon4"></i>
 
-    <div class="login-container">
-        <h2>Sign In</h2>
-        <form action="/login" method="POST">
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="login-btn">ĐĂNG NHẬP</button>
-            <a href="#" class="forgot-link">Đặt lại mật khẩu</a>
-        </form>
+    <!-- Tabs container for login/register -->
+    <div class="tabs-container">
+        <div class="tabs">
+            <button class="tab-link active" onclick="openTab('login')">Đăng Nhập</button>
+            <button class="tab-link" onclick="openTab('register')">Đăng Ký</button>
+        </div>
+
+        <!-- Login form -->
+        <div id="login" class="form-box active">
+            <h2>Sign In</h2>
+            <form action="/login" method="POST">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">ĐĂNG NHẬP</button>
+                <a href="#" class="forgot-link">Đặt lại mật khẩu</a>
+            </form>
+        </div>
+
+        <!-- Register form -->
+        <div id="register" class="form-box">
+            <h2>Register</h2>
+            <form action="/register" method="POST">
+                <div class="input-group">
+                    <label for="username">Tên người dùng</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">ĐĂNG KÝ</button>
+            </form>
+        </div>
     </div>
+
+    <!-- JavaScript to handle tab switching -->
+    <script>
+        function openTab(tabName) {
+            // Hide all forms
+            var forms = document.getElementsByClassName('form-box');
+            for (var i = 0; i < forms.length; i++) {
+                forms[i].classList.remove('active');
+            }
+
+            // Show the selected form
+            document.getElementById(tabName).classList.add('active');
+
+            // Remove active class from all tabs
+            var tabs = document.getElementsByClassName('tab-link');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+
+            // Add active class to the clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
 </body>
 </html>
