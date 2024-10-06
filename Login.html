@@ -105,7 +105,17 @@
         .forgot-link:hover {
             text-decoration: underline;
         }
+        .bg-gradient {
+        height: 100%;
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        /* Optional - add blur effect */
+        filter: blur(0);
+        position: absolute;
+        width: 100%;
+        z-index: -1;
+        }
     </style>
+    <div class="bg-gradient"></div>
 </head>
 <body>
     <div class="bg-image"></div>
@@ -121,7 +131,9 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit" class="login-btn">Login</button>
-            <a href="#" class="forgot-link">Forgot Password?</a>
+            <a href="#" class="forgot-link">Đặt lại mật khẩu</a>
+            <button type="submit" class="signup-btn">Login</button>
+            <a href="#" class="signup-link">Bạn chưa có tài khoản?</a>
         </form>
     </div>
 </body>
