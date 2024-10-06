@@ -1,50 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SZ2PGMC55Q"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-SZ2PGMC55Q');
-    </script>
-
-    <!-- Favicon -->
-    <link rel="icon" href="/assets/icon_final.png">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DS101hub | Login</title>
-
-    <!-- External CSS -->
-    <link rel="stylesheet" href="style_index.css" />
-    
-    <!-- Inline Style for Basic Layout -->
+    <title>Login/Register</title>
     <style>
-        body, html {
-            height: 100%;
-            margin: 0;
+        /* Basic styling for the form */
+        body {
             font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient background */
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .login-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            padding: 40px;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: white;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
             text-align: center;
         }
 
-        .login-container h2 {
+        .tabs {
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 20px;
-            color: #333;
+        }
+
+        .tabs button {
+            width: 50%;
+            padding: 10px;
+            background-color: #ddd;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .tabs button.active {
+            background-color: #47a447;
+            color: white;
         }
 
         .input-group {
@@ -160,5 +160,4 @@
         }
     </script>
 </body>
-</html>
 </html>
