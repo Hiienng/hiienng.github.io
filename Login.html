@@ -13,21 +13,18 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #000; /* Nền màu đen */
-            color: #fff;
+            background-color: #000; /* Nền tối đen */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: url('https://example.com/icon-background.png'); /* Thay bằng link hình ảnh nền chứa các icon xám */
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-blend-mode: overlay;
-            background-color: rgba(0, 0, 0, 0.8); /* Lớp màu đen nhẹ phủ lên */
+            background-image: url('https://example.com/icon-gray-background.png'); /* Thay bằng link hình ảnh icon màu xám */
+            background-size: contain; /* Đảm bảo các icon được hiển thị một cách cân đối */
+            background-blend-mode: overlay; /* Giữ màu đen chủ đạo với icon mờ phía sau */
         }
 
         .login-register-container {
-            background: rgba(0, 0, 0, 0.9); /* Nền đen nhẹ hơn một chút */
+            background: rgba(50, 50, 50, 0.9); /* Hộp màu xám trung tính, phù hợp với nền */
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 15px 25px rgba(0, 0, 0, 0.7);
@@ -38,7 +35,7 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 30px;
-            border-bottom: 2px solid #444;
+            border-bottom: 2px solid #333;
         }
 
         .tabs button {
@@ -50,7 +47,7 @@
             font-size: 18px;
             cursor: pointer;
             outline: none;
-            transition: color 0.3s, border-bottom 0.3s;
+            transition: background 0.3s;
         }
 
         .tabs button.active {
@@ -87,7 +84,7 @@
             top: 50%;
             left: 10px;
             transform: translateY(-50%);
-            color: #aaa; /* Màu xám nhạt cho placeholder */
+            color: #aaa; /* Màu xám nhạt cho label */
             pointer-events: none;
             transition: 0.5s;
         }
@@ -96,7 +93,7 @@
         .input-box input:valid ~ label {
             top: -5px;
             left: 0;
-            color: #ff6600; /* Màu cam cho trạng thái active */
+            color: #ff6600; /* Màu cam nổi bật khi nhập */
             font-size: 12px;
         }
 
