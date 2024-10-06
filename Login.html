@@ -18,15 +18,44 @@
     <title>DS101hub | Login</title>
 
     <!-- External CSS -->
-    <link rel="stylesheet" href="style_index.css" />
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <!-- Inline Style for Basic Layout -->
     <style>
         body, html {
             height: 100%;
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient background */
+            background-color: black; /* Background color set to black */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Gray icons in the background */
+        .bg-icon {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1); /* Light gray, almost transparent */
+            font-size: 100px;
+        }
+        
+        .icon1 {
+            top: 10%;
+            left: 5%;
+        }
+
+        .icon2 {
+            top: 20%;
+            right: 10%;
+        }
+
+        .icon3 {
+            bottom: 15%;
+            left: 10%;
+        }
+
+        .icon4 {
+            bottom: 5%;
+            right: 20%;
         }
 
         .login-container {
@@ -36,15 +65,16 @@
             transform: translate(-50%, -50%);
             width: 300px;
             padding: 40px;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.1); /* Transparent background */
             border-radius: 8px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
             text-align: center;
+            color: white;
         }
 
         .login-container h2 {
             margin-bottom: 20px;
-            color: #333;
+            color: white;
         }
 
         .input-group {
@@ -56,7 +86,7 @@
             display: block;
             font-size: 14px;
             margin-bottom: 5px;
-            color: #555;
+            color: #aaa;
         }
 
         .input-group input {
@@ -65,6 +95,8 @@
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background-color: #333;
+            color: white;
         }
 
         .login-btn {
@@ -76,7 +108,10 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .login-btn:hover {
@@ -97,6 +132,12 @@
     </style>
 </head>
 <body>
+    <!-- Background icons -->
+    <i class="fas fa-lock bg-icon icon1"></i>
+    <i class="fas fa-user bg-icon icon2"></i>
+    <i class="fas fa-shield-alt bg-icon icon3"></i>
+    <i class="fas fa-key bg-icon icon4"></i>
+
     <div class="login-container">
         <h2>Sign In</h2>
         <form action="/login" method="POST">
@@ -110,7 +151,6 @@
             </div>
             <button type="submit" class="login-btn">ĐĂNG NHẬP</button>
             <a href="#" class="forgot-link">Đặt lại mật khẩu</a>
-            <a href="#" class="register-link">Bạn chưa có tài khoản?</a>
         </form>
     </div>
 </body>
