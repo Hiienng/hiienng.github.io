@@ -1,98 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SZ2PGMC55Q"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-SZ2PGMC55Q');
-    </script>
-
-    <!-- Favicon -->
-    <link rel="icon" href="/assets/icon_final.png">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DS101hub | Login/Register</title>
-
-    <!-- External CSS for Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Inline Style for Layout -->
+    <title>Đăng Nhập/Đăng Ký</title>
     <style>
-        body, html {
-            height: 100%;
+        * {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
             background-color: #121212;
-            color: white;
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            position: relative;
+            height: 100vh;
+            background-image: url('https://example.com/icon-background.png'); /* Thay bằng link hình ảnh icon */
+            background-size: cover;
+            background-blend-mode: overlay;
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
-        /* Gray icons in the background */
-        .bg-icon {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.1);
-            font-size: 100px;
-        }
-
-        .icon1 {
-            top: 10%;
-            left: 5%;
-        }
-
-        .icon2 {
-            top: 20%;
-            right: 10%;
-        }
-
-        .icon3 {
-            bottom: 15%;
-            left: 10%;
-        }
-
-        .icon4 {
-            bottom: 5%;
-            right: 20%;
-        }
-
-        /* Container for tabs */
-        .tabs-container {
-            width: 400px;
+        .login-register-container {
+            background: rgba(0, 0, 0, 0.85);
             padding: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-            text-align: center;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+            width: 400px;
         }
 
         .tabs {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
         }
 
         .tabs button {
-            flex: 1;
+            width: 50%;
             padding: 10px;
-            background-color: transparent;
+            background: none;
             border: none;
+            color: #fff;
             font-size: 18px;
-            color: white;
             cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s;
+            outline: none;
+            transition: background 0.3s;
         }
 
         .tabs button.active {
-            border-bottom: 2px solid #47a447;
-            color: #47a447;
+            border-bottom: 2px solid #ff6600;
+            color: #ff6600;
         }
 
         .form-box {
@@ -103,134 +65,131 @@
             display: block;
         }
 
-        .input-group {
-            margin-bottom: 15px;
-            text-align: left;
+        .input-box {
+            position: relative;
+            margin-bottom: 30px;
         }
 
-        .input-group label {
-            display: block;
-            font-size: 14px;
-            margin-bottom: 5px;
-            color: #aaa;
-        }
-
-        .input-group input {
+        .input-box input {
             width: 100%;
             padding: 10px;
-            font-size: 16px;
-            border: 1px solid #333;
-            border-radius: 5px;
-            background-color: #333;
-            color: white;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 10px;
-            background-color: #47a447;
-            color: white;
-            font-size: 16px;
+            background: transparent;
             border: none;
-            border-radius: 5px;
+            border-bottom: 2px solid #fff;
+            outline: none;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .input-box label {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            color: #ccc;
+            pointer-events: none;
+            transition: 0.5s;
+        }
+
+        .input-box input:focus ~ label,
+        .input-box input:valid ~ label {
+            top: -5px;
+            left: 0;
+            color: #ff6600;
+            font-size: 12px;
+        }
+
+        .btn {
+            width: 100%;
+            background-color: #ff6600;
+            border: none;
+            padding: 10px;
+            color: #fff;
+            font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            border-radius: 5px;
+            transition: background 0.3s ease;
         }
 
-        .login-btn:hover {
-            background-color: #398439;
+        .btn:hover {
+            background-color: #ff8500;
         }
 
-        .forgot-link {
-            display: block;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #0066cc;
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .register-link a {
+            color: #ff6600;
             text-decoration: none;
+            font-weight: bold;
         }
 
-        .forgot-link:hover {
+        .register-link a:hover {
             text-decoration: underline;
         }
-
     </style>
 </head>
 <body>
-    <!-- Background icons -->
-    <i class="fas fa-lock bg-icon icon1"></i>
-    <i class="fas fa-user bg-icon icon2"></i>
-    <i class="fas fa-shield-alt bg-icon icon3"></i>
-    <i class="fas fa-key bg-icon icon4"></i>
-
-    <!-- Tabs container for login/register -->
-    <div class="tabs-container">
+    <div class="login-register-container">
         <div class="tabs">
-            <!-- <a href="index.html">
-                <button>
-                    <i class="fas fa-arrow-left"></i> 
-                </button>
-            </a> -->
             <button class="tab-link active" onclick="openTab('login')">Đăng Nhập</button>
             <button class="tab-link" onclick="openTab('register')">Đăng Ký</button>
         </div>
-
-        <!-- Login form -->
+        
         <div id="login" class="form-box active">
-            <h2>Sign In</h2>
-            <form action="/login" method="POST">
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+            <form action="#" method="POST">
+                <div class="input-box">
+                    <input type="text" required>
+                    <label>Tên người dùng</label>
                 </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
+                <div class="input-box">
+                    <input type="password" required>
+                    <label>Mật khẩu</label>
                 </div>
-                <button type="submit" class="login-btn">ĐĂNG NHẬP</button>
-                <a href="#" class="forgot-link">Đặt lại mật khẩu</a>
+                <button type="submit" class="btn">Đăng Nhập</button>
+                <div class="register-link">
+                    <p>Bạn chưa có tài khoản? <a href="#" onclick="openTab('register')">Đăng ký ngay</a></p>
+                </div>
             </form>
         </div>
 
-        <!-- Register form -->
         <div id="register" class="form-box">
-            <h2>Register</h2>
-            <form action="/register" method="POST">
-                <div class="input-group">
-                    <label for="username">Tên người dùng</label>
-                    <input type="text" id="username" name="username" required>
+            <form action="#" method="POST">
+                <div class="input-box">
+                    <input type="text" required>
+                    <label>Tên người dùng</label>
                 </div>
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+                <div class="input-box">
+                    <input type="email" required>
+                    <label>Email</label>
                 </div>
-                <div class="input-group">
-                    <label for="password">Mật khẩu</label>
-                    <input type="password" id="password" name="password" required>
+                <div class="input-box">
+                    <input type="password" required>
+                    <label>Mật khẩu</label>
                 </div>
-                <button type="submit" class="login-btn">ĐĂNG KÝ</button>
+                <button type="submit" class="btn">Đăng Ký</button>
             </form>
         </div>
     </div>
 
-    <!-- JavaScript to handle tab switching -->
     <script>
         function openTab(tabName) {
-            // Hide all forms
+            // Ẩn tất cả các form
             var forms = document.getElementsByClassName('form-box');
             for (var i = 0; i < forms.length; i++) {
                 forms[i].classList.remove('active');
             }
 
-            // Show the selected form
+            // Hiện form được chọn
             document.getElementById(tabName).classList.add('active');
 
-            // Remove active class from all tabs
+            // Đổi trạng thái active của các tab
             var tabs = document.getElementsByClassName('tab-link');
             for (var i = 0; i < tabs.length; i++) {
                 tabs[i].classList.remove('active');
             }
-
-            // Add active class to the clicked tab
             event.target.classList.add('active');
         }
     </script>
