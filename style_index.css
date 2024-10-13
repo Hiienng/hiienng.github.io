@@ -1,15 +1,14 @@
 body {
-    background-color: #000;
-
+    background-color: #ffffff; /* Màu nền mặc định */
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: inherit;
 }
 
 nav {
-    height: 80px;
-    background: #000;
+    height: 50px;
+    background: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -18,10 +17,8 @@ nav {
 }
 
 .logo {
-    color: #fdcc04;
+    color: #000;
     font-size: 1.5rem;
-    font-weight: bold;
-    font-style: italic;
     padding: 0 1.5rem;
 }
 
@@ -37,7 +34,7 @@ nav {
 
 .nav-items a {
     text-decoration: none;
-    color: #fdcc04;
+    color: #000;
 }
 
 .hamburger {
@@ -50,7 +47,7 @@ nav {
 .hamburger .bar {
     width: 25px;
     height: 3px;
-    background-color: #fdcc04;
+    background-color: #000;
     margin: 4px 0;
     transition: all 0.3s;
 }
@@ -60,7 +57,7 @@ nav {
     .hero-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        height: 95vh;
+        height: 60vh;
         padding: 3rem calc((100vw - 1300px) / 2);
     }
 
@@ -86,7 +83,7 @@ nav {
     .hero-container {
         display: flex;
         flex-direction: column-reverse; /* Đảo ngược thứ tự cột */
-        align-items: center;
+        align-items: left;
         height: auto;
         padding: 2rem;
     }
@@ -148,12 +145,12 @@ nav {
         font-size: 0.875rem; /* Giảm kích thước font chữ */
         align-items: center;
     }
+
     .project-box {
         border-radius: 5px;
         overflow: hidden; /* Đảm bảo nội dung không tràn ra khỏi hộp */
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ */
     }
-    
 }
 
 /* Style chung cho cả hai loại màn hình */
@@ -176,60 +173,50 @@ button {
     font-size: 1rem;
     border: none;
     color: antiquewhite;
-    background: #000;
+    background: #0a4e985e;
     cursor: pointer;
     border-radius: 50px;
     transition: background 0.3s, color 0.3s, transform 0.3s ease; /* Thêm hiệu ứng chuyển đổi cho background, color và transform */
 }
 
 button:hover {
-    background: #fdcc04;
-    color: #000;
+    background:#03182e;
+    color: white;   
     transform: scale(1.1); /* Phóng to nút khi di chuột qua */
 }
 
 .projects {
-    background: #000
+    background: #f4e8db;
+    padding: 140px; /* Thêm padding để tạo khoảng cách với biên */
+}
+
+.projects-container {
+    display: flex; /* Sắp xếp các phần tử theo hàng */
+    overflow-x: auto; /* Cho phép cuộn ngang */
+    padding-bottom: 10px; /* Thêm khoảng cách phía dưới để không bị dính vào scroll bar */
+
+    padding-right: 20px; /* Thêm padding bên phải */
 }
 
 .project {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    background: rgba(255, 255, 255, 0.8); 
+    flex-direction: column; /* Đặt hướng các phần tử con theo chiều dọc */
+    align-items: center; /* Căn giữa nội dung */
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
-    flex: 1 0 calc(33.333% - 2rem);
-    padding: 1rem;
-    position: relative;
-    
+    margin: 0 10px; /* Khoảng cách giữa các project */
+    width: calc(33.33% - 20px); /* Chiều rộng của mỗi project chiếm 1/3 chiều rộng container */
+    max-width: 300px; /* Giới hạn chiều rộng tối đa nếu cần */
+    flex-shrink: 0; /* Đảm bảo các project không thu nhỏ khi container bị thu hẹp */
+    text-decoration: none; /* Xóa gạch chân cho link */
+    color: inherit; /* Thừa hưởng màu sắc từ các phần tử con */
 }
 
 .project img {
-    max-width: 100%;
-    max-height: 100%;
-    display: block;
-    margin: auto;
-}
-
-.project-info {
-    flex: 1 0 calc(100% - 100px); /* Đảm bảo phần thông tin nằm bên phải của hình ảnh */
-    padding-left: 20px; /* Tạo khoảng cách giữa hình ảnh và phần thông tin */
-}
-
-h1, h2 {
-    color: antiquewhite;
-    margin-left: 2rem;
-    }
-
-/* Điều chỉnh kích thước cho màn hình điện thoại */
-@media only screen and (max-width: 767px) {
-    .project {
-        flex-basis: calc(100% - 2rem);
-    }
+    width: 90%; /* Đảm bảo hình ảnh chiếm 100% chiều rộng của khung */
+    padding-top: 10px;
+    height: auto; /* Giữ tỷ lệ khung hình của hình ảnh */
+    object-fit: cover; /* Bảo đảm hình ảnh sẽ phủ đầy khung mà không bị biến dạng */
 }
