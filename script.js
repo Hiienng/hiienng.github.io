@@ -31,3 +31,19 @@ icon.addEventListener('click', function(event) {
   }
 });
 });
+
+/////////////////////////////////////////////////////
+// Màn hình HAMBUGER
+const hamburger = document.querySelector('.hamburger');
+const navItems = document.querySelector('.nav-items');
+const closeBtn = document.querySelector('.close-btn');
+
+hamburger.addEventListener('click', () => {
+    navItems.classList.toggle('active');
+    closeBtn.style.display = navItems.classList.contains('active') ? 'block' : 'none'; // Hiện nút "X" khi menu mở
+});
+
+closeBtn.addEventListener('click', () => {
+    navItems.classList.remove('active');
+    closeBtn.style.display = 'none'; // Ẩn nút "X" khi menu đóng
+});

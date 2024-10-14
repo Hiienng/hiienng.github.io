@@ -36,22 +36,7 @@ nav {
     text-decoration: none;
     color: #000;
 }
-
-.hamburger {
-    display: none;
-    cursor: pointer;
-    flex-direction: column;
-    padding: 0 1.5rem;
-}
-
-.hamburger .bar {
-    width: 25px;
-    height: 3px;
-    background-color: #000;
-    margin: 4px 0;
-    transition: all 0.3s;
-}
-
+    
 /* Style cho màn hình laptop */
 @media only screen and (min-width: 768px) {
     .hero-container {
@@ -62,7 +47,7 @@ nav {
     }
 
     .column-left h1 {
-        font-size: 40px;
+        font-size: 50px;
     }
 
     nav a {
@@ -76,6 +61,43 @@ nav {
     .hamburger {
         display: none; /* Ẩn hamburger trên laptop */
     }
+    .close-btn {
+        display: none; /* Ẩn nút "X" trong mọi trường hợp */
+    }
+    .projects {
+        background: #f4e8db;
+        padding: 140px; /* Thêm padding để tạo khoảng cách với biên */
+    }
+    
+    .projects-container {
+        display: flex; /* Sắp xếp các phần tử theo hàng */
+        overflow-x: auto; /* Cho phép cuộn ngang */
+        padding-bottom: 10px; /* Thêm khoảng cách phía dưới để không bị dính vào scroll bar */
+        padding-right: 20px; /* Thêm padding bên phải */
+    }
+    .project {
+        display: flex;
+        flex-direction: column; /* Đặt hướng các phần tử con theo chiều dọc */
+        align-items: center; /* Căn giữa nội dung */
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin: 0 10px; /* Khoảng cách giữa các project */
+        width: calc(33.33% - 20px); /* Chiều rộng của mỗi project chiếm 1/3 chiều rộng container */
+        max-width: 300px; /* Giới hạn chiều rộng tối đa nếu cần */
+        flex-shrink: 0; /* Đảm bảo các project không thu nhỏ khi container bị thu hẹp */
+        text-decoration: none; /* Xóa gạch chân cho link */
+        color: inherit; /* Thừa hưởng màu sắc từ các phần tử con */
+    }
+    
+    .project img {
+        width: 90%; /* Đảm bảo hình ảnh chiếm 100% chiều rộng của khung */
+        padding-top: 10px;
+        height: auto; /* Giữ tỷ lệ khung hình của hình ảnh */
+        object-fit: cover; /* Bảo đảm hình ảnh sẽ phủ đầy khung mà không bị biến dạng */
+    }
+    
 }
 
 /* Style cho màn hình điện thoại */
@@ -101,33 +123,76 @@ nav {
         margin-bottom: 20px;
         font-size: 20px; /* Giảm kích thước chữ */
     }
-
-    .nav-items {
-        display: none; /* Ẩn thanh điều hướng đầy đủ */
+    /* Cơ bản cho hamburger */
+    .hamburger {
+        display: flex;
         flex-direction: column;
-        width: 100%;
-        text-align: center;
-        position: absolute;
-        top: 80px;
-        left: 0;
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+
+    .hamburger .bar {
+        width: 25px;
+        height: 3px;
         background-color: #000;
-        border-top: 1px solid #fdcc04;
+        margin: 4px 0;
+        transition: all 0.3s;
+    }
+
+    /* Cơ bản cho navigation */
+    .nav-items {
+        display: none;
+        position: fixed; /* Cho phép menu chiếm toàn bộ màn hình */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%; /* Chiếm toàn bộ chiều cao */
+        background-color: rgba(0, 0, 0, 0.8); /* Màu nền xám mờ */
+        justify-content: center; /* Căn giữa mục menu theo chiều dọc */
+        align-items: center;
+        flex-direction: column;
+        z-index: 999;
     }
 
     .nav-items li {
-        padding: 1rem 0;
-        border-bottom: 1px solid #fdcc04;
+        list-style: none;
+        margin: 1.5rem 0;
     }
 
     .nav-items a {
-        padding: 1rem;
-        font-size: 1rem;
+        color: white;
+        font-size: 1.5rem;
+        text-decoration: none;
     }
 
-    .hamburger {
-        display: flex; /* Hiển thị hamburger trên điện thoại */
+    /* Hiển thị menu khi nhấn vào hamburger */
+    .nav-items.active {
+        display: flex;
     }
 
+    /* Cơ bản cho nút X để đóng menu */
+    .close-btn {
+        display: none; /* Ẩn nút "X" trên màn hình lớn */
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: white;
+        font-size: 2rem;
+        text-decoration: none;
+        z-index: 1002; /* Đặt z-index cao hơn để đảm bảo nó nổi bật */
+    }
+
+    /* Hiển thị nút X trên màn hình nhỏ */
+    .close-btn {
+        display: block; /* Hiển thị nút "X" trên màn hình nhỏ */
+    }
+
+    /* Hover cho các mục menu */
+    .nav-items li:hover {
+        background-color: rgba(255, 255, 255, 0.1); /* Đổi màu khi hover */
+    }
+
+    
     .logo {
         padding: 0 1rem;
         margin-bottom: 1rem;
@@ -145,12 +210,38 @@ nav {
         font-size: 0.875rem; /* Giảm kích thước font chữ */
         align-items: center;
     }
-
-    .project-box {
-        border-radius: 5px;
-        overflow: hidden; /* Đảm bảo nội dung không tràn ra khỏi hộp */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ */
+    .projects {
+        padding: 60px; /* Giảm padding để phù hợp với màn hình nhỏ */
     }
+
+    .projects-container {
+        display: flex;
+        flex-direction: row;
+        overflow-x: visible; /* Tắt cuộn ngang */
+        padding: 0px; /* Giảm padding */
+        max-width: 100vw;
+        overflow-x: auto;
+    }
+    .project {
+        display: flex;
+        flex-direction: row;
+        align-items: center; /* Căn giữa nội dung */
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin: 0 10px; /* Khoảng cách giữa các project */
+        width: 100%; 
+        max-width: 100%; /* Giới hạn chiều rộng tối đa nếu cần */
+        flex-shrink: 0; /* Đảm bảo các project không thu nhỏ khi container bị thu hẹp */
+        text-decoration: none; /* Xóa gạch chân cho link */
+        color: inherit; /* Thừa hưởng màu sắc từ các phần tử con */}
+    .project img {
+        width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng */
+        padding-top: 0; /* Xóa padding trên để không chiếm diện tích không cần thiết */
+        height: auto;
+    }
+
 }
 
 /* Style chung cho cả hai loại màn hình */
@@ -185,38 +276,6 @@ button:hover {
     transform: scale(1.1); /* Phóng to nút khi di chuột qua */
 }
 
-.projects {
-    background: #f4e8db;
-    padding: 140px; /* Thêm padding để tạo khoảng cách với biên */
-}
-
-.projects-container {
-    display: flex; /* Sắp xếp các phần tử theo hàng */
-    overflow-x: auto; /* Cho phép cuộn ngang */
-    padding-bottom: 10px; /* Thêm khoảng cách phía dưới để không bị dính vào scroll bar */
-
-    padding-right: 20px; /* Thêm padding bên phải */
-}
-
-.project {
-    display: flex;
-    flex-direction: column; /* Đặt hướng các phần tử con theo chiều dọc */
-    align-items: center; /* Căn giữa nội dung */
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    margin: 0 10px; /* Khoảng cách giữa các project */
-    width: calc(33.33% - 20px); /* Chiều rộng của mỗi project chiếm 1/3 chiều rộng container */
-    max-width: 300px; /* Giới hạn chiều rộng tối đa nếu cần */
-    flex-shrink: 0; /* Đảm bảo các project không thu nhỏ khi container bị thu hẹp */
-    text-decoration: none; /* Xóa gạch chân cho link */
-    color: inherit; /* Thừa hưởng màu sắc từ các phần tử con */
-}
-
-.project img {
-    width: 90%; /* Đảm bảo hình ảnh chiếm 100% chiều rộng của khung */
-    padding-top: 10px;
-    height: auto; /* Giữ tỷ lệ khung hình của hình ảnh */
-    object-fit: cover; /* Bảo đảm hình ảnh sẽ phủ đầy khung mà không bị biến dạng */
+html, body {
+    overflow-x: hidden; /* Tắt cuộn ngang */
 }
