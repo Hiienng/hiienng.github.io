@@ -1,9 +1,14 @@
-body {
-    background-color: #ffffff; /* Màu nền mặc định */
-    box-sizing: border-box;
+/* Cài đặt chung */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ffffff;
     font-family: inherit;
+    overflow-x: hidden; /* Tắt cuộn ngang */
 }
 
 nav {
@@ -12,20 +17,25 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0rem calc((100vw - 1300px) / 2);
+    padding: 0 calc((100vw - 1300px) / 2);
     position: relative;
 }
 
 .logo {
     color: #000;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     padding: 0 1.5rem;
+    text-decoration: none;
+}
+.logo a {
+    text-decoration: none; /* Không gạch chân logo */
+    color: inherit; /* Kế thừa màu sắc từ logo */
 }
 
 .nav-items {
     list-style: none;
     display: flex;
-    z-index: 1001; /* Đặt z-index cao để đảm bảo nó nổi bật */
+    z-index: 1001;
 }
 
 .nav-items li {
@@ -33,97 +43,87 @@ nav {
 }
 
 .nav-items a {
-    text-decoration: none;
+    text-decoration: none; /* Không gạch chân các liên kết trong menu */
     color: #000;
+    display: flex; /* Để căn giữa nội dung bên trong */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    height: 100%; /* Chiều cao đầy đủ để căn giữa tốt hơn */
 }
-    
-/* Style cho màn hình laptop */
-@media only screen and (min-width: 768px) {
+
+/* Style cho màn hình lớn (Laptop) */
+@media (min-width: 768px) {
     .hero-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
         height: 60vh;
         padding: 3rem calc((100vw - 1300px) / 2);
+        align-items: center; ;
     }
 
     .column-left h1 {
         font-size: 50px;
     }
 
-    nav a {
-        font-size: 1rem;
+    .column-left h1,
+    .column-left p,
+    .column-left a {
+        margin-bottom: 20px; /* Khoảng cách dưới mỗi phần tử là 10px */
     }
-
+    
     .nav-items {
-        display: flex; /* Hiển thị thanh điều hướng đầy đủ trên laptop */
+        display: flex; /* Hiển thị thanh điều hướng trên laptop */
     }
 
-    .hamburger {
-        display: none; /* Ẩn hamburger trên laptop */
+    .hamburger, .close-btn {
+        display: none; /* Ẩn hamburger và nút đóng trên laptop */
     }
-    .close-btn {
-        display: none; /* Ẩn nút "X" trong mọi trường hợp */
-    }
+
     .projects {
         background: #f4e8db;
-        padding: 140px; /* Thêm padding để tạo khoảng cách với biên */
+        padding: 140px;
     }
     
     .projects-container {
-        display: flex; /* Sắp xếp các phần tử theo hàng */
-        overflow-x: auto; /* Cho phép cuộn ngang */
-        padding-bottom: 10px; /* Thêm khoảng cách phía dưới để không bị dính vào scroll bar */
-        padding-right: 20px; /* Thêm padding bên phải */
-    }
-    .project {
         display: flex;
-        flex-direction: column; /* Đặt hướng các phần tử con theo chiều dọc */
-        align-items: center; /* Căn giữa nội dung */
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+
+    .project {
+        flex-direction: column;
+        align-items: center;
         background: rgba(255, 255, 255, 0.5);
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        margin: 0 10px; /* Khoảng cách giữa các project */
-        width: calc(33.33% - 20px); /* Chiều rộng của mỗi project chiếm 1/3 chiều rộng container */
-        max-width: 300px; /* Giới hạn chiều rộng tối đa nếu cần */
-        flex-shrink: 0; /* Đảm bảo các project không thu nhỏ khi container bị thu hẹp */
-        text-decoration: none; /* Xóa gạch chân cho link */
-        color: inherit; /* Thừa hưởng màu sắc từ các phần tử con */
+        margin: 0 10px;
+        width: calc(33.33% - 20px);
+        max-width: 300px;
+        flex-shrink: 0;
+        text-decoration: none;
+        color: inherit;
     }
-    
+
     .project img {
-        width: 90%; /* Đảm bảo hình ảnh chiếm 100% chiều rộng của khung */
+        width: 90%;
         padding-top: 10px;
-        height: auto; /* Giữ tỷ lệ khung hình của hình ảnh */
-        object-fit: cover; /* Bảo đảm hình ảnh sẽ phủ đầy khung mà không bị biến dạng */
+        object-fit: cover;
     }
-    
 }
 
-/* Style cho màn hình điện thoại */
-@media only screen and (max-width: 767px) {
+/* Style cho màn hình nhỏ (Điện thoại) */
+@media (max-width: 767px) {
     .hero-container {
         display: flex;
-        flex-direction: column-reverse; /* Đảo ngược thứ tự cột */
-        align-items: left;
-        height: auto;
+        flex-direction: column-reverse;
+        align-items: center;
         padding: 2rem;
     }
 
-    .column-left,
-    .column-right {
-        align-items: center; /* Căn giữa nội dung */
-        text-align: center;
-        padding: 1rem 0;
+    .column-left h1, .column-right h1 {
+        margin: 20px 0;
+        font-size: 30px;
     }
 
-    .column-left h1,
-    .column-right h1 {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        font-size: 20px; /* Giảm kích thước chữ */
-    }
-    /* Cơ bản cho hamburger */
     .hamburger {
         display: flex;
         flex-direction: column;
@@ -139,143 +139,131 @@ nav {
         transition: all 0.3s;
     }
 
-    /* Cơ bản cho navigation */
     .nav-items {
         display: none;
-        position: fixed; /* Cho phép menu chiếm toàn bộ màn hình */
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%; /* Chiếm toàn bộ chiều cao */
-        background-color: rgba(0, 0, 0, 0.8); /* Màu nền xám mờ */
-        justify-content: center; /* Căn giữa mục menu theo chiều dọc */
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        justify-content: center;
         align-items: center;
         flex-direction: column;
         z-index: 999;
     }
 
     .nav-items li {
-        list-style: none;
         margin: 1.5rem 0;
     }
 
     .nav-items a {
         color: white;
         font-size: 1.5rem;
-        text-decoration: none;
     }
 
-    /* Hiển thị menu khi nhấn vào hamburger */
     .nav-items.active {
         display: flex;
     }
 
-    /* Cơ bản cho nút X để đóng menu */
     .close-btn {
-        display: none; /* Ẩn nút "X" trên màn hình lớn */
+        display: block;
         position: absolute;
         top: 20px;
         right: 20px;
         color: white;
         font-size: 2rem;
-        text-decoration: none;
-        z-index: 1002; /* Đặt z-index cao hơn để đảm bảo nó nổi bật */
+        z-index: 1002;
     }
-
-    /* Hiển thị nút X trên màn hình nhỏ */
-    .close-btn {
-        display: block; /* Hiển thị nút "X" trên màn hình nhỏ */
-    }
-
-    /* Hover cho các mục menu */
-    .nav-items li:hover {
-        background-color: rgba(255, 255, 255, 0.1); /* Đổi màu khi hover */
-    }
-
     
-    .logo {
-        padding: 0 1rem;
-        margin-bottom: 1rem;
-    }
-
-    nav a {
-        padding: 0.5rem 1rem;
-        font-size: 0.875rem; /* Giảm kích thước font chữ */
-    }
-
     button {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        padding: 0.75rem 2rem; /* Giảm kích thước đệm x và y */
-        font-size: 0.875rem; /* Giảm kích thước font chữ */
-        align-items: center;
+        margin: 20px 0;
+        padding: 0.75rem 2rem;
+        font-size: 0.875rem;
     }
+
     .projects {
-        padding: 60px; /* Giảm padding để phù hợp với màn hình nhỏ */
+        background: #f4e8db;
+        padding: 60px;
     }
 
     .projects-container {
         display: flex;
         flex-direction: row;
-        overflow-x: visible; /* Tắt cuộn ngang */
-        padding: 0px; /* Giảm padding */
-        max-width: 100vw;
         overflow-x: auto;
+        max-width: 100vw;
     }
+
     .project {
         display: flex;
-        flex-direction: row;
+        flex-direction: column; /* Đặt hướng các phần tử con theo chiều dọc */
         align-items: center; /* Căn giữa nội dung */
         background: rgba(255, 255, 255, 0.5);
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         overflow: hidden;
         margin: 0 10px; /* Khoảng cách giữa các project */
-        width: 100%; 
-        max-width: 100%; /* Giới hạn chiều rộng tối đa nếu cần */
+        width: calc(90%); /* Chiều rộng của mỗi project chiếm 1/3 chiều rộng container */
+        max-width: 200px; /* Giới hạn chiều rộng tối đa nếu cần */
         flex-shrink: 0; /* Đảm bảo các project không thu nhỏ khi container bị thu hẹp */
         text-decoration: none; /* Xóa gạch chân cho link */
-        color: inherit; /* Thừa hưởng màu sắc từ các phần tử con */}
-    .project img {
-        width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng */
-        padding-top: 0; /* Xóa padding trên để không chiếm diện tích không cần thiết */
-        height: auto;
+        color: inherit; /* Thừa hưởng màu sắc từ các phần tử con */
     }
 
+    .project img {
+        width: 100%;
+        padding-top: 0;
+    }
 }
 
-/* Style chung cho cả hai loại màn hình */
+/* Style chung */
 .hero {
     background: #000;
 }
 
-.column-left,
-.column-right {
+.column-left, .column-right {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
     color: beige;
-    padding: 0rem 2rem;
+    padding: 0 2rem;
 }
 
 button {
-    padding: 1rem 3rem; /* Kích thước đệm x và y */
+    padding: 1rem 3rem;
     font-size: 1rem;
     border: none;
     color: antiquewhite;
     background: #0a4e985e;
     cursor: pointer;
     border-radius: 50px;
-    transition: background 0.3s, color 0.3s, transform 0.3s ease; /* Thêm hiệu ứng chuyển đổi cho background, color và transform */
+    transition: background 0.3s, color 0.3s, transform 0.3s ease;
 }
 
 button:hover {
-    background:#03182e;
-    color: white;   
-    transform: scale(1.1); /* Phóng to nút khi di chuột qua */
+    background: #03182e;
+    color: white;
+    transform: scale(1.1);
 }
 
-html, body {
-    overflow-x: hidden; /* Tắt cuộn ngang */
+/*------------Dành cho blog------------*/
+.side-nav {
+    width: 250px;
+    margin-top: 50px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    position: fixed; /* Làm cho nav cố định */
+    top: 0;
+    left: 0;
+    height: 100%; /* Đảm bảo nav chiếm toàn bộ chiều cao của trang */
+    overflow-y: block; /* Thêm cuộn dọc nếu nội dung vượt quá chiều cao */
+}
+
+.blog {
+    margin-left: 250px; 
+    background-color: #ebe4d195; /* Màu nền mới cho block-header */
+    padding: 20px;
+    position: relative; /* Đặt lại vị trí để không cố định */
+    height: auto; /* Chiều cao tự động */
+    overflow-y: auto; /* Thêm cuộn dọc nếu nội dung vượt quá chiều cao */
 }
