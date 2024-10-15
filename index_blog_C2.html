@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog: Cẩm nang nghề data</title>
+    <link rel="stylesheet" href="style_blog.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html"><img src="assets/icon_full.png" alt="Index Page" class="nav-icon"></a></li>
+            <li><a href="https://datascience101hub.com/index_blog_preface.html">Giới Thiệu</a></li>
+            <li><a href="https://datascience101hub.com/index_blog_C1.html">C1: Data Career Path <span class="toggle-icon">▶</span></a>
+                <ul class="sub-menu" style="display: none;">
+                    <li><a href="index_blog_preface_1.html">Mục con 1</a></li>
+                    <li><a href="index_blog_preface_2.html">Mục con 2</a></li>
+                    <li><a href="index_blog_preface_3.html">Mục con 3</a></li>
+                </ul>
+            </li>
+            <li><a href="https://datascience101hub.com/index_blog_C2.html">C2: Hệ quản trị dữ liệu <span class="toggle-icon">▶</span></a>
+                <ul class="sub-menu" style="display: none;">
+                    <li><a href="index_blog_preface_1.html">Mục con 1</a></li>
+                    <li><a href="index_blog_preface_2.html">Mục con 2</a></li>
+                    <li><a href="index_blog_preface_3.html">Mục con 3</a></li>
+                </ul>
+            </li>
+            <li><a href="https://datascience101hub.com/ndex_blog_C3.html">C3: Công cụ báo cáo <span class="toggle-icon">▶</span></a>
+                <ul class="sub-menu" style="display: none;">
+                    <li><a href="index_blog_preface_1.html">Mục con 1</a></li>
+                    <li><a href="index_blog_preface_2.html">Mục con 2</a></li>
+                    <li><a href="index_blog_preface_3.html">Mục con 3</a></li>
+                </ul>
+            </li>
+            <li><a href="https://datascience101hub.com/ndex_blog_C4.html">C4: Ngôn ngữ lập trình <span class="toggle-icon">▶</span></a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="container">
+            <header>
+                CẨM NANG NGHỀ DATA
+            </header>
+
+            <h1>2. Hệ quản trị dữ liệu</h1>
+            <h2>2.1 SQL là gì?</h2>
+            <p>SQL là từ viết tắt của Structured Query Language và được sử dụng rộng rãi để truy vấn và xử lý dữ liệu trong một database.</p>
+    
+            <p>Các tác vụ mà SQL hỗ trợ:</p>
+            <ul>
+                <li>Thêm dòng, cập nhật giá trị hoặc xóa các bản ghi trong một database</li>
+                <li>Tạo bảng mới, database mới</li>
+                <li>Truy vấn dữ liệu từ database</li>
+            </ul>
+    
+            <p>Việc sử dụng thành thạo SQL là một trong những yêu cầu bắt buộc của nhân sự ngành data. Sử dụng SQL, các nhà phân tích dữ liệu có thể truy cập, xử lý, phân tích và đưa ra các insight từ các dữ liệu được cung cấp.</p>
+    
+            <h2>2.2 Cấu trúc ngôn ngữ SQL</h2>
+            <p>SQL là ngôn ngữ có tính chất khai báo – tức bạn cần chỉ ra <strong>WHAT YOU WANT</strong>, thay vì <strong>HOW YOU WANT</strong> (giống như các ngôn ngữ mệnh lệnh như Java, C++). Do đó, nó rất gần với ngôn ngữ tự nhiên.</p>
+            <p>Cú pháp của SQL sẽ bắt đầu bằng một <strong>Động từ</strong> thể hiện hành động muốn thực hiện (chẳng hạn: <strong>SELECT</strong>, <strong>INSERT</strong>, <strong>UPDATE</strong> hoặc <strong>DELETE</strong>).</p>
+            <p>Theo sau <strong>Động từ</strong> sẽ là <strong>Chủ ngữ</strong> (tên bảng muốn xử lý) và <strong>Vị ngữ</strong> (chẳng hạn: các cột cần lấy, các giá trị cần chèn hoặc cập nhật…).</p>
+            <p>Trong SQL, để câu lệnh có thể thực thi thành công, cần đảm bảo có <strong>2 mệnh đề bắt buộc</strong> là SELECT và FROM. Các mệnh đề khác đều là các mệnh đề tùy chọn.</p>
+            <img src="assets/image.png" alt="Cấu trúc ngôn ngữ SQL">
+    
+            <h3>SELECT</h3>
+            <p>Câu lệnh <strong>SELECT</strong> sẽ chọn ra các cột từ 1 hoặc nhiều bảng, ví dụ:</p>
+            <pre><code class="language-sql">
+    SELECT customer_name, address FROM customer
+            </code></pre>
+            <p>Trong câu lệnh trên, hàm <strong>SELECT</strong> được sử dụng để lấy ra 2 cột <code>customer_name</code> và cột <code>address</code> từ bảng <code>customer</code>.</p>
+            <p>Trường hợp muốn lấy tất cả các cột trong bảng, ta có thể dùng ký hiệu <code>*</code>, ví dụ:</p>
+            <pre><code class="language-sql">
+    SELECT * FROM customer
+            </code></pre>
+    
+            <h3>WHERE</h3>
+            <p>Để lọc ra <strong>các dòng thỏa mãn các điều kiện cụ thể</strong> từ một bảng, chúng ta sử dụng <strong>WHERE</strong> trong câu lệnh <strong>SELECT</strong>.</p>
+            <p>Cú pháp của câu lệnh với WHERE như sau:</p>
+            <img src="assets/image-1.png" alt="Cú pháp của câu lệnh với WHERE">
+        </div>
+    </main>
+    
+    <script src="script.js"></script>
+    
+</body>
+</html>
+
+
+
