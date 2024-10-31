@@ -1,3 +1,4 @@
+/* Body Styling */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -5,66 +6,109 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background: linear-gradient(135deg, #e09, #d0e);
-    color: #444;
+    background: linear-gradient(135deg, rgba(0, 0, 53, 0.9), rgb(17, 1, 100));
+    color: #fff;
+    overflow: hidden;
 }
+
+/* Container Styling */
 .container {
-    background: #fff;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.8); /* Màu nền có độ trong suốt */
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     width: 90%;
-    max-width: 500px;
-}
-h2 {    
+    max-width: 400px;
     text-align: center;
-    color: #e09;
-    margin-bottom: 20px;
-}
-.question {
-    margin-bottom: 15px;
-}
-.question p {
-    font-weight: bold;
-    margin: 0;
     color: #333;
+    animation: fadeIn 0.6s ease-in-out;
+    border-top: 4px solid #022041;
+    
+    /* Giới hạn chiều cao và thêm thanh cuộn */
+    max-height: 80vh; /* Chiều cao tối đa là 80% chiều cao viewport */
+    overflow-y: auto; /* Bật chế độ cuộn dọc */
 }
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 8px;
+
+
+/* Input and Select Styling */
+input[type="number"], select, input[type="text"] {
+    width: 81%;
+    padding: 12px;
+    margin: 12px 0;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 1rem;
+    transition: all 0.3s ease;
 }
-input[type="text"]:focus {
+
+/* Focus Effect on Input */
+input[type="number"]:focus, select:focus, input[type="text"]:focus {
+    border-color: #022041;
+    box-shadow: 0 0 5px rgba(2, 32, 65, 0.5);
     outline: none;
-    border-color: #e09;
-    box-shadow: 0 0 8px rgba(224, 9, 153, 0.3);
 }
+
+/* Button Styling */
 button {
-    width: 100%;
-    padding: 10px;
-    background-color: #e09;
+    padding: 12px 25px;
+    background-color: #022041;
     color: #fff;
     border: none;
-    border-radius: 5px;
-    font-size: 1rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
     cursor: pointer;
-    margin-top: 15px;
-}
-button:hover {
-    background-color: #d08;
-}
-.result {
-    text-align: center;
-    font-weight: bold;
-    color: #444;
     margin-top: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(2, 32, 65, 0.3);
 }
-.result.correct {
-    color: green;
+
+/* Button Hover Effect */
+button:hover {
+    background-color: #044182;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(2, 32, 65, 0.4);
 }
-.result.incorrect {
-    color: red;
+
+/* Question Text Styling */
+.question {
+    margin-top: 20px;
+    font-weight: italic;
+    font-size: 0.8rem;
+    color: #022041;
+    text-align: left;
+    width: 90%; 
+}
+
+/* Hide Scrollbar */
+.content {
+    padding-right: 20px;
+    overflow-y: scroll;
+    max-height: 100%;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.content::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+
+/* Result Styling */
+.result {
+    font-weight: bold;
+    color: #022041;
+    margin-top: 25px;
+    font-size: 1.2rem;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

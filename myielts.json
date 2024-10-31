@@ -1,39 +1,83 @@
 [
     {
 	"Topic": "Physical activities",
-        "Question": "On one hand, ... of emphasizing physical health and fitness argue that a strong foundation in these areas is essential for overall well-being",
+        "Question": "On the one hand, [Người đồng tình] of emphasizing physical health and fitness argue that a strong foundation in these areas is essential for overall well-being",
         "Answer": "proponents"
     },
     {	"Topic": "Physical activities",
-        "Question": "On one hand, proponents of emphasizing physical health and fitness argue that a strong foundation in these areas is ... for overall well-being",
+        "Question": "On the one hand, proponents of emphasizing physical health and fitness argue that a strong foundation in these areas is [Quan trọng] for overall well-being",
         "Answer": "essential"
     },
     {	"Topic": "Physical activities",
-        "Question": "Physical education helps students develop healthy habits that can ... lifestyle-related diseases such as obesity, diabetes, and cardiovascular disease.",
+        "Question": "Physical education helps students develop healthy habits that can [phòng ngừa] lifestyle-related diseases such as obesity, diabetes, and cardiovascular disease.",
         "Answer": "prevent"
     },
     {	"Topic": "Physical activities",
-        "Question": "Physical education helps students develop healthy habits that can prevent ... diseases such as obesity, diabetes, and cardiovascular disease.",
+        "Question": "Physical education helps students develop healthy habits that can prevent [liên quan đến lỗi sống] diseases such as obesity, diabetes, and cardiovascular disease.",
         "Answer": "lifestyle-related"
     },
     {	"Topic": "Physical activities",
-        "Question": "Regular physical activity also improves mental health by...",
+        "Question": "Regular physical activity also improves mental health by [giảm thiểu sự mệt mỏi, lo âu, trầm cảm]",
         "Answer": "reducing stress, anxiety, and depression"
     },
     {	"Topic": "Physical activities",
-        "Question": "Moreover, ... sports and physical activities can enhance teamwork, leadership skills, and discipline, which are valuable attributes in both personal and professional life.",
+        "Question": "Moreover, [tham gia] sports and physical activities can enhance teamwork, leadership skills, and discipline, which are valuable attributes in both personal and professional life.",
         "Answer": "engaging in"
     },
     {	"Topic": "Physical activities",
-        "Question": "Moreover, engaging in sports and physical activities can enhance teamwork, leadership skills, and discipline, which are valuable ... in both personal and professional life.",
+        "Question": "Moreover, engaging in sports and physical activities can enhance teamwork, leadership skills, and discipline, which are valuable [những đóng góp] in both personal and professional life.",
         "Answer": "attributes"
     },
     {	"Topic": "Physical activities",
-        "Question": "For instance, studies have shown that students who participate in regular physical activity ... better academically due to improved concentration and cognitive function. ",
+        "Question": "For instance, studies have shown that students who participate in regular physical activity [thể hiện] better academically due to improved concentration and cognitive function. ",
         "Answer": "perform"
     },
     {	"Topic": "Physical activities",
-        "Question": "For instance, studies have shown that students who participate in regular physical activity perform better academically due to improved concentration and ... . ",
+        "Question": "For instance, studies have shown that students who participate in regular physical activity perform better academically due to improved concentration and [nhận thức]. ",
         "Answer": "cognitive function"
+    },
+    {	"Topic": "Opinion",
+        "Question": "In my opinion, a balanced approach that integrates both physical health and fitness with academic subjects is the most effective way to [thúc đẩy sự phát triển toàn diện] in students.",
+        "Answer": "foster holistic development"
+    },
+    {	"Topic": "Academic subjects",
+        "Question": "On the other hand, those who advocate for prioritizing academic subjects believe that the primary goal of education should be to [trang bị] students with the knowledge and skills necessary to succeed in their future careers",
+        "Answer": "equip"
+    },
+    {	"Topic": "Academic subjects",
+        "Question": "In today's competitive job market, [chất lượng học vấn] are often a key determinant of success",
+        "Answer": "academic qualifications"
+    },
+    {	"Topic": "Academic subjects",
+        "Question": "Subjects such as mathematics, science, and language arts are considered fundamental in building a strong educational foundation that can open doors to higher education and [cơ hội nghề nghiệp nhiều tiền tài]",
+        "Answer": "lucrative job opportunities"
+    },
+    {	"Topic": "Closing",
+        "Question": "In conclusion, the debate over whether to prioritize physical health and fitness or academic subjects in schools is [nhiều mặt].",
+        "Answer": "multifaceted"
+    },
+    {	"Topic": "Closing",
+        "Question": "Both aspects are [quan trọng hint: v_] for the comprehensive development of students.",
+        "Answer": "vital"
+    },
+    {	"Topic": "Closing",
+        "Question": "A [toàn diện hint: w_] education that includes both academic and physical education can prepare students to lead successful, healthy, and fulfilling lives.",
+        "Answer": "well-rounded"
+    },
+    {	"Topic": "Governments’ funding",
+        "Question": "Governments can prioritize research on widespread or neglected diseases, such as rare illnesses or [mãn tính] conditions, that may not attract private funding",
+        "Answer": "chronic"
+    },
+    {	"Topic": "Governments’ funding",
+        "Question": "[Tính từ được bảo trợ bởi nhà nước] research is less likely to result in exorbitant drug prices, as the goal is public welfare rather than commercial gain",
+        "Answer": "Government-funded"
+    },
+    {	"Topic": "Governments’ funding",
+        "Question": "Government-funded research is less likely to result in [giá thuốc quá cao], as the goal is public welfare rather than commercial gain",
+        "Answer": "exorbitant drug prices"
+    },
+    {	"Topic": "Speaking",
+        "Question": "I like objects to be both functional and [mãn nhãn].",
+        "Answer": "aesthetically pleasing"
     }
 ]
