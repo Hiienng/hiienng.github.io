@@ -9,23 +9,23 @@
         "Answer": "essential"
     },
     {	"Topic": "Physical activities",
-        "Question": "Physical education helps students develop healthy habits that can [phòng ngừa] lifestyle-related diseases such as obesity, diabetes, and cardiovascular disease.",
+        "Question": "(1) Physical education helps students develop healthy habits that can [phòng ngừa] lifestyle-related diseases such as obesity, diabetes, and cardiovascular disease.",
         "Answer": "prevent"
     },
     {	"Topic": "Physical activities",
-        "Question": "Physical education helps students develop healthy habits that can prevent [liên quan đến lỗi sống] diseases such as obesity, diabetes, and cardiovascular disease.",
+        "Question": "(1) Physical education helps students develop healthy habits that can prevent [liên quan đến lỗi sống] diseases such as obesity, diabetes, and cardiovascular disease.",
         "Answer": "lifestyle-related"
     },
     {	"Topic": "Physical activities",
-        "Question": "Regular physical activity also improves mental health by [giảm thiểu sự mệt mỏi, lo âu, trầm cảm]",
+        "Question": "(2) Regular physical activity also improves mental health by [giảm thiểu sự mệt mỏi, lo âu, trầm cảm]",
         "Answer": "reducing stress, anxiety, and depression"
     },
     {	"Topic": "Physical activities",
-        "Question": "Moreover, [tham gia] sports and physical activities can enhance teamwork, leadership skills, and discipline, which are valuable attributes in both personal and professional life.",
+        "Question": "(3) Moreover, [tham gia] sports and physical activities can enhance teamwork, leadership skills, and discipline, which are valuable attributes in both personal and professional life.",
         "Answer": "engaging in"
     },
     {	"Topic": "Physical activities",
-        "Question": "Moreover, engaging in sports and physical activities can enhance teamwork, leadership skills, and discipline, which are valuable [những đóng góp] in both personal and professional life.",
+        "Question": "(3) Moreover, engaging in sports and physical activities can enhance teamwork, leadership skills, and discipline, which are valuable [những đóng góp] in both personal and professional life.",
         "Answer": "attributes"
     },
     {	"Topic": "Physical activities",
@@ -41,7 +41,7 @@
         "Answer": "foster holistic development"
     },
     {	"Topic": "Academic subjects",
-        "Question": "On the other hand, those who advocate for prioritizing academic subjects believe that the primary goal of education should be to [trang bị] students with the knowledge and skills necessary to succeed in their future careers",
+        "Question": "(1) On the other hand, those who advocate for prioritizing academic subjects believe that the primary goal of education should be to [trang bị] students with the knowledge and skills necessary to succeed in their future careers",
         "Answer": "equip"
     },
     {	"Topic": "Academic subjects",
@@ -49,35 +49,84 @@
         "Answer": "academic qualifications"
     },
     {	"Topic": "Academic subjects",
-        "Question": "Subjects such as mathematics, science, and language arts are considered fundamental in building a strong educational foundation that can open doors to higher education and [cơ hội nghề nghiệp nhiều tiền tài]",
+        "Question": "(2) Subjects such as mathematics, science, and language arts are considered fundamental in building a strong educational foundation that can open doors to higher education and [cơ hội nghề nghiệp nhiều tiền tài]",
         "Answer": "lucrative job opportunities"
     },
-    {	"Topic": "Closing",
+    {	"Topic": "Conclusion",
         "Question": "In conclusion, the debate over whether to prioritize physical health and fitness or academic subjects in schools is [nhiều mặt].",
         "Answer": "multifaceted"
     },
-    {	"Topic": "Closing",
+    {	"Topic": "Conclusion",
         "Question": "Both aspects are [quan trọng hint: v_] for the comprehensive development of students.",
         "Answer": "vital"
     },
-    {	"Topic": "Closing",
+    {	"Topic": "Education",
         "Question": "A [toàn diện hint: w_] education that includes both academic and physical education can prepare students to lead successful, healthy, and fulfilling lives.",
         "Answer": "well-rounded"
     },
     {	"Topic": "Governments’ funding",
-        "Question": "Governments can prioritize research on widespread or neglected diseases, such as rare illnesses or [mãn tính] conditions, that may not attract private funding",
+        "Question": "(1) Governments can prioritize research on widespread or neglected diseases, such as rare illnesses or [mãn tính] conditions, that may not attract private funding",
         "Answer": "chronic"
     },
     {	"Topic": "Governments’ funding",
-        "Question": "[Tính từ được bảo trợ bởi nhà nước] research is less likely to result in exorbitant drug prices, as the goal is public welfare rather than commercial gain",
+        "Question": "(2) [Tính từ được bảo trợ bởi nhà nước] research is less likely to result in exorbitant drug prices, as the goal is public welfare rather than commercial gain",
         "Answer": "Government-funded"
     },
     {	"Topic": "Governments’ funding",
-        "Question": "Government-funded research is less likely to result in [giá thuốc quá cao], as the goal is public welfare rather than commercial gain",
+        "Question": "(2) Government-funded research is less likely to result in [giá thuốc quá cao], as the goal is public welfare rather than commercial gain",
         "Answer": "exorbitant drug prices"
+    },
+    {	"Topic": "Private’s & Individual’s funding",
+        "Question": "(1) With significant resources, private companies can accelerate the development of advanced treatments, as seen in recent breakthroughs in cancer therapies and vaccines",
+        "Answer": ""
+    },
+    {	"Topic": "Private’s & Individual’s funding",
+        "Question": "(2) While individual donations contribute, they are often too limited to support extensive pharmaceutical research",
+        "Answer": ""
+    },
+    {	"Topic": "Leisure activities",
+        "Question": "(1) Video games often require less financial investment compared to other leisure activities, making them more [thỏa điều kiện/ dễ có]",
+        "Answer": "accessible"
+    },
+    {	"Topic": "Leisure activities",
+        "Question": "(2) Prevent lifestyle-related illnesses such as [béo phì], diabetes and cardiovascular disease",
+        "Answer": "obesity"
+    },
+    {	"Topic": "Leisure activities",
+        "Question": "(2) Prevent lifestyle-related illnesses such as obesity, diabetes and  [tim mạch] disease",
+        "Answer": "cardiovascular"
+    },
+    {	"Topic": "Video games",
+        "Question": "(1) [tăng cường] mental health by alleviating stress, anxiety and depression",
+        "Answer": "bolster"
+    },
+    {	"Topic": "Video games",
+        "Question": "(1) Bolster mental health by [loại bỏ] stress, anxiety and depression",
+        "Answer": "alleviating"
+    },
+    {	"Topic": "Video games",
+        "Question": "(2) Enhance teamwork, leadership and [kỷ luật]",
+        "Answer": "discipline"
+    },
+    {	"Topic": "Video games",
+        "Question": "(3) Moreover, video games often require less [đầu tư tài chính] compared to other leisure activities, making them more accessible",
+        "Answer": "financial investment"
+    },
+    {	"Topic": "Conclusion",
+        "Question": "(3) Moreover, video games often require less [đầu tư tài chính] compared to other leisure activities, making them more accessible",
+        "Answer": "financial investment"
+    },
+    {	"Topic": "Conclusion",
+        "Question": "In conclusion, while both … have their advantages, a balanced approach that includes both can provide a more [toàn diện] set of benefits",
+        "Answer": "comprehensive"
+    },
+    {	"Topic": "Conclusion",
+        "Question": "Neither should be viewed as mutually exclusive and incorporating both into … can help individuals [gặt hái] the unique rewards each offers.",
+        "Answer": "reap"
     },
     {	"Topic": "Speaking",
         "Question": "I like objects to be both functional and [mãn nhãn].",
         "Answer": "aesthetically pleasing"
     }
+
 ]
