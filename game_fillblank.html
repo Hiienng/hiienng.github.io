@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #e09, #d0e);
+            color: #444;
+            overflow: hidden;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        input[type="number"], select, input[type="text"] {
+            width: 80%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #e09;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #d08;
+        }
+        .question {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+        .result {
+            font-weight: bold;
+            color: #444;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Div chọn Topic và số lượng câu hỏi -->
+    <div id="questionConfig">
+        <h2>Custom your test</h2>
+        <select id="topicSelect">
+            <option value="">Topic</option>
+            <option value="Physical activities">Physical activities</option>
+            <option value="Academic subject">Academic subject</option>
+            <!-- Thêm các chủ đề khác nếu có -->
+        </select>
+        <input type="number" id="questionCount" placeholder="Max Question" min="1">
+        <button onclick="loadQuestions()">Bắt đầu</button>
+    </div>
+
+    <div id="quizContainer"></div>
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+    let questionsData = [];
+    let currentQuestions = [];  // Lưu các câu hỏi đã chọn
+
+    // Tải dữ liệu từ JSON
+    function loadQuestions() {
+        fetch("myielts.json")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Không thể tải file JSON. Kiểm tra lại đường dẫn hoặc quyền truy cập.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                questionsData = data;
+                startQuiz();
+            })
+            .catch(error => {
+                console.error("Lỗi khi tải file JSON:", error);
+                alert("Đã xảy ra lỗi khi tải file JSON: " + error.message);
+            });
+    }
+
+    function startQuiz() {
+        const topic = document.getElementById("topicSelect").value;
+        const questionCount = parseInt(document.getElementById("questionCount").value);
+
+        if (!topic) {
+            alert("Please set your topic.");
+            return;
+        }
+        if (isNaN(questionCount) || questionCount < 1) {
+            alert("Please set your max question.");
+            return;
+        }
+
+        // Lọc câu hỏi theo chủ đề
+        const filteredQuestions = questionsData.filter(q => q.Topic === topic);
+        if (questionCount > filteredQuestions.length) {
+            alert(`Chỉ có ${filteredQuestions.length} câu hỏi trong chủ đề này.`);
+            return;
+        }
+
+        // Ẩn phần Custom your test
+        document.getElementById("questionConfig").style.display = "none";
+
+        // Chọn ngẫu nhiên câu hỏi
+        const selectedQuestions = [];
+        while (selectedQuestions.length < questionCount) {
+            const randomIndex = Math.floor(Math.random() * filteredQuestions.length);
+            const question = filteredQuestions[randomIndex];
+            if (!selectedQuestions.includes(question)) {
+                selectedQuestions.push(question);
+            }
+        }
+
+        displayQuestions(selectedQuestions);
+    }
+
+    function displayQuestions(questions) {
+        currentQuestions = questions;  // Gán các câu hỏi đã chọn vào biến này
+        const quizContainer = document.getElementById("quizContainer");
+        quizContainer.innerHTML = '';
+        questions.forEach((question, index) => {
+            const questionDiv = document.createElement("div");
+            questionDiv.classList.add("question");
+            questionDiv.innerHTML = `
+                <p>Q.${index + 1}: ${question.Question}</p>
+                <input type="text" id="answer${index}" placeholder="Answer...">
+            `;
+            quizContainer.appendChild(questionDiv);
+        });
+        quizContainer.innerHTML += `<button onclick="submitAnswers(${questions.length})">Submit</button>`;
+    }
+
+    function submitAnswers(questionCount) {
+        let score = 0;
+        for (let i = 0; i < questionCount; i++) {
+            const userAnswer = document.getElementById(`answer${i}`).value.trim().toLowerCase();
+            const correctAnswer = currentQuestions[i].Answer.trim().toLowerCase();
+
+            if (userAnswer === correctAnswer) {
+                score++;
+                document.getElementById(`answer${i}`).style.borderColor = 'green';
+            } else {
+                document.getElementById(`answer${i}`).style.borderColor = 'red';
+            }
+        }
+
+        document.getElementById("result").innerText = `Bạn đã trả lời đúng ${score} / ${questionCount} câu hỏi.`;
+    }
+
+</script>
+
+</body>
+</html>

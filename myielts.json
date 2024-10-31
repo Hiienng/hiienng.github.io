@@ -1,0 +1,39 @@
+[
+    {
+	"Topic": "Physical activities",
+        "Question": "On one hand, ... of emphasizing physical health and fitness argue that a strong foundation in these areas is essential for overall well-being",
+        "Answer": "proponents"
+    },
+    {	"Topic": "Physical activities",
+        "Question": "On one hand, proponents of emphasizing physical health and fitness argue that a strong foundation in these areas is ... for overall well-being",
+        "Answer": "essential"
+    },
+    {	"Topic": "Physical activities",
+        "Question": "Physical education helps students develop healthy habits that can ... lifestyle-related diseases such as obesity, diabetes, and cardiovascular disease.",
+        "Answer": "prevent"
+    },
+    {	"Topic": "Physical activities",
+        "Question": "Physical education helps students develop healthy habits that can prevent ... diseases such as obesity, diabetes, and cardiovascular disease.",
+        "Answer": "lifestyle-related"
+    },
+    {	"Topic": "Physical activities",
+        "Question": "Regular physical activity also improves mental health by...",
+        "Answer": "reducing stress, anxiety, and depression"
+    },
+    {	"Topic": "Physical activities",
+        "Question": "Moreover, ... sports and physical activities can enhance teamwork, leadership skills, and discipline, which are valuable attributes in both personal and professional life.",
+        "Answer": "engaging in"
+    },
+    {	"Topic": "Physical activities",
+        "Question": "Moreover, engaging in sports and physical activities can enhance teamwork, leadership skills, and discipline, which are valuable ... in both personal and professional life.",
+        "Answer": "attributes"
+    },
+    {	"Topic": "Physical activities",
+        "Question": "For instance, studies have shown that students who participate in regular physical activity ... better academically due to improved concentration and cognitive function. ",
+        "Answer": "perform"
+    },
+    {	"Topic": "Physical activities",
+        "Question": "For instance, studies have shown that students who participate in regular physical activity perform better academically due to improved concentration and ... . ",
+        "Answer": "cognitive function"
+    }
+]

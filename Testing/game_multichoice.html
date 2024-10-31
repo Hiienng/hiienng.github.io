@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài kiểm tra trắc nghiệm ngẫu nhiên</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #e09, #d0e);
+            color: #444;
+            overflow: hidden;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        input[type="number"], input[type="text"] {
+            width: 80%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #e09;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #d08;
+        }
+        .question {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+        .result {
+            font-weight: bold;
+            color: #444;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Div này chứa phần chọn số lượng câu hỏi -->
+    <div id="questionConfig">
+        <h2>Chọn số lượng câu hỏi</h2>
+        <input type="number" id="questionCount" placeholder="Nhập số lượng câu hỏi">
+        <button onclick="loadQuestions()">Bắt đầu</button>
+    </div>
+
+    <div id="quizContainer"></div>
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+    let questionsData = [];
+
+    function loadQuestions() {
+        fetch("myielts.json")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Không thể tải file JSON. Kiểm tra lại đường dẫn hoặc quyền truy cập.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                questionsData = data;
+                startQuiz();
+            })
+            .catch(error => {
+                console.error("Lỗi khi tải file JSON:", error);
+                alert("Đã xảy ra lỗi khi tải file JSON: " + error.message);
+            });
+    }
+
+    function startQuiz() {
+        const questionCount = parseInt(document.getElementById("questionCount").value);
+        if (isNaN(questionCount) || questionCount < 1 || questionCount > questionsData.length) {
+            alert(`Vui lòng nhập số từ 1 đến ${questionsData.length}`);
+            return;
+        }
+
+        // Ẩn phần chọn số lượng câu hỏi và nút bắt đầu
+        document.getElementById("questionConfig").style.display = "none";
+
+        const selectedQuestions = [];
+        while (selectedQuestions.length < questionCount) {
+            const randomIndex = Math.floor(Math.random() * questionsData.length);
+            if (!selectedQuestions.includes(questionsData[randomIndex])) {
+                selectedQuestions.push(questionsData[randomIndex]);
+            }
+        }
+
+        displayQuestions(selectedQuestions);
+    }
+
+
+    function displayQuestions(questions) {
+        const quizContainer = document.getElementById("quizContainer");
+        quizContainer.innerHTML = '';
+        questions.forEach((question, index) => {
+            const questionDiv = document.createElement("div");
+            questionDiv.classList.add("question");
+            questionDiv.innerHTML = `
+                <p>Câu ${index + 1}: ${question.Question}</p>
+                <input type="text" id="answer${index}" placeholder="Điền câu trả lời...">
+            `;
+            quizContainer.appendChild(questionDiv);
+        });
+        quizContainer.innerHTML += `<button onclick="submitAnswers(${questions.length})">Nộp bài</button>`;
+    }
+
+    function submitAnswers(questionCount) {
+        let score = 0;
+        for (let i = 0; i < questionCount; i++) {
+            const userAnswer = document.getElementById(`answer${i}`).value.trim();
+            if (userAnswer.toLowerCase() === questionsData[i].Answer.toLowerCase()) {
+                score++;
+                document.getElementById(`answer${i}`).style.borderColor = 'green';
+            } else {
+                document.getElementById(`answer${i}`).style.borderColor = 'red';
+            }
+        }
+
+        document.getElementById("result").innerText = `Bạn đã trả lời đúng ${score} / ${questionCount} câu hỏi.`;
+    }
+</script>
+
+</body>
+</html>
