@@ -1,114 +1,100 @@
-/* Body Styling */
 body {
+    background-color: #1a1a2e;
+    color: #ffffff;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
-    background: linear-gradient(135deg, rgba(0, 0, 53, 0.9), rgb(17, 1, 100));
-    color: #fff;
-    overflow: hidden;
 }
 
-/* Container Styling */
 .container {
-    background: rgba(255, 255, 255, 0.8); /* Màu nền có độ trong suốt */
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-    color: #333;
-    animation: fadeIn 0.6s ease-in-out;
-    border-top: 4px solid #022041;
-    
-    /* Giới hạn chiều cao và thêm thanh cuộn */
-    max-height: 80vh; /* Chiều cao tối đa là 80% chiều cao viewport */
-    overflow-y: auto; /* Bật chế độ cuộn dọc */
+    background: #222b45;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 100%;
+    color: #ffffff;
 }
 
-
-/* Input and Select Styling */
-input[type="number"], select, input[type="text"] {
-    width: 81%;
-    padding: 12px;
-    margin: 12px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Focus Effect on Input */
-input[type="number"]:focus, select:focus, input[type="text"]:focus {
-    border-color: #022041;
-    box-shadow: 0 0 5px rgba(2, 32, 65, 0.5);
-    outline: none;
+h1 {
+    font-size: 1.8rem;
+    color: #ffffff;
 }
 
-/* Button Styling */
 button {
-    padding: 12px 25px;
-    background-color: #022041;
-    color: #fff;
+    background-color: #f9a826;
+    color: #000;
+    padding: 10px 20px;
     border: none;
     border-radius: 8px;
-    font-size: 1.1rem;
     cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 4px 12px rgba(2, 32, 65, 0.3);
+    transition: background-color 0.3s ease;
 }
 
-/* Button Hover Effect */
 button:hover {
-    background-color: #044182;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(2, 32, 65, 0.4);
+    background-color: #e08e17;
 }
 
-/* Question Text Styling */
-.question {
+.progress-bar {
+    background-color: #1f4068;
+    height: 8px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.progress {
+    height: 100%;
+    background-color: #4caf50;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+.question-section {
+    background-color: #2a3e5d;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.answer-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
     margin-top: 20px;
-    font-weight: italic;
-    font-size: 0.8rem;
-    color: #022041;
-    text-align: left;
-    width: 90%; 
 }
 
-/* Hide Scrollbar */
-.content {
-    padding-right: 20px;
-    overflow-y: scroll;
-    max-height: 100%;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+.option-btn {
+    background-color: #34495e;
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.content::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+.option-btn.correct {
+    border: 2px solid #4caf50;
+    background-color: rgba(76, 175, 80, 0.1);
 }
 
+.option-btn.incorrect {
+    border: 2px solid #ff5722;
+    background-color: rgba(255, 87, 34, 0.1);
+}
 
-/* Result Styling */
-.result {
+.feedback-text {
+    color: #ffa726;
     font-weight: bold;
-    color: #022041;
-    margin-top: 25px;
-    font-size: 1.2rem;
-}
-
-/* Fade In Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+    margin-top: 10px;
 }

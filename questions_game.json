@@ -1,0 +1,137 @@
+[
+    {
+        "id": 1,
+        "question": "Pick the most concise and natural phrasing.",
+        "options": [
+            "There are some certain reasons young people do not have the will for outdoor activities.",
+            "There are several reasons why young people may lack interest in outdoor activities."
+        ],
+        "correctAnswer": "There are several reasons why young people may lack interest in outdoor activities."
+    },
+    {
+        "id": 2,
+        "question": "Choose the sentence that demonstrates clear and advanced vocabulary use.",
+        "options": [
+            "Revolution of technology is in the fast pace with records that lead modern society to expose more time with virtual environments and therefore exacerbate the indoor habits.",
+            "Rapid technological advancements encourage modern society to spend more time in virtual environments, which can reinforce indoor habits."
+        ],
+        "correctAnswer": "Rapid technological advancements encourage modern society to spend more time in virtual environments, which can reinforce indoor habits."
+    },
+    {
+        "id": 3,
+        "question": "Select the option with accurate collocations and concise phrasing.",
+        "options": [
+            "For instance, given the expanding AI (Artificial Intelligence) job market and blue labor job elimination, young employees can work remotely at home and demand on online shipping utilities.",
+            "For example, with the expansion of the AI job market and the increase in remote work opportunities, many young professionals can now work from home and rely on online shopping services, reducing the need to go outdoors."
+        ],
+        "correctAnswer": "For example, with the expansion of the AI job market and the increase in remote work opportunities, many young professionals can now work from home and rely on online shopping services, reducing the need to go outdoors."
+    },
+    {
+        "id": 4,
+        "question": "Pick the best sentence that avoids redundancy.",
+        "options": [
+            "Some certain causes lead to this issue.",
+            "Certain causes lead to this issue."
+        ],
+        "correctAnswer": "Certain causes lead to this issue."
+    },
+    {
+        "id": 5,
+        "question": "Choose the sentence with correct grammar and preposition use.",
+        "options": [
+            "Depend on online services for convenience.",
+            "Depend at online services for convenience."
+        ],
+        "correctAnswer": "Depend on online services for convenience."
+    },
+    {
+        "id": 6,
+        "question": "Pick the option with accurate and natural collocation use.",
+        "options": [
+            "The increase of AI technology has created more remote work jobs.",
+            "The rise of AI technology has led to an increase in remote work opportunities."
+        ],
+        "correctAnswer": "The rise of AI technology has led to an increase in remote work opportunities."
+    },
+    {
+        "id": 7,
+        "question": "Select the sentence that accurately expresses the impact of technology.",
+        "options": [
+            "Technology development has encouraged staying at home more frequently.",
+            "Technological advancements have led people to spend more time indoors."
+        ],
+        "correctAnswer": "Technological advancements have led people to spend more time indoors."
+    },
+    {
+        "id": 8,
+        "question": "Choose the option with correct plural form and phrasing.",
+        "options": [
+            "Many new technologies are advancing rapidly, creating more virtual job options.",
+            "Many new technology is advancing rapidly, creating more virtual job options."
+        ],
+        "correctAnswer": "Many new technologies are advancing rapidly, creating more virtual job options."
+    },
+    {
+        "id": 9,
+        "question": "Pick the sentence that uses advanced vocabulary naturally.",
+        "options": [
+            "Some people believe in reducing pollution for helping to control health problems.",
+            "Some people believe that reducing pollution is essential to controlling health problems."
+        ],
+        "correctAnswer": "Some people believe that reducing pollution is essential to controlling health problems."
+    },
+    {
+        "id": 10,
+        "question": "Choose the sentence with correct vocabulary and grammar structure.",
+        "options": [
+            "The impacts of technology is enhancing more productivity in jobs.",
+            "The impact of technology is enhancing productivity in various jobs."
+        ],
+        "correctAnswer": "The impact of technology is enhancing productivity in various jobs."
+    },
+    {
+        "id": 11,
+        "question": "Pick the sentence that best uses a transitional phrase for clarity.",
+        "options": [
+            "Vietnam and Laos export farming products as the main source of income; also, this causes environmental damage.",
+            "Vietnam and Laos rely on farming as a main income source; however, this economic focus also harms the environment."
+        ],
+        "correctAnswer": "Vietnam and Laos rely on farming as a main income source; however, this economic focus also harms the environment."
+    },
+    {
+        "id": 12,
+        "question": "Choose the sentence with clear and precise vocabulary.",
+        "options": [
+            "Macro actions focused on economics can harm the environment.",
+            "Macroeconomic policies focused solely on growth can harm the environment."
+        ],
+        "correctAnswer": "Macroeconomic policies focused solely on growth can harm the environment."
+    },
+    {
+        "id": 13,
+        "question": "Select the best phrasing for a formal essay setting.",
+        "options": [
+            "Green economy concepts like ESG are getting popular for environmental safety.",
+            "Green economy concepts such as ESG (Environmental, Social, and Governance) are gaining popularity for promoting environmental sustainability."
+        ],
+        "correctAnswer": "Green economy concepts such as ESG (Environmental, Social, and Governance) are gaining popularity for promoting environmental sustainability."
+    },
+    {
+        "id": 14,
+        "question": "Pick the sentence with a well-developed example to support the main idea.",
+        "options": [
+            "Deforestation occurs because of agriculture, which impacts the environment.",
+            "Research shows that agricultural expansion often results in deforestation, causing loss of biodiversity and contributing to climate change."
+        ],
+        "correctAnswer": "Research shows that agricultural expansion often results in deforestation, causing loss of biodiversity and contributing to climate change."
+    },
+    {
+        "id": 15,
+        "question": "Choose the most precise and effective way to discuss 'sustainable finance' in relation to environmental health.",
+        "options": [
+            "Sustainable finance raises people’s awareness about green policies.",
+            "Sustainable finance promotes investments in eco-friendly projects and raises awareness about responsible economic growth."
+        ],
+        "correctAnswer": "Sustainable finance promotes investments in eco-friendly projects and raises awareness about responsible economic growth."
+    }
+]
