@@ -8,6 +8,8 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    overflow: hidden; /* Ngăn việc cuộn toàn bộ trang */
+    height: 100vh; /* Đặt chiều cao trang thành chiều cao của viewport */
 }
 
 .container {
@@ -18,6 +20,7 @@ body {
     max-width: 600px;
     width: 100%;
     color: #ffffff;
+    overflow-y: auto;
 }
 
 .header {

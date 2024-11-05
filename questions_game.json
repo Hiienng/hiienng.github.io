@@ -133,5 +133,150 @@
             "Sustainable finance promotes investments in eco-friendly projects and raises awareness about responsible economic growth."
         ],
         "correctAnswer": "Sustainable finance promotes investments in eco-friendly projects and raises awareness about responsible economic growth."
+    },
+    {
+        "id": 16,
+        "question": "Choose the most precise and effective way to discuss 'sustainable finance' in relation to environmental health.",
+        "options": [
+            "The social heathiness",
+            "Public health {Social / Public health / environmental pollution go with no the}"
+        ],
+        "correctAnswer": "Public health {Social / Public health / environmental pollution go with no the}"
+    },
+    {
+        "id": 17,
+        "question": "",
+        "options": [
+            "some certain reasons",
+            "certain reasons"
+        ],
+        "correctAnswer": "certain reasons"
+    },
+    {
+        "id": 18,
+        "question": "",
+        "options": [
+            "lack interest in / the motivation for outdoor activities",
+            "do not have the will for outdoor activities"
+        ],
+        "correctAnswer": "lack interest in / the motivation for outdoor activities"
+    },
+    {
+        "id": 19,
+        "question": "",
+        "options": [
+            "Revolution of technology is in the fast pace with records",
+            "The rapid pace of technological advancement"
+        ],
+        "correctAnswer": "The rapid pace of technological advancement"
+    },
+    {
+        "id": 20,
+        "question": "",
+        "options": [
+            "spend more time in virtual environments",
+            "expose more time with virtual environments"
+        ],
+        "correctAnswer": "spend more time in virtual environments"
+    },
+    {
+        "id": 21,
+        "question": "",
+        "options": [
+            "blue labor job elimination",
+            "elimination of blue-collar jobs"
+        ],
+        "correctAnswer": "elimination of blue-collar jobs"
+    },
+    {
+        "id": 22,
+        "question": "",
+        "options": [
+            "demand on online shipping utilities",
+            "rely more on online shopping services"
+        ],
+        "correctAnswer": "rely more on online shopping services"
+    },
+    {
+        "id": 23,
+        "question": "",
+        "options": [
+            "governments should take the main role and responsibility in this area",
+            "the governments should take the main role and responsibility in this area"
+        ],
+        "correctAnswer": "governments should take the main role and responsibility in this area"
+    },
+    {
+        "id": 24,
+        "question": "",
+        "options": [
+            "One reason young people are spending less time outdoors is that many have grown up with video games and digital entertainment, which often replace traditional outdoor activities.",
+            "Furthermore, new generations are raised with video games instead of traditional leisures"
+        ],
+        "correctAnswer": "One reason young people are spending less time outdoors is that many have grown up with video games and digital entertainment, which often replace traditional outdoor activities."
+    },
+    {
+        "id": 25,
+        "question": "",
+        "options": [
+            "That somewhat contributes to their laziness in mindset in the future",
+            "This shift in leisure habits has reduced their interest in physical activities like hiking or climbing"
+        ],
+        "correctAnswer": "This shift in leisure habits has reduced their interest in physical activities like hiking or climbing"
+    },
+    {
+        "id": 26,
+        "question": "",
+        "options": [
+            "Moreover, social dissatisfaction on traffic congestion, human connections,... may contribute to the issue.",
+            "Additionally, issues like traffic congestion and limited access to green spaces may discourage them from going outside."
+        ],
+        "correctAnswer": "Additionally, issues like traffic congestion and limited access to green spaces may discourage them from going outside."
+    },
+    {
+        "id": 27,
+        "question": "Parents can encourage outdoor activities by [a] screen time and [b] with regular outings",
+        "options": [
+            "a.limit , b. should be an example",
+            "a.limited , b.set an example",
+            "a.limits , b.sets an example",
+            "a.limiting , b.setting an example"
+        ],
+        "correctAnswer": "a.limiting , b.setting an example"
+    },
+    {
+        "id": 28,
+        "question": "Schools could [a] more outdoor education programs that introduce students to activities like hiking or camping.",
+        "options": [
+            "a. incorporate",
+            "a. corporate",
+            "a. incorporation",
+            "a. incorporating"
+        ],
+        "correctAnswer": "a. incorporate"
+    },
+    {
+        "id": 29,
+        "question": "Moreover, [a] could improve infrastructure by [b], making it easier and more enjoyable for young people to explore natural environments.",
+        "options": [
+            "a. the government, b. developing parks and safe pedestrian pathways",
+            "a. governments, b. developing parks and safe pedestrian pathways",
+            "a. the governments, b. develop parks and the safe pedestrian pathways",
+            "a. governments, b. develop parks and safe pedestrian pathways"
+        ],
+        "correctAnswer": "a. governments, b. developing parks and safe pedestrian pathways"
+    },
+    {
+        "id": 30,
+        "question": "Best in term of Clear & Lexical Resource",
+        "options": [
+            "social dissatisfaction on traffic congestion",
+            "laziness in mindset",
+            "raised with video games",
+            "grew up with video games",
+            "social dissatisfaction"
+        ],
+        "correctAnswer": "grew up with video games"
     }
+    
 ]
