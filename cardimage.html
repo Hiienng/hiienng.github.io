@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Image Grid with Booking</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body class="bg-white font-sans relative min-h-screen flex flex-col items-center">
+  <!-- Top right promote price -->
+  <div class="fixed top-4 right-4 bg-yellow-300 text-black font-semibold text-sm rounded-lg px-4 py-2 shadow-md z-50 select-none">
+    Promoting at 500.000/night
+  </div>
+
+  <!-- Buttons below top right price -->
+  <div class="fixed top-16 right-4 flex flex-col space-y-3 z-50">
+    <a
+      href="/cardimage.html"
+      class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-md w-28 text-center"
+    >
+      Image
+  </a>
+    <a
+      href="/cardoverview.html"
+      class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-md w-28 text-center"
+    >
+      Overview
+</a>
+  </div>
+
+  <!-- Main content grid with images -->
+  <main class="pt-6 pb-24 max-w-md w-full flex flex-col items-center space-y-6">
+    <img
+      alt="7 plates with various breakfast foods and coffee mugs arranged in a grid"
+      class="rounded-xl w-80 max-w-full"
+      src="https://storage.googleapis.com/a1aa/image/63753f64-eb42-46f9-12fb-43e72ed359bf.jpg"
+      height="260"
+      width="320"
+    />
+    <img
+      alt="6 glass containers with colorful smoothies and fruits with day labels Monday to Friday"
+      class="rounded-xl w-80 max-w-full"
+      src="https://storage.googleapis.com/a1aa/image/2a30a8da-d493-4468-c095-4f686fe2a9c9.jpg"
+      height="260"
+      width="320"
+    />
+    <img
+      alt="9 small round containers with various smoothies and Russian labels"
+      class="rounded-xl w-80 max-w-full"
+      src="https://storage.googleapis.com/a1aa/image/18c5e139-b059-4487-6e10-b66cc8207a5a.jpg"
+      height="260"
+      width="320"
+    />
+    <img
+      alt="9 glass containers with colorful smoothies and fruits arranged in 3 by 3 grid"
+      class="rounded-xl w-80 max-w-full"
+      src="https://storage.googleapis.com/a1aa/image/330c9772-69da-496f-7f07-782bcd98ae1b.jpg"
+      height="260"
+      width="320"
+    />
+    <img
+      alt="Infographic PowerPoint template with colorful charts and graphs"
+      class="rounded-xl w-80 max-w-full"
+      src="https://storage.googleapis.com/a1aa/image/54bf9384-692c-4f69-ad6d-7dd327de7a71.jpg"
+      height="260"
+      width="320"
+    />
+    <img
+      alt="Before and after photo of woman showing effects of morning routine with text describing puffiness and aging"
+      class="rounded-xl w-80 max-w-full"
+      src="https://storage.googleapis.com/a1aa/image/75e9690b-66b0-4da8-de5b-eafbf625ff85.jpg"
+      height="260"
+      width="320"
+    />
+  </main>
+
+  <!-- Booking button fixed in center bottom above images, always visible -->
+<a
+  href="/cardoverview.html#booking"
+  class="fixed bottom-12 left-1/2 transform -translate-x-1/2 bg-yellow-400 hover:bg-yellow-500 text-black font-bold text-lg rounded-full px-20 py-4 shadow-lg z-50 select-none text-center"
+>
+  Booking
+</a>
+
+</body>
+</html>
