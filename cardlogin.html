@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DS101hub | Login/Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent:#e29578;
+      --accent-dark:#d46a4a;
+      --card-bg:#fffaf6;
+      --muted:#a66e4a;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Nunito',sans-serif; }
+    html,body{ height:100%; background:linear-gradient(135deg,#fdf6f0,#fce7d8); color:#1f2937; -webkit-font-smoothing:antialiased; }
+    .center-wrap{ min-height:100%; display:flex; align-items:center; justify-content:center; padding:28px; }
+    .tabs-container {
+      width:380px;
+      padding:28px;
+      border-radius:18px;
+      background:var(--card-bg);
+      box-shadow:0 10px 30px rgba(124,63,28,.12);
+      text-align:center;
+      border:1px solid rgba(124,63,28,0.04);
+    }
+    .tabs { display:flex; gap:8px; margin-bottom:18px; }
+    .tabs button { flex:1; padding:10px; background:transparent; border:none; font-size:15px; font-weight:700; color:var(--muted); cursor:pointer; border-bottom:3px solid transparent; border-radius:10px; }
+    .tabs button.active { color:#7c3f1c; border-bottom-color:var(--accent); background:rgba(226,149,120,0.06); }
+    .form-box { display:none; animation:fadeIn .28s ease forwards; text-align:left; }
+    .form-box.active { display:block; }
+    @keyframes fadeIn { from {opacity:0; transform:translateY(6px);} to {opacity:1; transform:translateY(0);} }
+    .input-group { margin-bottom:14px; }
+    .input-group label { display:block; font-size:13px; margin-bottom:6px; color:var(--muted); font-weight:600; }
+    .input-group input { width:100%; padding:12px; font-size:14px; border:1px solid #f0d7c6; border-radius:12px; background:#fff; outline:none; }
+    .input-group input:focus { box-shadow:0 4px 12px rgba(226,149,120,.12); border-color:var(--accent); }
+    .login-btn { width:100%; padding:12px; background:linear-gradient(135deg,var(--accent),var(--accent-dark)); border:none; border-radius:12px; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 8px 18px rgba(208,85,45,0.12); }
+    .login-btn:hover { transform:translateY(-1px); }
+    .forgot-link { display:block; margin-top:12px; font-size:13px; color:#b35d36; text-decoration:none; text-align:center; }
+    .title { font-size:20px; margin-bottom:12px; display:flex; gap:10px; align-items:center; justify-content:center; }
+    .icon-small { width:20px; height:20px; display:inline-block; transform:translateY(1px); }
+    .muted-text { color:#6b4b3a; font-size:13px; margin-top:8px; text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="center-wrap">
+    <div class="tabs-container">
+      <div class="tabs">
+        <button class="tab-link active" onclick="openTab('login', event)">Sign in</button>
+        <button class="tab-link" onclick="openTab('register', event)">Register</button>
+      </div>
+
+      <div id="login" class="form-box active">
+        <h2 class="title">
+          <svg class="icon-small" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 12c0-5 4-9 9-9 0 5 4 9 9 9-5 0-9 4-9 9-5 0-9-4-9-9z" fill="#e6a07b"/>
+          </svg>
+          Sign in 🌿
+        </h2>
+        <form onsubmit="loginUser(event)">
+          <div class="input-group">
+            <label>Email</label>
+            <input type="email" id="login-email" required />
+          </div>
+          <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="login-password" required />
+          </div>
+          <button type="submit" class="login-btn">SIGN IN</button>
+          <a href="#" class="forgot-link">Reset password with email</a>
+          <!-- <p class="muted-text">Use <strong>admin@...</strong> as first part of email to become admin.</p> -->
+        </form>
+      </div>
+
+      <div id="register" class="form-box">
+        <h2 class="title">
+          <svg class="icon-small" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12c0-3.866 3.134-7 7-7s7 3.134 7 7-3.134 7-7 7-7-3.134-7-7z" fill="#f6c99a"/>
+          </svg>
+          Register 🔥
+        </h2>
+        <form onsubmit="registerUser(event)">
+          <div class="input-group">
+            <label>Email</label>
+            <input type="email" id="reg-email" required />
+          </div>
+          <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="reg-password" required />
+          </div>
+          <button type="submit" class="login-btn">SUBMIT</button>
+        </form>
+      </div>
+      <!-- <p style="margin-top:12px;font-size:12px;color:#8b5a3c;">Cozy booking for small stays — gentle colors, rounded corners 🌸</p> -->
+    </div>
+  </div>
+
+<script>
+  const API_BASE = "http://127.0.0.1:8000";
+
+  function openTab(name, ev){
+    document.querySelectorAll('.form-box').forEach(f=>f.classList.remove('active'));
+    document.getElementById(name).classList.add('active');
+    document.querySelectorAll('.tab-link').forEach(b=>b.classList.remove('active'));
+    ev.target.classList.add('active');
+  }
+
+  async function loginUser(e){
+    e.preventDefault();
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+
+    const res = await fetch(`${API_BASE}/login`, {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+    if(!res.ok){
+      alert(data.detail || "Login failed");
+      return;
+    }
+    localStorage.setItem("access_token", data.access_token);
+    localStorage.setItem("user_email", data.email);
+    localStorage.setItem("user_is_admin", data.is_admin ? "true" : "false");
+    alert("Login success!");
+    // Redirect based on role
+    const next = data.is_admin ? "monitor.html" : "booking.html";
+    window.location.href = next;
+  }
+
+  async function registerUser(e){
+    e.preventDefault();
+    const email = document.getElementById("reg-email").value.trim();
+    const password = document.getElementById("reg-password").value;
+
+    const res = await fetch(`${API_BASE}/register`, {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if(!res.ok){
+      alert(data.detail || "Register failed");
+      return;
+    }
+    alert("Register success, now login!");
+    openTab('login', { target: document.querySelectorAll('.tab-link')[0] });
+  }
+</script>
+</body>
+</html>

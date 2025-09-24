@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Image Grid with Booking</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{ font-family:'Nunito',sans-serif; background:linear-gradient(135deg,#fdf6f0,#fce7d8); margin:0; color:#1f2937; }
+    .wrap{ max-width:760px; margin:28px auto; padding:20px; background:#fffaf6; border-radius:18px; box-shadow:0 10px 30px rgba(124,63,28,.12); }
+    .top-badge{ position:fixed; top:18px; right:18px; }
+    main{ display:flex; flex-direction:column; gap:14px; align-items:center; padding-top:6px; padding-bottom:80px; }
+    .card-img{ width:320px; border-radius:18px; box-shadow:0 10px 30px rgba(124,63,28,0.12); object-fit:cover; }
+    .booking-cta{ position:fixed; bottom:18px; left:50%; transform:translateX(-50%); background:#f7c948; padding:14px 48px; border-radius:999px; font-weight:800; color:#0b1720; box-shadow:0 12px 30px rgba(124,63,28,0.14); text-decoration:none; }
+    .icon-btn {
+      background: rgba(255,255,255,0.3);
+      border-radius: 9999px;
+      padding: 6px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s, background 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .icon-btn:hover { 
+      transform: scale(1.1); 
+      background: rgba(255,255,255,0.6);
+    }
+
+    /* Trạng thái đã chọn */
+    .icon-btn.active.heart { background: rgba(255,0,0,0.15); color: #e02424; }
+    .icon-btn.active.cart { background: rgba(255,215,0,0.2); color: #ca8a04; }
+  </style>
+</head>
+<body>
+  <!-- Filter icon -->
+  <div class="top-badge">
+    <button class="icon-btn" title="Filter">🔍</button>
+  </div>
+
+  <div class="wrap">
+    <main>
+      <!-- Card 1 -->
+      <div class="relative">
+        <a class="asset-id1" href="/booking.html">
+        <img class="card-img" 
+              src="https://storage.googleapis.com/a1aa/image/63753f64-eb42-46f9-12fb-43e72ed359bf.jpg" 
+              alt="image1"/>
+        </a>
+        <div class="absolute bottom-3 right-3 flex gap-2">
+          <button class="icon-btn heart" title="Add to Favorites">🤍</button>
+          <button class="icon-btn cart" title="Add to Cart">🛒</button>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="relative">
+        <a class="asset-id2" href="/booking.html">
+          <img class="card-img" 
+                src="https://storage.googleapis.com/a1aa/image/2a30a8da-d493-4468-c095-4f686fe2a9c9.jpg" 
+                alt="image2"/>
+        </a>
+        <div class="absolute bottom-3 right-3 flex gap-2">
+          <button class="icon-btn heart" title="Add to Favorites">🤍</button>
+          <button class="icon-btn cart" title="Add to Cart">🛒</button>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="relative">
+        <img class="card-img" src="https://storage.googleapis.com/a1aa/image/18c5e139-b059-4487-6e10-b66cc8207a5a.jpg" alt="image3"/>
+        <div class="absolute bottom-3 right-3 flex gap-2">
+          <button class="icon-btn heart" title="Add to Favorites">🤍</button>
+          <button class="icon-btn cart" title="Add to Cart">🛒</button>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="relative">
+        <img class="card-img" src="https://storage.googleapis.com/a1aa/image/330c9772-69da-496f-7f07-782bcd98ae1b.jpg" alt="image4"/>
+        <div class="absolute bottom-3 right-3 flex gap-2">
+          <button class="icon-btn heart" title="Add to Favorites">🤍</button>
+          <button class="icon-btn cart" title="Add to Cart">🛒</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <a class="booking-cta" href="/cardoverview.html#booking">🌿 Promotion</a>
+
+  <script>
+    // Toggle trạng thái icon
+    document.querySelectorAll(".icon-btn.heart").forEach(btn => {
+      btn.addEventListener("click", () => {
+        btn.classList.toggle("active");
+        btn.textContent = btn.classList.contains("active") ? "❤️" : "🤍";
+      });
+    });
+
+    document.querySelectorAll(".icon-btn.cart").forEach(btn => {
+      btn.addEventListener("click", () => {
+        btn.classList.toggle("active");
+        btn.textContent = btn.classList.contains("active") ? "✔️" : "🛒";
+      });
+    });
+  </script>
+</body>
+</html>

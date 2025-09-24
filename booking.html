@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Booking Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent:#e29578;
+      --accent-dark:#d46a4a;
+      --card-bg:#fffaf6;
+    }
+    body{ font-family:'Nunito',sans-serif; background:linear-gradient(135deg,#fdf6f0,#fce7d8); margin:0; color:#1f2937; }
+    .cozy-wrap{ max-width:980px; margin:28px auto; padding:20px; background:var(--card-bg); border-radius:18px; box-shadow:0 10px 30px rgba(124,63,28,.12); }
+    nav{ display:flex; justify-content:space-between; align-items:center; padding:10px 0; }
+    .nav-left a{ font-weight:700; color:#7c3f1c; text-decoration:none; font-size:18px; }
+    .nav-right{ display:flex; gap:12px; align-items:center; }
+    .badge{ background:#f7c948; padding:8px 12px; border-radius:999px; font-weight:700; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    .card{ background:#fff; border-radius:12px; padding:16px; box-shadow:0 6px 24px rgba(124,63,28,0.06); }
+    .calendar { width:100%; border-collapse:collapse; margin-top:6px; }
+    .calendar th, .calendar td { width:14.2857%; text-align:center; padding:8px 0; border:1px solid #eae2db; font-size:13px; border-radius:8px; }
+    .calendar th{ background:#fbf7f3; font-weight:700; color:#7c3f1c; }
+    .calendar td.booked{ background:#b45309; color:#fff; text-decoration:line-through; cursor:not-allowed; }
+    .calendar td.past{ background:#9ca3af; color:#fff; text-decoration:line-through; cursor:not-allowed; }
+    .calendar td.range{ background:#fde68a; }
+    .calendar td.range-start, .calendar td.range-end{ background:#fbbf24; font-weight:700; color:#1f2937; }
+    .calendar td:hover:not(.booked):not(.past){ background:#fff3e8; cursor:pointer; box-shadow:0 2px 8px rgba(200,120,90,0.06); }
+    .small-muted{ color:#7c5a43; font-size:13px; }
+    .btn{ background:linear-gradient(135deg,var(--accent),var(--accent-dark)); color:#fff; padding:8px 12px; border-radius:10px; font-weight:700; border:none; cursor:pointer; box-shadow:0 8px 18px rgba(208,85,45,0.12); }
+    .btn-ghost{ background:#fff;color:var(--accent);box-shadow:none;padding:6px 8px;border-radius:8px; }
+    .leaf{ width:18px;height:18px; vertical-align:middle; margin-right:8px; transform:translateY(-1px); }
+    footer{ text-align:center; font-size:12px; color:#7c5a43; margin-top:18px; }
+    /* small responsive */
+    @media (max-width:640px){
+      .calendar th, .calendar td { padding:6px 0; font-size:12px; }
+      .card { padding:12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cozy-wrap">
+    <!-- Top bar -->
+    <nav>
+      <div class="nav-left">
+        <a href="index.html" class="logo">🌿 Property Booking</a>
+      </div>
+      <div class="nav-right">
+        <div id="userInfo" class="small-muted">Not logged in</div>
+        <button id="logoutBtn" onclick="logout()" class="small-muted" style="display:none; background:none; border:none; cursor:pointer; color:#b34a3c;">Logout</button>
+        <a id="loginBtn" href="cardlogin.html" class="small-muted" style="text-decoration:none;">Login</a>
+      </div>
+    </nav>
+
+    <main class="space-y-8">
+      <!-- DESCRIPTION + IMAGES shared (kept from previous) -->
+      <section id="descriptionSection" class="card">
+        <h3 class="text-lg font-semibold mb-2">Cozy Retreat</h3>
+        <p class="small-muted leading-relaxed">
+          Welcome to our charming property nestled in nature. Whether you’re here for a peaceful escape, 
+          a family vacation, or a short work trip, you’ll find comfort and warmth. Enjoy cozy interiors, 
+          modern amenities, and a calming view surrounded by greenery.
+        </p>
+      </section>
+
+      <section id="imagesSection" class="card">
+        <h3 class="text-lg font-semibold mb-3">Gallery</h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <img src="https://placekitten.com/400/300" alt="Room view" class="rounded-lg shadow">
+          <img src="https://placekitten.com/401/300" alt="Living area" class="rounded-lg shadow">
+          <img src="https://placekitten.com/402/300" alt="Garden" class="rounded-lg shadow">
+        </div>
+      </section>
+
+      <!-- ADMIN VIEW -->
+      <section id="adminView" class="hidden space-y-6">
+        <div class="card">
+          <h3 class="text-lg font-semibold"><svg class="leaf" viewBox="0 0 24 24" fill="#7bb26a" xmlns="http://www.w3.org/2000/svg"><path d="M12 2s6 2 8 7-4 11-8 13c0 0-5-1-7-6S5 3 12 2z"/></svg> Nightly Rate</h3>
+          <div class="flex items-center gap-4 mt-3">
+            <input type="number" id="nightlyRateInput" step="1000" class="border rounded px-3 py-2 w-48" placeholder="500000">
+            <button onclick="saveRate()" class="btn">Save</button>
+          </div>
+          <p id="rateMsg" class="small-muted" style="margin-top:8px;">Current rate loaded from server.</p>
+        </div>
+
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold">Calendar</h3>
+            <div>
+              <button id="adminPrev" class="btn-ghost" >&lt;</button>
+              <button id="adminNext" class="btn-ghost" >&gt;</button>
+            </div>
+          </div>
+          <p id="adminMonthLabel" class="small-muted mt-3"></p>
+          <table class="calendar" aria-hidden="false">
+            <thead>
+              <tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+            </thead>
+            <tbody id="adminCalendarBody"></tbody>
+          </table>
+          <p class="small-muted mt-2">Booked dates are crossed out.</p>
+        </div>
+
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold">All Bookings</h3>
+            <button onclick="reloadAllBookings()" class="btn-ghost">Refresh</button>
+          </div>
+          <div id="allBookings" class="mt-3"></div>
+        </div>
+      </section>
+
+      <!-- USER VIEW (merged calendar + visitors + book button) -->
+      <section id="userView" class="hidden space-y-6">
+        <div class="card">
+          <h3 class="text-lg font-semibold">Book Your Stay</h3>
+
+          <!-- Visitors on top -->
+          <div class="mt-3 mb-3 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <label class="small-muted">Guests</label>
+              <input id="noVisitors" type="number" min="1" value="1" class="border rounded px-3 py-2 w-24">
+            </div>
+
+            <div>
+              <button id="userPrev" class="btn-ghost" >&lt;</button>
+              <button id="userNext" class="btn-ghost" >&gt;</button>
+            </div>
+          </div>
+
+          <p id="userMonthLabel" class="small-muted"></p>
+          <table class="calendar">
+            <thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>
+            <tbody id="userCalendarBody"></tbody>
+          </table>
+
+          <div class="mt-3 flex items-center gap-3">
+            <div id="rangeInfo" class="hidden text-sm px-3 py-2 rounded bg-yellow-50 border border-yellow-300"></div>
+            <button id="clearRangeBtn" class="hidden text-xs px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded">Clear</button>
+          </div>
+
+          <!-- Computed price + action -->
+          <div class="mt-4 flex items-center justify-between">
+            <div>
+              <div><span class="small-muted">Computed Price:</span> <span id="computedPrice" class="font-semibold">-</span></div>
+              <div id="nightsInfo" class="text-xs text-gray-500"></div>
+            </div>
+            <div class="flex items-center gap-3">
+              <button id="bookNowBtn" class="btn" disabled>Book Now</button>
+            </div>
+          </div>
+
+          <div id="formMsg" class="mt-2 small-muted"></div>
+        </div>
+
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <h4 class="font-semibold">My Bookings</h4>
+            <button onclick="loadMyBookings()" class="btn-ghost">Refresh</button>
+          </div>
+          <div id="myBookings" class="mt-3">No data loaded yet.</div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>&copy; 2025 Booking Portal</footer>
+  </div>
+
+<script>
+/* ===== CONFIG & AUTH ===== */
+const API_BASE = "http://127.0.0.1:8000";
+function getToken(){ return localStorage.getItem("access_token"); }
+function isAdmin(){ return localStorage.getItem("user_is_admin") === "true"; }
+function getEmail(){ return localStorage.getItem("user_email"); }
+function logout(){
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("user_email");
+  localStorage.removeItem("user_is_admin");
+  location.reload();
+}
+
+/* ===== ELEMENTS ===== */
+const userInfoEl = document.getElementById("userInfo");
+const logoutBtn = document.getElementById("logoutBtn");
+const loginBtn = document.getElementById("loginBtn");
+const adminView = document.getElementById("adminView");
+const userView = document.getElementById("userView");
+const bookNowBtn = document.getElementById("bookNowBtn");
+
+/* ===== STATE ===== */
+let bookingsCache = [];
+let nightlyRate = 0;
+let userMonth = new Date().getMonth();
+let userYear = new Date().getFullYear();
+let adminMonth = new Date().getMonth();
+let adminYear = new Date().getFullYear();
+let selStart = null;
+let selEnd = null;
+
+/* ===== INIT ===== */
+document.addEventListener("DOMContentLoaded", async () => {
+  if(getToken()){
+    userInfoEl.textContent = getEmail() + (isAdmin() ? " (admin)" : "");
+    logoutBtn.style.display = "inline";
+    loginBtn.style.display = "none";
+  } else {
+    userInfoEl.textContent = "Not logged in";
+  }
+
+  await loadRate();
+  await loadBookingsCache();
+
+  if(isAdmin()){
+    adminView.classList.remove("hidden");
+    bindAdminCalendarNav();
+    renderAdminCalendar();
+    renderAllBookings();
+  } else if (getToken()){
+    userView.classList.remove("hidden");
+    bindUserCalendarNav();
+    renderUserCalendar();
+    updateComputedPrice();
+    loadMyBookings();
+  }
+
+  // bind book button
+  bookNowBtn.addEventListener("click", submitBooking);
+});
+
+/* ===== RATE ===== */
+async function loadRate(){
+  try {
+    const res = await fetch(`${API_BASE}/rate`);
+    const data = await res.json();
+    if(res.ok){
+      nightlyRate = parseFloat(data.nightly_rate);
+      const r = document.getElementById("rateDisplay");
+      if(r) r.textContent = "Nightly rate: " + nightlyRate.toLocaleString() + " VND";
+      const ri = document.getElementById("nightlyRateInput");
+      if(ri) ri.value = nightlyRate;
+    } else {
+      nightlyRate = 500000;
+    }
+  } catch {
+    nightlyRate = 500000;
+  }
+}
+async function saveRate(){
+  const msg = document.getElementById("rateMsg");
+  msg.textContent = "Saving...";
+  const val = parseFloat(document.getElementById("nightlyRateInput").value);
+  if(isNaN(val) || val <= 0){
+    msg.textContent = "Invalid value";
+    msg.className = "text-sm text-red-600";
+    return;
+  }
+  try{
+    const res = await fetch(`${API_BASE}/rate`, {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer " + getToken()
+      },
+      body: JSON.stringify({ nightly_rate: val })
+    });
+    const data = await res.json();
+    if(!res.ok){
+      msg.textContent = data.detail || "Error";
+      msg.className = "text-sm text-red-600";
+      return;
+    }
+    nightlyRate = parseFloat(data.nightly_rate);
+    msg.textContent = "Updated!";
+    msg.className = "text-sm text-green-600";
+    updateComputedPrice();
+  } catch {
+    msg.textContent = "Error";
+    msg.className = "text-sm text-red-600";
+  }
+}
+
+/* ===== BOOKINGS CACHE ===== */
+async function loadBookingsCache(){
+  try {
+    let res;
+    if(isAdmin() && getToken()){
+      res = await fetch(`${API_BASE}/all-bookings`, {
+        headers: { "Authorization": "Bearer " + getToken() }
+      });
+    } else {
+      res = await fetch(`${API_BASE}/public-bookings`);
+    }
+    const data = await res.json();
+    if(res.ok) bookingsCache = data;
+    else bookingsCache = [];
+  } catch {
+    bookingsCache = [];
+  }
+}
+
+/* ===== CALENDAR (SHARED) ===== */
+function buildCalendar(year, month, targetBodyId, labelId, selectable=false, mode="user"){
+  const body = document.getElementById(targetBodyId);
+  const label = document.getElementById(labelId);
+  label.textContent = new Date(year, month, 1).toLocaleString("en-US",{month:"long",year:"numeric"});
+
+  // Build booked set
+  const booked = new Set();
+  bookingsCache.forEach(b=>{
+    if(!b.start_date || !b.end_date) return;
+    const s = new Date(b.start_date); const e = new Date(b.end_date);
+    s.setHours(0,0,0,0); e.setHours(0,0,0,0);
+    for(let d=new Date(s); d<e; d.setDate(d.getDate()+1)){
+      booked.add(d.toISOString().split("T")[0]);
+    }
+  });
+
+  const first = new Date(year, month, 1);
+  const last = new Date(year, month+1, 0);
+  const firstWeekday = first.getDay();
+  const days = last.getDate();
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  let html = "";
+  let dayCounter = 1;
+  const cells = Math.ceil((firstWeekday + days)/7) * 7;
+
+  for(let i=0;i<cells;i++){
+    if(i%7===0) html += "<tr>";
+    if(i<firstWeekday || dayCounter>days){
+      html += "<td></td>";
+    } else {
+      const cur = new Date(year, month, dayCounter);
+      cur.setHours(0,0,0,0);
+      const iso = cur.toISOString().split("T")[0];
+      let cls = [];
+      if(cur < today) cls.push("past");
+      else if(booked.has(iso)) cls.push("booked");
+
+      // user highlight
+      if(mode==="user" && selStart){
+        if(selStart === iso) cls.push("range-start");
+        if(selEnd === iso) cls.push("range-end");
+        if(selEnd && cur >= new Date(selStart) && cur <= new Date(selEnd) && iso !== selStart && iso !== selEnd){
+          cls.push("range");
+        }
+      }
+
+      html += `<td class="${cls.join(" ")}" data-iso="${iso}">${dayCounter}</td>`;
+      dayCounter++;
+    }
+    if(i%7===6) html += "</tr>";
+  }
+  body.innerHTML = html;
+
+  if(selectable){
+    [...body.querySelectorAll("td[data-iso]")].forEach(td=>{
+      if(td.classList.contains("booked") || td.classList.contains("past")) return;
+      td.addEventListener("click", ()=>onSelectDate(td.getAttribute("data-iso")));
+    });
+  }
+}
+
+/* ===== RANGE VALIDATION ===== */
+function getBookedSet(){
+  const booked = new Set();
+  bookingsCache.forEach(b=>{
+    if(!b.start_date || !b.end_date) return;
+    const s = new Date(b.start_date); const e = new Date(b.end_date);
+    s.setHours(0,0,0,0); e.setHours(0,0,0,0);
+    for(let d=new Date(s); d<e; d.setDate(d.getDate()+1)){
+      booked.add(d.toISOString().split("T")[0]);
+    }
+  });
+  return booked;
+}
+function rangeHasBooked(startIso, endIso){
+  if(!startIso || !endIso) return false;
+  const set = getBookedSet();
+  const s = new Date(startIso + "T00:00:00");
+  const e = new Date(endIso + "T00:00:00");
+  for(let d=new Date(s); d<e; d.setDate(d.getDate()+1)){
+    const iso = d.toISOString().split("T")[0];
+    if(set.has(iso)) return true;
+  }
+  return false;
+}
+
+/* ===== ADMIN CALENDAR ===== */
+function bindAdminCalendarNav(){
+  document.getElementById("adminPrev").addEventListener("click", ()=>{
+    adminMonth--; if(adminMonth<0){adminMonth=11;adminYear--;}
+    renderAdminCalendar();
+  });
+  document.getElementById("adminNext").addEventListener("click", ()=>{
+    adminMonth++; if(adminMonth>11){adminMonth=0;adminYear++;}
+    renderAdminCalendar();
+  });
+}
+function renderAdminCalendar(){
+  buildCalendar(adminYear, adminMonth, "adminCalendarBody", "adminMonthLabel", false, "admin");
+}
+function renderAllBookings(){
+  const wrap = document.getElementById("allBookings");
+  if(!bookingsCache.length){
+    wrap.innerHTML = '<p class="text-gray-500">No bookings.</p>';
+    return;
+  }
+  wrap.innerHTML = bookingsCache.map(b=>`
+    <div class="border rounded p-3 bg-white" style="margin-bottom:10px;">
+      <div><span class="font-semibold">ID:</span> ${b.booking_id}</div>
+      <div><span class="font-semibold">Email:</span> ${b.email}</div>
+      <div><span class="font-semibold">From:</span> ${b.start_date}</div>
+      <div><span class="font-semibold">To:</span> ${b.end_date}</div>
+      <div><span class="font-semibold">Guests:</span> ${b.no_visitors ?? '-'}</div>
+      <div><span class="font-semibold">Value:</span> ${b.payment_value ?? '-'}</div>
+    </div>
+  `).join("");
+}
+async function reloadAllBookings(){
+  await loadBookingsCache();
+  renderAdminCalendar();
+  renderAllBookings();
+}
+
+/* ===== USER CALENDAR ===== */
+function bindUserCalendarNav(){
+  document.getElementById("userPrev").addEventListener("click", ()=>{
+    userMonth--; if(userMonth<0){userMonth=11; userYear--;}
+    renderUserCalendar();
+  });
+  document.getElementById("userNext").addEventListener("click", ()=>{
+    userMonth++; if(userMonth>11){userMonth=0; userYear++;}
+    renderUserCalendar();
+  });
+  document.getElementById("clearRangeBtn").addEventListener("click", ()=>{
+    selStart = null; selEnd = null; updateRangeInfo(); renderUserCalendar(); updateComputedPrice();
+  });
+}
+function renderUserCalendar(){
+  buildCalendar(userYear, userMonth, "userCalendarBody", "userMonthLabel", true, "user");
+  updateRangeInfo();
+}
+function onSelectDate(iso){
+  if(!selStart){
+    selStart = iso; selEnd = null;
+  } else if(selStart && !selEnd){
+    if(new Date(iso) < new Date(selStart)){
+      selEnd = selStart;
+      selStart = iso;
+    } else {
+      selEnd = iso;
+    }
+  } else {
+    selStart = iso; selEnd = null;
+  }
+  renderUserCalendar();
+  updateRangeInfo();
+  updateComputedPrice();
+}
+function updateRangeInfo(){
+  const info = document.getElementById("rangeInfo");
+  const clearBtn = document.getElementById("clearRangeBtn");
+  if(!selStart){
+    info.classList.add("hidden");
+    clearBtn.classList.add("hidden");
+    return;
+  }
+  clearBtn.classList.remove("hidden");
+  info.classList.remove("hidden");
+  if(selStart && !selEnd){
+    info.textContent = "Start: " + selStart + " (select end date)";
+    info.className = "hidden text-sm px-3 py-2 rounded bg-yellow-50 border border-yellow-300".replace("hidden ", "");
+  } else {
+    const invalid = rangeHasBooked(selStart, selEnd);
+    if(invalid){
+      info.textContent = "Range overlaps booked dates";
+      info.className = "text-sm px-3 py-2 rounded bg-red-50 border border-red-300 text-red-600";
+    } else {
+      info.textContent = "Range: " + selStart + " → " + selEnd;
+      info.className = "text-sm px-3 py-2 rounded bg-yellow-50 border border-yellow-300";
+    }
+  }
+}
+
+/* ===== PRICE CALC ===== */
+function calcNights(){
+  if(!selStart || !selEnd) return 0;
+// Round to full days: difference between calendar dates only
+  const s = new Date(selStart + "T00:00:00");
+  const e = new Date(selEnd + "T00:00:00");
+  const diff = e.getTime() - s.getTime();
+  if(diff <= 0) return 0;
+  return Math.floor(diff / (1000*3600*24));
+}
+function updateComputedPrice(){
+  const nights = calcNights();
+  const priceEl = document.getElementById("computedPrice");
+  const nightsInfo = document.getElementById("nightsInfo");
+  const bookBtn = document.getElementById("bookNowBtn");
+  const invalid = selStart && selEnd ? rangeHasBooked(selStart, selEnd) : false;
+  if(!nights || invalid){
+    priceEl.textContent = "-";
+    nightsInfo.textContent = invalid ? "Range overlaps booked dates" : "";
+    bookBtn.setAttribute("disabled", "disabled");
+    return;
+  }
+  const total = nights * nightlyRate;
+  priceEl.textContent = total.toLocaleString() + " VND";
+  nightsInfo.textContent = `(${nights} nights × ${nightlyRate.toLocaleString()})`;
+  bookBtn.removeAttribute("disabled");
+}
+
+/* ===== SUBMIT BOOKING (using selStart/selEnd + noVisitors) ===== */
+async function submitBooking(e){
+  // e can be Event (from click) or undefined
+  if(!getToken()){
+    window.location.href = "cardlogin.html";
+    return;
+  }
+  const formMsg = document.getElementById("formMsg");
+  formMsg.textContent = "Submitting...";
+  formMsg.className = "small-muted";
+
+  if(!selStart || !selEnd){
+    formMsg.textContent = "Please select a start and end date on the calendar.";
+    return;
+  }
+  const nights = calcNights();
+  if(nights <= 0){
+    formMsg.textContent = "Invalid date range.";
+    return;
+  }
+  if(rangeHasBooked(selStart, selEnd)){
+    formMsg.textContent = "Selected range overlaps booked dates.";
+    formMsg.className = "text-sm text-red-600";
+    return;
+  }
+  const visitors = parseInt(document.getElementById("noVisitors").value || "1");
+  const body = {
+    start_date: new Date(selStart + "T00:00:00").toISOString(),
+    end_date: new Date(selEnd + "T00:00:00").toISOString(),
+    no_visitors: visitors,
+    no_day: nights,
+    payment_value: (nights * nightlyRate).toFixed(2)
+  };
+  try {
+    const res = await fetch(`${API_BASE}/book`, {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer " + getToken()
+      },
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if(!res.ok){
+      formMsg.textContent = data.detail || "Failed";
+      formMsg.className = "text-sm text-red-600";
+      return;
+    }
+    formMsg.textContent = "Booking created (ID: " + data.booking_id + ")";
+    formMsg.className = "text-sm text-green-600";
+    // reset selection so calendar updates
+    selStart = null; selEnd = null;
+    await loadBookingsCache();
+    renderUserCalendar();
+    loadMyBookings();
+    updateComputedPrice();
+  } catch {
+    formMsg.textContent = "Network error";
+    formMsg.className = "text-sm text-red-600";
+  }
+}
+
+/* ===== MY BOOKINGS (USER) ===== */
+async function loadMyBookings(){
+  const wrap = document.getElementById("myBookings");
+  wrap.innerHTML = '<p class="text-gray-500">Loading...</p>';
+  try {
+    const res = await fetch(`${API_BASE}/my-bookings`, {
+      headers:{ "Authorization":"Bearer " + getToken() }
+    });
+    const data = await res.json();
+    if(!res.ok){
+      wrap.innerHTML = `<p class="text-red-600">${data.detail || 'Error'}</p>`;
+      return;
+    }
+    if(!data.length){
+      wrap.innerHTML = '<p class="text-gray-500">No bookings.</p>';
+      return;
+    }
+    wrap.innerHTML = data.map(b=>{
+      const createdRaw = b.created_at;
+      const created = createdRaw ? new Date(createdRaw) : null;
+      const hasCreated = created && !isNaN(created.getTime());
+      const now = new Date();
+      const expireAt = hasCreated ? new Date(created.getTime() + 10*60*1000) : null;
+      const remainingMs = expireAt ? (expireAt - now) : Number.POSITIVE_INFINITY;
+      const isPaid = b.payment_flag === true;
+      const canPay = !isPaid && remainingMs > 0;
+
+      const rightCorner = isPaid
+        ? `<span class="px-2 py-1 text-xs rounded bg-green-100 text-green-700">PAID</span>`
+        : canPay
+          ? `<div class="flex items-center gap-2">
+               <span class="text-xs text-amber-700 bg-amber-100 px-2 py-1 rounded" data-expire="${expireAt ? expireAt.toISOString() : ''}">${expireAt ? '10:00' : 'WAITING'}</span>
+               <button class="text-xs px-2 py-1 bg-blue-600 text-white rounded" data-action="pay" data-id="${b.booking_id}">Pay</button>
+               <button class="text-xs px-2 py-1 bg-red-600 text-white rounded" data-action="cancel" data-id="${b.booking_id}">Cancel</button>
+             </div>`
+          : `<span class="px-2 py-1 text-xs rounded bg-gray-100 text-gray-600">EXPIRED</span>`;
+
+      return `
+      <div class="border rounded p-3 bg-white" style="margin-bottom:10px; position: relative;">
+        <div style="position:absolute; top:8px; right:8px;">${rightCorner}</div>
+        <div><span class="font-semibold">ID:</span> ${b.booking_id}</div>
+        <div><span class="font-semibold">From:</span> ${b.start_date}</div>
+        <div><span class="font-semibold">To:</span> ${b.end_date}</div>
+        <div><span class="font-semibold">Guests:</span> ${b.no_visitors ?? '-'}</div>
+        <div><span class="font-semibold">Days:</span> ${b.no_day ?? '-'}</div>
+        <div><span class="font-semibold">Amount:</span> ${b.payment_value ?? '-'}</div>
+      </div>`;
+    }).join("");
+
+    // Bind actions & countdown
+    wrap.querySelectorAll('[data-action="pay"]').forEach(btn=>{
+      btn.addEventListener('click', ()=>doPay(btn.getAttribute('data-id')));
+    });
+    wrap.querySelectorAll('[data-action="cancel"]').forEach(btn=>{
+      btn.addEventListener('click', ()=>doCancel(btn.getAttribute('data-id')));
+    });
+    startCountdowns(wrap);
+  } catch {
+    wrap.innerHTML = '<p class="text-red-600">Error</p>';
+  }
+}
+function startCountdowns(container){
+  const els = container.querySelectorAll('[data-expire]');
+  if(!els.length) return;
+  function tick(){
+    const now = new Date();
+    els.forEach(el=>{
+      const exp = el.getAttribute('data-expire');
+      if(!exp) return;
+      const t = new Date(exp);
+      let diff = Math.max(0, Math.floor((t - now)/1000));
+      const m = String(Math.floor(diff/60)).padStart(2,'0');
+      const s = String(diff%60).padStart(2,'0');
+      el.textContent = `${m}:${s}`;
+      if(diff === 0){ el.textContent = '00:00'; }
+    });
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+async function doPay(bookingId){
+  try{
+    const res = await fetch(`${API_BASE}/bookings/${bookingId}/pay`,{
+      method:'POST',
+      headers:{ 'Authorization': 'Bearer ' + getToken() }
+    });
+    if(!res.ok){
+      const d = await res.json();
+      alert(d.detail || 'Payment failed');
+      return;
+    }
+    loadMyBookings();
+  } catch{
+    alert('Network error');
+  }
+}
+async function doCancel(bookingId){
+  if(!confirm('Cancel this booking?')) return;
+  try{
+    const res = await fetch(`${API_BASE}/bookings/${bookingId}`,{
+      method:'DELETE',
+      headers:{ 'Authorization': 'Bearer ' + getToken() }
+    });
+    if(!res.ok){
+      const d = await res.json();
+      alert(d.detail || 'Cancel failed');
+      return;
+    }
+    loadMyBookings();
+  } catch{
+    alert('Network error');
+  }
+}
+</script>
+</body>
+</html>

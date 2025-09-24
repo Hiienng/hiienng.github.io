@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DS101hub | Login/Register</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #fdf6f0, #fce7d8);
+      overflow: hidden;
+    }
+
+    /* Background decorative icons (warm tone) */
+    .bg-icon {
+      position: absolute;
+      color: rgba(166, 94, 46, 0.08);
+      font-size: 100px;
+      z-index: 0;
+    }
+    .icon1 { top: 8%; left: 6%; }
+    .icon2 { top: 20%; right: 10%; }
+    .icon3 { bottom: 15%; left: 12%; }
+    .icon4 { bottom: 8%; right: 18%; }
+
+    /* Container with cozy vibe */
+    .tabs-container {
+      width: 380px;
+      padding: 35px;
+      border-radius: 18px;
+      background: #fffaf6;
+      box-shadow: 0 6px 20px rgba(124, 63, 28, 0.2);
+      text-align: center;
+      z-index: 10;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+    .tabs button {
+      flex: 1;
+      padding: 12px;
+      background: transparent;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: #a66e4a;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-bottom: 2px solid transparent;
+    }
+    .tabs button.active {
+      color: #7c3f1c;
+      border-bottom: 2px solid #e29578;
+    }
+
+    /* Form styling */
+    .form-box {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+    }
+    .form-box.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-box h2 {
+      margin-bottom: 20px;
+      font-weight: 700;
+      color: #7c3f1c;
+    }
+
+    .input-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+    .input-group label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #a66e4a;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      border: 1px solid #e5c3a8;
+      border-radius: 10px;
+      background: #fff;
+      color: #5a3d2e;
+      outline: none;
+      transition: 0.3s;
+    }
+    .input-group input:focus {
+      border-color: #e29578;
+      box-shadow: 0 0 6px rgba(226, 149, 120, 0.5);
+    }
+
+    /* Buttons */
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #e29578, #d46a4a);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+    .login-btn:hover {
+      transform: scale(1.03);
+      background: linear-gradient(135deg, #d46a4a, #b3533a);
+    }
+
+    .forgot-link {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #b35d36;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .forgot-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Decorative background icons -->
+  <i class="fas fa-mug-hot bg-icon icon1"></i>
+  <i class="fas fa-home bg-icon icon2"></i>
+  <i class="fas fa-bread-slice bg-icon icon3"></i>
+  <i class="fas fa-utensils bg-icon icon4"></i>
+
+  <!-- Login/Register container -->
+  <div class="tabs-container">
+    <div class="tabs">
+      <button class="tab-link active" onclick="openTab('login')">Đăng Nhập</button>
+      <button class="tab-link" onclick="openTab('register')">Đăng Ký</button>
+    </div>
+
+    <!-- Login -->
+    <div id="login" class="form-box active">
+      <h2>Chào mừng trở lại</h2>
+      <form action="/login" method="POST">
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" name="email" required />
+        </div>
+        <div class="input-group">
+          <label>Mật khẩu</label>
+          <input type="password" name="password" required />
+        </div>
+        <button type="submit" class="login-btn">ĐĂNG NHẬP</button>
+        <a href="#" class="forgot-link">Quên mật khẩu?</a>
+      </form>
+    </div>
+
+    <!-- Register -->
+    <div id="register" class="form-box">
+      <h2>Tạo tài khoản mới</h2>
+      <form action="/register" method="POST">
+        <div class="input-group">
+          <label>Tên người dùng</label>
+          <input type="text" name="username" required />
+        </div>
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" name="email" required />
+        </div>
+        <div class="input-group">
+          <label>Mật khẩu</label>
+          <input type="password" name="password" required />
+        </div>
+        <button type="submit" class="login-btn">ĐĂNG KÝ</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openTab(tabName) {
+      document.querySelectorAll('.form-box').forEach(f => f.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+
+      document.querySelectorAll('.tab-link').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
