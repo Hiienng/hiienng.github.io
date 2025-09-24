@@ -102,10 +102,29 @@
 
 <script>
   // Build API base from current hostname so phones on the same LAN can reach the backend
-  const API_PORT = '8000';
-  const API_HOST = (window.location.hostname && window.location.hostname !== '') ? window.location.hostname : '127.0.0.1';
-  const API_PROTOCOL = (window.location.protocol && window.location.protocol.startsWith('http')) ? window.location.protocol : 'http:';
-  const API_BASE = `${API_PROTOCOL}//${API_HOST}:${API_PORT}`;
+  // Resolve API base that works for both desktop and phones. Allow override via ?api=http://IP:8000
+  const params = new URLSearchParams(window.location.search);
+  const API_OVERRIDE = params.get('api');
+  const API_PORT = params.get('port') || '8000';
+  const HOSTNAME = (window.location.hostname && window.location.hostname !== '') ? window.location.hostname : '127.0.0.1';
+  const PROTOCOL = (window.location.protocol && window.location.protocol.startsWith('http')) ? window.location.protocol : 'http:';
+  const API_BASE = API_OVERRIDE ? API_OVERRIDE : `${PROTOCOL}//${HOSTNAME}:${API_PORT}`;
+
+  // Quick connectivity check with inline note to help diagnose LAN/IP issues
+  async function checkApiReachable(){
+    try{
+      const r = await fetch(`${API_BASE}/`, { method:'GET' });
+      if(!r.ok) throw new Error('API not OK');
+    } catch (e){
+      const msg = document.getElementById('login-msg');
+      if(msg){
+        msg.style.display = 'block';
+        msg.className = 'note note-error';
+        msg.textContent = `Cannot reach API at ${API_BASE}. Ensure backend runs on 0.0.0.0:8000 and use same LAN IP. You can override via ?api=http://<IP>:8000`;
+      }
+    }
+  }
+  checkApiReachable();
 
   function openTab(name, ev){
     document.querySelectorAll('.form-box').forEach(f=>f.classList.remove('active'));
