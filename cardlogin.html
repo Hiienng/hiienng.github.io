@@ -101,7 +101,11 @@
   </div>
 
 <script>
-  const API_BASE = "http://127.0.0.1:8000";
+  // Build API base from current hostname so phones on the same LAN can reach the backend
+  const API_PORT = '8000';
+  const API_HOST = (window.location.hostname && window.location.hostname !== '') ? window.location.hostname : '127.0.0.1';
+  const API_PROTOCOL = (window.location.protocol && window.location.protocol.startsWith('http')) ? window.location.protocol : 'http:';
+  const API_BASE = `${API_PROTOCOL}//${API_HOST}:${API_PORT}`;
 
   function openTab(name, ev){
     document.querySelectorAll('.form-box').forEach(f=>f.classList.remove('active'));
