@@ -40,6 +40,9 @@
     .title { font-size:20px; margin-bottom:12px; display:flex; gap:10px; align-items:center; justify-content:center; }
     .icon-small { width:20px; height:20px; display:inline-block; transform:translateY(1px); }
     .muted-text { color:#6b4b3a; font-size:13px; margin-top:8px; text-align:center; }
+    .note { display:block; margin-top:10px; font-size:13px; padding:10px; border-radius:10px; }
+    .note-success { background:#ecfdf5; color:#065f46; border:1px solid #a7f3d0; }
+    .note-error { background:#fef2f2; color:#991b1b; border:1px solid #fecaca; }
   </style>
 </head>
 <body>
@@ -68,6 +71,7 @@
           </div>
           <button type="submit" class="login-btn">SIGN IN</button>
           <a href="#" class="forgot-link">Reset password with email</a>
+          <div id="login-msg" class="note" style="display:none;"></div>
           <!-- <p class="muted-text">Use <strong>admin@...</strong> as first part of email to become admin.</p> -->
         </form>
       </div>
@@ -89,6 +93,7 @@
             <input type="password" id="reg-password" required />
           </div>
           <button type="submit" class="login-btn">SUBMIT</button>
+          <div id="register-msg" class="note" style="display:none; margin-top:8px;"></div>
         </form>
       </div>
       <!-- <p style="margin-top:12px;font-size:12px;color:#8b5a3c;">Cozy booking for small stays — gentle colors, rounded corners 🌸</p> -->
@@ -117,17 +122,21 @@
     });
 
     const data = await res.json();
+    const msg = document.getElementById("login-msg");
+    msg.style.display = "block";
     if(!res.ok){
-      alert(data.detail || "Login failed");
+      msg.className = "note note-error";
+      msg.textContent = data.detail || "Login failed";
       return;
     }
     localStorage.setItem("access_token", data.access_token);
     localStorage.setItem("user_email", data.email);
     localStorage.setItem("user_is_admin", data.is_admin ? "true" : "false");
-    alert("Login success!");
+    msg.className = "note note-success";
+    msg.textContent = "Login success! Redirecting...";
     // Redirect based on role
     const next = data.is_admin ? "monitor.html" : "booking.html";
-    window.location.href = next;
+    setTimeout(()=>{ window.location.href = next; }, 400);
   }
 
   async function registerUser(e){
@@ -141,11 +150,15 @@
       body: JSON.stringify({ email, password })
     });
     const data = await res.json();
+    const msg = document.getElementById("register-msg");
+    msg.style.display = "block";
     if(!res.ok){
-      alert(data.detail || "Register failed");
+      msg.className = "note note-error";
+      msg.textContent = data.detail || "Register failed";
       return;
     }
-    alert("Register success, now login!");
+    msg.className = "note note-success";
+    msg.textContent = "Register success, now login!";
     openTab('login', { target: document.querySelectorAll('.tab-link')[0] });
   }
 </script>
