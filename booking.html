@@ -67,9 +67,10 @@
       <section id="imagesSection" class="card">
         <h3 class="text-lg font-semibold mb-3">Gallery</h3>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-          <img src="https://placekitten.com/400/300" alt="Room view" class="rounded-lg shadow">
-          <img src="https://placekitten.com/401/300" alt="Living area" class="rounded-lg shadow">
-          <img src="https://placekitten.com/402/300" alt="Garden" class="rounded-lg shadow">
+          <img src="https://source.unsplash.com/random/400x300/?house,cozy" alt="Cozy house exterior" class="rounded-lg shadow">
+          <img src="https://source.unsplash.com/random/401x300/?room,interior" alt="Room view" class="rounded-lg shadow">
+          <img src="https://source.unsplash.com/random/402x300/?livingroom" alt="Living area" class="rounded-lg shadow">
+          <img src="https://source.unsplash.com/random/403x300/?garden" alt="Garden" class="rounded-lg shadow">
         </div>
       </section>
 
@@ -170,7 +171,15 @@
 
 <script>
 /* ===== CONFIG & AUTH ===== */
-const API_BASE = "http://127.0.0.1:8000";
+// Resolve API base that works for local dev and production (GitHub Pages + Railway).
+  // Priority: ?api=... override > GitHub Pages default (Railway) > dynamic host:port (dev)
+  const params = new URLSearchParams(window.location.search);
+  const API_OVERRIDE = params.get('api');
+  const API_PORT = params.get('port') || '8000';
+  const HOSTNAME = (window.location.hostname && window.location.hostname !== '') ? window.location.hostname : '127.0.0.1';
+  const PROTOCOL = (window.location.protocol && window.location.protocol.startsWith('http')) ? window.location.protocol : 'http:';
+  const PROD_API = 'https://hiiennggithubio-production.up.railway.app';
+  const API_BASE = API_OVERRIDE || (HOSTNAME === 'hiienng.github.io' ? PROD_API : `${PROTOCOL}//${HOSTNAME}:${API_PORT}`);
 function getToken(){ return localStorage.getItem("access_token"); }
 function isAdmin(){ return localStorage.getItem("user_is_admin") === "true"; }
 function getEmail(){ return localStorage.getItem("user_email"); }
