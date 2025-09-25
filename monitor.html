@@ -82,8 +82,19 @@
             <button onclick="reloadAllBookings()" class="btn" style="background:#fff;color:var(--accent);box-shadow:none;padding:6px 8px;border-radius:8px;">Refresh</button>
           </div>
           <div id="allBookings" class="mt-3"></div>
-        </div>
-      </section>
+          </div>
+          
+          <!-- Products Management -->
+          <section id="productsView" class="space-y-6">
+          <div class="card">
+          <div class="flex items-center justify-between">
+          <h3 class="text-lg font-semibold">Products</h3>
+          <button onclick="addProduct()" class="btn-ghost">Add New</button>
+          </div>
+          <div id="productsList" class="mt-3"></div>
+          </div>
+          </section>
+          </section>
     </main>
 
     <footer>&copy; 2025 Booking Portal</footer>
@@ -503,6 +514,102 @@ async function loadMyBookings(){
   } catch {
     wrap.innerHTML = '<p class="text-red-600">Error</p>';
   }
+}
+
+async function loadProducts(){
+  const wrap = document.getElementById("productsList");
+  wrap.innerHTML = '<p class="text-gray-500">Loading...</p>';
+  try {
+    const res = await fetch(`${API_BASE}/products`, {
+      headers:{ "Authorization":"Bearer " + getToken() }
+    });
+    const data = await res.json();
+    if(!res.ok){
+      wrap.innerHTML = `<p class="text-red-600">${data.detail || 'Error'}</p>`;
+      return;
+    }
+    if(!data.length){
+      wrap.innerHTML = '<p class="text-gray-500">No products.</p>';
+      return;
+    }
+    wrap.innerHTML = data.map(p=>`
+      <div class="border rounded p-3 bg-white" style="margin-bottom:10px;">
+        <div><span class="font-semibold">ID:</span> ${p.id}</div>
+        <div><span class="font-semibold">Name:</span> ${p.name}</div>
+        <div><span class="font-semibold">Description:</span> ${p.description ?? '-'}</div>
+        <div><span class="font-semibold">Image URL:</span> ${p.image_url ?? '-'}</div>
+        <div class="flex gap-2 mt-2">
+          <button onclick="editProduct(${p.id}, '${p.name}', '${p.description ?? ''}', '${p.image_url ?? ''}')" class="text-xs px-2 py-1 bg-blue-600 text-white rounded">Edit</button>
+          <button onclick="deleteProduct(${p.id})" class="text-xs px-2 py-1 bg-red-600 text-white rounded">Delete</button>
+        </div>
+      </div>
+    `).join("");
+  } catch {
+    wrap.innerHTML = '<p class="text-red-600">Error</p>';
+  }
+}
+
+function addProduct(){
+  const name = prompt("Product name:");
+  if(!name) return;
+  const description = prompt("Description (optional):");
+  const image_url = prompt("Image URL (optional):");
+  doUpdateProduct(null, name, description, image_url);
+}
+
+function editProduct(id, name, description, image_url){
+  const newName = prompt("Product name:", name);
+  if(newName === null) return;
+  const newDesc = prompt("Description (optional):", description);
+  const newImg = prompt("Image URL (optional):", image_url);
+  doUpdateProduct(id, newName, newDesc, newImg);
+}
+
+async function doUpdateProduct(id, name, description, image_url){
+  const body = { name, description, image_url };
+  const url = id ? `${API_BASE}/products/${id}` : `${API_BASE}/products`;
+  const method = id ? 'PUT' : 'POST';
+  try{
+    const res = await fetch(url, {
+      method,
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer " + getToken()
+      },
+      body: JSON.stringify(body)
+    });
+    if(!res.ok){
+      const d = await res.json();
+      alert(d.detail || 'Update failed');
+      return;
+    }
+    loadProducts();
+  } catch{
+    alert('Network error');
+  }
+}
+
+async function deleteProduct(id){
+  if(!confirm('Delete this product?')) return;
+  try{
+    const res = await fetch(`${API_BASE}/products/${id}`, {
+      method:'DELETE',
+      headers:{ "Authorization":"Bearer " + getToken() }
+    });
+    if(!res.ok){
+      const d = await res.json();
+      alert(d.detail || 'Delete failed');
+      return;
+    }
+    loadProducts();
+  } catch{
+    alert('Network error');
+  }
+}
+
+// Load products on init if admin
+if(isAdmin()){
+  loadProducts();
 }
 </script>
 </body>

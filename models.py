@@ -20,6 +20,14 @@ class Booking(Base):
     payment_value = Column(Numeric(12, 2), nullable=True)
     created_at = Column(TIMESTAMP, server_default=func.now())
 
+class Product(Base):
+    __tablename__ = "products"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(100), nullable=False)
+    description = Column(String(500), nullable=True)
+    image_url = Column(String(200), nullable=True)
+    created_at = Column(TIMESTAMP, server_default=func.now())
+
 class RoomRate(Base):
     __tablename__ = "room_rates"
     id = Column(Integer, primary_key=True, index=True)
