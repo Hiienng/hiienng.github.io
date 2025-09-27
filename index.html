@@ -1,111 +1,408 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <title>Image Grid with Booking</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    body{ font-family:'Nunito',sans-serif; background:linear-gradient(135deg,#fdf6f0,#fce7d8); margin:0; color:#1f2937; }
-    .wrap{ max-width:760px; margin:28px auto; padding:20px; background:#fffaf6; border-radius:18px; box-shadow:0 10px 30px rgba(124,63,28,.12); }
-    .top-badge{ position:fixed; top:18px; right:18px; }
-    main{ display:flex; flex-direction:column; gap:14px; align-items:center; padding-top:6px; padding-bottom:80px; }
-    .card-img{ width:320px; border-radius:18px; box-shadow:0 10px 30px rgba(124,63,28,0.12); object-fit:cover; }
-    .booking-cta{ position:fixed; bottom:18px; left:50%; transform:translateX(-50%); background:#f7c948; padding:14px 48px; border-radius:999px; font-weight:800; color:#0b1720; box-shadow:0 12px 30px rgba(124,63,28,0.14); text-decoration:none; white-space:nowrap; }
-    .icon-btn {
-      background: rgba(255,255,255,0.3);
-      border-radius: 9999px;
-      padding: 6px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      transition: transform 0.2s, background 0.2s, color 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    .icon-btn:hover { 
-      transform: scale(1.1); 
-      background: rgba(255,255,255,0.6);
-    }
+    <meta charset="UTF-8" />
+    <title>Renard's Roost Admin Monitor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxuvwv/b4jzlGC62Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            color-scheme: light;
+            --accent: #34b3d3;
+            --accent-strong: #0284c7;
+            --accent-dark: #1e3a8a;
+            --accent-soft: rgba(2, 132, 199, 0.12);
+            --card-bg: #f0f9ff;
+            --card-border: rgba(2, 132, 199, 0.2);
+        }
 
-    /* Trạng thái đã chọn */
-    .icon-btn.active.heart { background: rgba(255,0,0,0.15); color: #e02424; }
-    .icon-btn.active.cart { background: rgba(255,215,0,0.2); color: #ca8a04; }
-  </style>
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(125deg, #e0f2fe 0%, #bae6fd 45%, #ffffff 100%);
+            color: #083344;
+        }
+
+        .glass-card {
+            background: rgba(240, 249, 255, 0.94);
+            backdrop-filter: blur(22px);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 28px 55px -28px rgba(2, 132, 199, 0.35);
+        }
+
+        .hero-glow {
+            position: absolute;
+            inset: auto -12rem -6rem auto;
+            width: 28rem;
+            height: 28rem;
+            background: radial-gradient(circle at center, rgba(2, 132, 199, 0.45), transparent 65%);
+            opacity: 0.75;
+        }
+
+        .dashboard-backdrop {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .dashboard-backdrop div {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(120px);
+            opacity: 0.65;
+        }
+
+        .dashboard-backdrop div:nth-child(1) {
+            width: 540px;
+            height: 540px;
+            background: rgba(2, 132, 199, 0.32);
+            top: -120px;
+            left: -140px;
+        }
+
+        .dashboard-backdrop div:nth-child(2) {
+            width: 480px;
+            height: 480px;
+            background: rgba(125, 211, 252, 0.28);
+            bottom: -160px;
+            right: -120px;
+        }
+
+        .dashboard-backdrop div:nth-child(3) {
+            width: 380px;
+            height: 380px;
+            background: rgba(147, 197, 253, 0.24);
+            top: 38%;
+            right: 28%;
+        }
+
+        .bg-blue-500 {
+            background-color: var(--accent) !important;
+        }
+
+        .hover\:bg-blue-600:hover {
+            background-color: var(--accent-dark) !important;
+        }
+
+        .bg-blue-50 {
+            background-color: var(--accent-soft) !important;
+        }
+
+        .text-blue-600 {
+            color: var(--accent-strong) !important;
+        }
+
+        .text-blue-700 {
+            color: var(--accent-dark) !important;
+        }
+
+        .border-blue-200 {
+            border-color: rgba(2, 132, 199, 0.42) !important;
+        }
+
+        .border-blue-200\/60 {
+            border-color: rgba(2, 132, 199, 0.28) !important;
+        }
+
+        .border-blue-100\/60 {
+            border-color: rgba(2, 132, 199, 0.18) !important;
+        }
+
+        .border-blue-600 {
+            border-color: var(--accent-strong) !important;
+        }
+
+        .ring-blue-200 {
+            --tw-ring-color: rgba(2, 132, 199, 0.28) !important;
+        }
+
+        .ring-blue-100 {
+            --tw-ring-color: rgba(2, 132, 199, 0.18) !important;
+        }
+
+        .shadow-blue-500\/40 {
+            box-shadow: 0 18px 48px rgba(2, 132, 199, 0.32) !important;
+        }
+
+        .shadow-blue-500\/30 {
+            box-shadow: 0 18px 42px rgba(2, 132, 199, 0.24) !important;
+        }
+
+        .shadow-blue-500\/20 {
+            box-shadow: 0 12px 28px rgba(2, 132, 199, 0.18) !important;
+        }
+
+        .hover\:bg-blue-50:hover {
+            background-color: rgba(2, 132, 199, 0.12) !important;
+        }
+
+        .focus\:border-blue-400:focus {
+            border-color: rgba(2, 132, 199, 0.7) !important;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+        }
+
+        .focus\:ring-blue-100:focus {
+            --tw-ring-color: rgba(2, 132, 199, 0.25) !important;
+        }
+
+        .slide-in {
+            transform: translateX(0);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .slide-out {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
 </head>
-<body>
-  <!-- Filter icon -->
-  <div class="top-badge">
-    <button class="icon-btn" title="Filter">🔍</button>
-  </div>
-
-  <div class="wrap">
-    <main>
-      <!-- Card 1 -->
-      <div class="relative">
-        <a class="asset-id1" href="/booking.html">
-        <img class="card-img" 
-              src="https://storage.googleapis.com/a1aa/image/63753f64-eb42-46f9-12fb-43e72ed359bf.jpg" 
-              alt="image1"/>
-        </a>
-        <div class="absolute bottom-3 right-3 flex gap-2">
-          <button class="icon-btn heart" title="Add to Favorites">🤍</button>
-          <button class="icon-btn cart" title="Add to Cart">🛒</button>
+<body class="relative text-slate-700">
+    <div class="dashboard-backdrop" aria-hidden="true">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="relative z-10">
+        <nav class="max-w-6xl mx-auto px-6 pt-8">
+            <div class="glass-card rounded-3xl px-6 py-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <a href="index.html" class="flex items-center gap-3">
+                    <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500 text-white text-lg font-semibold tracking-tight shadow-lg shadow-blue-500/40">RR</span>
+                    <div>
+                        <p class="text-xs uppercase tracking-[0.35em] text-blue-700">Renard's Roost</p>
+                        <p class="text-base font-semibold text-slate-900">Booking Admin Center</p>
+                    </div>
+                </a>
+                <div class="flex flex-wrap items-center gap-3 text-sm">
+                    <span id="userInfo" class="rounded-full bg-blue-50 px-3 py-1 text-blue-700 border border-blue-200/60">Not logged in</span>
+                    <button id="logoutBtn" onclick="logout()" class="hidden rounded-full border border-red-200 px-3 py-1 text-red-600 transition hover:bg-red-50"><i class="fas fa-sign-out-alt mr-1"></i>Logout</button>
+                    <button id="loginToggleBtn" class="rounded-full bg-slate-900 px-4 py-2 text-white transition hover:bg-slate-800 shadow-lg shadow-slate-900/20"><i class="fas fa-sign-in-alt mr-1"></i>Login</button>
+                </div>
+            </div>
+        </nav>
+        <header class="max-w-6xl mx-auto px-6 pt-12">
+            <div class="grid gap-12 lg:grid-cols-[1.05fr,0.95fr] items-center">
+                <div class="space-y-6">
+                    <span class="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-1 text-sm font-medium text-blue-600 shadow-sm ring-1 ring-blue-200">Clean blue space</span>
+                    <h2 class="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">Manage vacations with blue inspiration</h2>
+                    <p class="text-base text-slate-600 leading-relaxed max-w-xl">Clear dashboard to track bookings, adjust nightly rates and introduce premium experience packages. Elegant blue tones create spacious areas bringing a fresh feeling.</p>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <button type="button" 
+                            class="rounded-full bg-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:bg-blue-600"
+                            onclick="window.location.href='gallery.html'">
+                            <i class="fas fa-calendar-check mr-1"></i> View more assets
+                            </button>
+                        <button type="button" class="rounded-full border border-slate-300/60 bg-white/80 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-white/90 hover:-translate-y-0.5"><i class="fas fa-concierge-bell mr-1"></i>My assets</button>
+                    </div>
+                    <dl class="grid grid-cols-2 gap-6 pt-2 sm:max-w-lg">
+                        <div>
+                            <dt class="text-xs uppercase tracking-wide text-slate-500">Occupancy rate</dt>
+                            <dd class="text-2xl font-semibold text-slate-900">92%</dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs uppercase tracking-wide text-slate-500">Satisfaction level</dt>
+                            <dd class="text-2xl font-semibold text-slate-900">4.8/5</dd>
+                        </div>
+                    </dl>
+                </div>
+                <div class="relative">
+                    <div class="hero-glow hidden lg:block" aria-hidden="true"></div>
+                    <div class="glass-card overflow-hidden rounded-[32px] shadow-2xl ring-1 ring-white/40">
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1400&q=80" alt="Modern lakeside holiday home" class="h-full w-full object-cover" loading="lazy"/>
+                    </div>
+                    <div class="absolute -bottom-12 -left-10 hidden w-56 overflow-hidden rounded-3xl shadow-xl ring-1 ring-white/40 md:block">
+                        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80" alt="Cozy cabin interior" class="h-full w-full object-cover" loading="lazy"/>
+                    </div>
+                    <div class="absolute top-6 -right-6 hidden rounded-2xl bg-white/85 p-4 shadow-lg shadow-blue-500/20 lg:flex lg:flex-col lg:gap-1">
+                        <span class="text-xs uppercase tracking-wide text-blue-600">Average nightly price</span>
+                        <strong class="text-lg font-semibold text-slate-900">1,250,000 VND</strong>
+                        <span class="text-xs text-slate-500">Edit right on the price calendar</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section class="max-w-6xl mx-auto px-6 mt-14">
+            <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6">
+                <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <p class="text-xs uppercase tracking-[0.45em] text-blue-600">Style suggestions</p>
+                        <h3 class="text-2xl font-semibold text-slate-900">Suggested spaces for your style</h3>
+                    </div>
+                </div>
+                <div class="grid gap-6 md:grid-cols-3">
+                    <article class="group overflow-hidden rounded-3xl shadow-lg shadow-blue-500/10 ring-1 ring-white/60">
+                        <div class="relative h-48">
+                            <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1200&q=80" alt="Scandinavian inspired house" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy"/>
+                            <span class="absolute left-4 top-4 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-slate-600 shadow">Lakeside village</span>
+                        </div>
+                        <div class="bg-white/85 px-5 py-4">
+                            <p class="text-sm text-slate-600">Full glass walls with light, ideal for weekend guest groups.</p>
+                        </div>
+                    </article>
+                    <article class="group overflow-hidden rounded-3xl shadow-lg shadow-blue-500/10 ring-1 ring-white/60">
+                        <div class="relative h-48">
+                            <img src="https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=1200&q=80" alt="Luxury tropical villa" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy"/>
+                            <span class="absolute left-4 top-4 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-slate-600 shadow">Tropical resort</span>
+                        </div>
+                        <div class="bg-white/85 px-5 py-4">
+                            <p class="text-sm text-slate-600">Infinity pool, natural wood and sunrise terrace for premium guests.</p>
+                        </div>
+                    </article>
+                    <article class="group overflow-hidden rounded-3xl shadow-lg shadow-blue-500/10 ring-1 ring-white/60">
+                        <div class="relative h-48">
+                            <img src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1200&q=80" alt="Minimalist mountain hideaway" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy"/>
+                            <span class="absolute left-4 top-4 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-slate-600 shadow">Hideaway in the forest</span>
+                        </div>
+                        <div class="bg-white/85 px-5 py-4">
+                            <p class="text-sm text-slate-600">Natural stone, warm golden light and quiet corners for private vacations.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <div id="loginPanel" class="fixed top-0 right-0 h-full w-full max-w-sm bg-white/95 shadow-2xl slide-out z-50 p-6">
+            <button onclick="toggleLogin()" class="absolute right-5 top-5 text-slate-400 hover:text-slate-600"><i class="fas fa-times"></i></button>
+            <h3 class="text-xl font-semibold text-slate-900 mb-4">Login</h3>
+            <form id="loginForm" class="space-y-4">
+                <div class="flex flex-col gap-2">
+                    <label for="email" class="text-xs font-medium uppercase tracking-wide text-slate-500">Email</label>
+                    <input type="email" id="email" class="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-100" required/>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="password" class="text-xs font-medium uppercase tracking-wide text-slate-500">Password</label>
+                    <input type="password" id="password" class="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-100" required/>
+                </div>
+                <div class="pt-2">
+                    <button type="submit" class="w-full rounded-full bg-blue-500 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:bg-blue-600">Login</button>
+                </div>
+            </form>
         </div>
-      </div>
+    </div>
+    <script>
+        const API_BASE = "https://hiiennggithubio-production.up.railway.app";
 
-      <!-- Card 2 -->
-      <div class="relative">
-        <a class="asset-id2" href="/booking.html">
-          <img class="card-img" 
-                src="https://storage.googleapis.com/a1aa/image/2a30a8da-d493-4468-c095-4f686fe2a9c9.jpg" 
-                alt="image2"/>
-        </a>
-        <div class="absolute bottom-3 right-3 flex gap-2">
-          <button class="icon-btn heart" title="Add to Favorites">🤍</button>
-          <button class="icon-btn cart" title="Add to Cart">🛒</button>
-        </div>
-      </div>
+        function getToken() {
+            return localStorage.getItem("access_token") || '';
+        }
 
-      <!-- Card 3 -->
-      <div class="relative">
-        <img class="card-img" src="https://storage.googleapis.com/a1aa/image/18c5e139-b059-4487-6e10-b66cc8207a5a.jpg" alt="image3"/>
-        <div class="absolute bottom-3 right-3 flex gap-2">
-          <button class="icon-btn heart" title="Add to Favorites">🤍</button>
-          <button class="icon-btn cart" title="Add to Cart">🛒</button>
-        </div>
-      </div>
+        function getEmail() {
+            return localStorage.getItem("user_email") || '';
+        }
 
-      <!-- Card 4 -->
-      <div class="relative">
-        <img class="card-img" src="https://storage.googleapis.com/a1aa/image/330c9772-69da-496f-7f07-782bcd98ae1b.jpg" alt="image4"/>
-        <div class="absolute bottom-3 right-3 flex gap-2">
-          <button class="icon-btn heart" title="Add to Favorites">🤍</button>
-          <button class="icon-btn cart" title="Add to Cart">🛒</button>
-        </div>
-      </div>
-    </main>
-  </div>
+        function logout() {
+            localStorage.clear();
+            location.reload();
+        }
 
-  <a class="booking-cta" href="booking.html">🌿 Promotion</a>
+        function toggleLogin() {
+            const panel = document.getElementById('loginPanel');
+            if (panel) {
+                panel.classList.toggle('slide-in');
+                panel.classList.toggle('slide-out');
+            }
+        }
 
-  <script>
-    // Toggle trạng thái icon
-    document.querySelectorAll(".icon-btn.heart").forEach(btn => {
-      btn.addEventListener("click", () => {
-        btn.classList.toggle("active");
-        btn.textContent = btn.classList.contains("active") ? "❤️" : "🤍";
-      });
-    });
+        document.addEventListener("DOMContentLoaded", () => {
+            const loginToggleBtn = document.getElementById('loginToggleBtn');
+            if (loginToggleBtn) {
+                loginToggleBtn.addEventListener('click', toggleLogin);
+            }
 
-    document.querySelectorAll(".icon-btn.cart").forEach(btn => {
-      btn.addEventListener("click", () => {
-        btn.classList.toggle("active");
-        btn.textContent = btn.classList.contains("active") ? "✔️" : "🛒";
-      });
-    });
-  </script>
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', async e => {
+                    e.preventDefault();
+                    try {
+                        const email = document.getElementById('email').value;
+                        const password = document.getElementById('password').value;
+                        const res = await fetch(`${API_BASE}/login`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email, password })
+                        });
+                        const data = await res.json();
+                        if (!res.ok) {
+                            alert(data.detail || 'Login failed. Please try again.');
+                            return;
+                        }
+                        localStorage.setItem('access_token', data.access_token);
+                        localStorage.setItem('user_email', email);
+                        toggleLogin();
+                        const userInfo = document.getElementById("userInfo");
+                        if (userInfo) {
+                            userInfo.textContent = email;
+                        }
+                        const logoutBtn = document.getElementById("logoutBtn");
+                        const loginToggleBtn = document.getElementById("loginToggleBtn");
+                        if (logoutBtn) logoutBtn.classList.remove("hidden");
+                        if (loginToggleBtn) loginToggleBtn.classList.add("hidden");
+                        if (email.includes('admin@')) {
+                            location.href = 'monitor.html';
+                        }
+                    } catch (error) {
+                        console.error('Error logging in:', error);
+                        alert('Connection error');
+                    }
+                });
+            }
+
+            if (getToken()) {
+                const userInfo = document.getElementById("userInfo");
+                if (userInfo) {
+                    userInfo.textContent = getEmail();
+                }
+                const logoutBtn = document.getElementById("logoutBtn");
+                const loginToggleBtn = document.getElementById("loginToggleBtn");
+                if (logoutBtn) logoutBtn.classList.remove("hidden");
+                if (loginToggleBtn) loginToggleBtn.classList.add("hidden");
+            }
+        });
+    </script>
 </body>
 </html>

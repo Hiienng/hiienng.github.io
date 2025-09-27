@@ -1,0 +1,356 @@
+﻿";
+    } else {
+      const cur = new Date(rateYear, rateMonth, dayCounter);
+      cur.setHours(0,0,0,0);
+      const iso = cur.toISOString().split("T")[0];
+      const isPast = cur
+";
+    if(i
+&gt;
+&lt;
+({}));
+        alert(data.detail || "Khong the xoa gia");
+        return;
+      }
+    } else {
+      const normalized = value.replace(/[^0-9]/g, "");
+      const num = parseFloat(normalized);
+      if(Number.isNaN(num) || num
+* Ngay mau xanh hien thi muc gia tuy chinh.
+:root {
+      color-scheme: light;
+      --accent: #60a5fa;
+      --accent-strong: #3b82f6;
+      --accent-dark: #1d4ed8;
+      --accent-soft: rgba(59, 130, 246, 0.12);
+      --card-bg: #f0f5ff;
+      --card-border: rgba(59, 130, 246, 0.2);
+    }
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(125deg, #eef4ff 0%, #dbeafe 45%, #bfdbfe 100%);
+      color: #083344;
+    }
+    .glass-card {
+      background: rgba(243, 250, 246, 0.94);
+      backdrop-filter: blur(22px);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 28px 55px -28px rgba(37, 99, 235, 0.35);
+    }
+    .hero-glow {
+      position: absolute;
+      inset: auto -12rem -6rem auto;
+      width: 28rem;
+      height: 28rem;
+      background: radial-gradient(circle at center, rgba(52, 211, 153, 0.45), transparent 65%);
+      opacity: 0.75;
+    }
+    .rate-calendar {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+      border-radius: 18px;
+      box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.2);
+    }
+    .rate-calendar th {
+      background: linear-gradient(120deg, rgba(96, 165, 250, 0.94), rgba(59, 130, 246, 0.82));
+      color: #ecfdf5;
+      font-weight: 600;
+      padding: 14px 8px;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .rate-calendar td {
+      width: 14.2857%;
+      text-align: center;
+      padding: 16px 8px;
+      font-size: 13px;
+      border: 1px solid rgba(226, 232, 240, 0.65);
+      background: rgba(239, 246, 255, 0.95);
+      transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+      cursor: pointer;
+    }
+    .rate-calendar td:hover {
+      background: rgba(96, 165, 250, 0.18);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px -16px rgba(59, 130, 246, 0.35);
+    }
+    .rate-calendar td.past {
+      background: rgba(241, 245, 249, 0.9);
+      color: #94a3b8;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    .rate-calendar td.past:hover {
+      background: rgba(241, 245, 249, 0.9);
+    }
+    .calendar-day {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      min-height: 64px;
+      justify-content: center;
+    }
+    .calendar-day-num {
+      font-weight: 600;
+      font-size: 14px;
+      color: #0f172a;
+    }
+    .calendar-day-price {
+      font-size: 12px;
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+    .rate-calendar td.custom-rate .calendar-day-price {
+      color: var(--accent-dark);
+    }
+    .dashboard-backdrop {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .dashboard-backdrop div {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(120px);
+      opacity: 0.65;
+    }
+    .dashboard-backdrop div:nth-child(1) {
+      width: 540px;
+      height: 540px;
+      background: rgba(96, 165, 250, 0.32);
+      top: -120px;
+      left: -140px;
+    }
+    .dashboard-backdrop div:nth-child(2) {
+      width: 480px;
+      height: 480px;
+      background: rgba(191, 219, 254, 0.28);
+      bottom: -160px;
+      right: -120px;
+    }
+    .dashboard-backdrop div:nth-child(3) {
+      width: 380px;
+      height: 380px;
+      background: rgba(134, 239, 172, 0.24);
+      top: 38%;
+      right: 28%;
+    }
+    .bg-emerald-500 { background-color: var(--accent) !important; }
+    .hover\:bg-emerald-600:hover { background-color: var(--accent-dark) !important; }
+    .bg-emerald-50 { background-color: var(--accent-soft) !important; }
+    .bg-emerald-50\/40 { background-color: rgba(96, 165, 250, 0.18) !important; }
+    .text-emerald-600 { color: var(--accent-strong) !important; }
+    .text-emerald-700 { color: var(--accent-dark) !important; }
+    .hover\:text-emerald-600:hover { color: var(--accent-strong) !important; }
+    .border-emerald-200 { border-color: rgba(226, 149, 120, 0.42) !important; }
+    .border-emerald-200\/60 { border-color: rgba(226, 149, 120, 0.28) !important; }
+    .border-emerald-100\/60 { border-color: rgba(226, 149, 120, 0.18) !important; }
+    .border-emerald-600 { border-color: var(--accent-strong) !important; }
+    .ring-emerald-200 { --tw-ring-color: rgba(226, 149, 120, 0.28) !important; }
+    .ring-emerald-200\/60 { --tw-ring-color: rgba(226, 149, 120, 0.2) !important; }
+    .ring-emerald-100 { --tw-ring-color: rgba(226, 149, 120, 0.18) !important; }
+    .shadow-emerald-500\/40 { box-shadow: 0 18px 48px rgba(37, 99, 235, 0.32) !important; }
+    .shadow-emerald-500\/30 { box-shadow: 0 18px 42px rgba(37, 99, 235, 0.24) !important; }
+    .shadow-emerald-500\/20 { box-shadow: 0 12px 28px rgba(5, 150, 105, 0.18) !important; }
+    .shadow-emerald-500\/10 { box-shadow: 0 8px 16px rgba(5, 150, 105, 0.12) !important; }
+    .hover\:bg-emerald-50:hover { background-color: rgba(226, 149, 120, 0.12) !important; }
+    .hover\:bg-emerald-100:hover { background-color: rgba(226, 149, 120, 0.18) !important; }
+    .focus\:border-emerald-400:focus { border-color: rgba(226, 149, 120, 0.7) !important; box-shadow: 0 0 0 3px rgba(226, 149, 120, 0.2); }
+    .focus\:ring-emerald-100:focus { --tw-ring-color: rgba(226, 149, 120, 0.25) !important; }
+  
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      box-shadow: 0 10px 24px -18px rgba(37, 99, 235, 0.5);
+    }
+    .lang-switch button {
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #1f2a44;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .lang-switch button.active {
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.9), rgba(59, 130, 246, 0.92));
+      color: #fff;
+      box-shadow: 0 12px 28px -18px rgba(37, 99, 235, 0.65);
+    }
+    .lang-switch button:hover {
+      color: var(--accent-dark);
+    }
+{
+        if(entry?.rate_date && entry?.price !== undefined && entry?.price !== null){
+          const val = parseFloat(entry.price);
+          if(!Number.isNaN(val)) monitorDailyRates[entry.rate_date] = val;
+        }
+      });
+    }
+  } catch {
+    monitorDailyRates = {};
+  }
+}
+
+function monitorGetPriceForDay(iso){
+  if(!iso) return baseNightlyRate;
+  const override = monitorDailyRates[iso];
+  if(override !== undefined && override !== null){
+    return override;
+  }
+  return baseNightlyRate;
+}
+
+function renderRateCalendar(){
+  const body = document.getElementById("rateCalendarBody");
+  const label = document.getElementById("rateMonthLabel");
+  if(!body || !label) return;
+  label.textContent = new Date(rateYear, rateMonth, 1).toLocaleString("vi-VN", { month: "long", year: "numeric" });
+
+  const first = new Date(rateYear, rateMonth, 1);
+  const last = new Date(rateYear, rateMonth + 1, 0);
+  const firstWeekday = first.getDay();
+  const days = last.getDate();
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  let html = "";
+  let dayCounter = 1;
+  const cells = Math.ceil((firstWeekday + days)/7) * 7;
+
+  for(let i=0; i
+{
+      const imgSrc = p.image_url || 'https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=900&q=70';
+      const priceValue = Number.isFinite(Number(p.price)) ? Number(p.price) : null;
+      const priceLabel = priceValue !== null ? priceValue.toLocaleString('vi-VN') + ' VND' : '-';
+      const quantityLabel = p.quantity_type ? ' ' + p.quantity_type : '';
+      const start = p.price_start_date ?? '-';
+      const description = p.description ?? '';
+      const title = p.main_type + (p.sub_type ? ' - ' + p.sub_type : '');
+      return `
+{
+    rateMonth--; if(rateMonth
+{
+  e.preventDefault();
+  const body={
+    main_type:document.getElementById("mainType").value,
+    sub_type:document.getElementById("subType").value,
+    price:parseFloat(document.getElementById("price").value)||null,
+    price_start_date:document.getElementById("priceStart").value||null,
+    quantity_type:document.getElementById("quantityType").value,
+    description:document.getElementById("description").value,
+    image_url:document.getElementById("imageUrl").value.trim()||null,
+    image_data:productImageData,
+    image_filename:imageFileInput && imageFileInput.files && imageFileInput.files[0] ? imageFileInput.files[0].name : null,
+    created_by:getEmail()
+  };
+  try{
+    const res=await fetch(${API_BASE}/products,{
+      method:"POST",
+      headers:{ "Content-Type":"application/json","Authorization":"Bearer "+getToken()},
+      body:JSON.stringify(body)
+    });
+    if(!res.ok){ const d=await res.json(); alert(d.detail||'Co loi xay ra'); return;}
+    closeProductModal();
+    loadProducts();
+  }catch{ alert("Loi ket noi");}
+});
+async function deleteProduct(id){
+  if(!confirm("Ban co muon xoa dich vu nay?")) return;
+  try{
+    const res=await fetch(`${API_BASE}/products/${id}`,{
+      method:"DELETE",headers:{ "Authorization":"Bearer "+getToken() }
+    });
+    if(!res.ok){ const d=await res.json(); alert(d.detail||'Co loi xay ra'); return;}
+    loadProducts();
+  }catch{ alert("Loi ket noi");}
+}
++ Them dich vu
+1,250,000 VND
+An minh giua rung
+Anh tu URL
+Ap dung tu
+Bang dieu khien ro rang giup theo doi dat phong, dieu chinh gia theo dem va gioi thieu cac goi trai nghiem cao cap. Gam xanh thanh lich tao nhieu khoang thoang mang lai cam giac trong lanh.
+Chinh ngay tren lich gia
+Chon ngay de nhap gia rieng. De trong de quay ve gia co ban.
+Chua co dat phong
+Chua co dich vu nao. Them goi dau tien de truyen cam hung.
+Chua dang nhap
+Close
+CN
+Da tu nhien, anh vang am va nhung goc yen tinh cho ky nghi rieng tu.
+Dang nhap
+Dang tai danh sach dich vu...
+Dang tai...
+Dang xuat
+Danh sach dat phong
+Dat phong
+Dich vu
+Dich vu &amp; san pham kem
+Don vi
+Email
+End
+Gia
+Gia trung binh moi dem
+Goi y phong cach
+Guests
+Ho boi vo cuc, go tu nhien va san don binh minh cho khach cao cap.
+Hoac tai anh len
+ID
+Khong gian goi y cho phong cach cua ban
+Khong gian xanh sach
+Khong the ket noi den may chu.
+Lam moi
+Lang ben ho
+Lich gia tung ngay
+Loai chinh
+Loai phu
+Loi ket noi
+Lua chon bua an, hoat dong va qua tang de nang tam ky nghi.
+Luu dich vu
+Mo ta ngan
+Muc do hai long
+Nghi duong nhiet doi
+Quan ly dich vu kem
+Quan ly ky nghi voi cam hung xanh
+Renard's Roost
+Renard's Roost Admin Monitor
+Ro rang &amp; nhip xanh
+RR
+Start
+T2
+T3
+T4
+T5
+T6
+T7
+Tao dich vu moi
+Theo doi dat phong, can chinh gia va tao ra cac goi dich vu hap dan.
+Theo doi khach, khoang thoi gian luu tru va gia tri thanh toan trong mot man hinh.
+Trung tam dieu hanh
+Trung tam quan tri dat phong
+Ty le lap day
+Vach kinh tran anh sang, ly tuong cho nhom khach cuoi tuan.
+Value
+Xem lich gia va dat phong
+Xem truoc
+Xoa dich vu

@@ -3,8 +3,7 @@ uvicorn
 sqlalchemy
 psycopg2-binary
 python-dotenv
-auth
-python-jose
-bcrypt==4.0.1
 python-jose[cryptography]
+bcrypt==4.0.1
 passlib[bcrypt]
+requests
