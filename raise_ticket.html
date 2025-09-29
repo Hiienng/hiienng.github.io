@@ -1,0 +1,1070 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Renard's Roost | Dat lich</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="preconnect" href="https://rsms.me" />
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  <link rel="stylesheet" href="styles/theme.css" />
+  <style>
+    .hidden { display: none !important; }
+    .booking-shell { display: grid; gap: 28px; }
+    .asset-overview { display: grid; gap: 20px; align-items: start; }
+    @media (min-width: 880px) {
+      .asset-overview { grid-template-columns: minmax(0, 320px) minmax(0, 1fr); }
+    }
+    .asset-image { width: 100%; border-radius: var(--radius-md); object-fit: cover; height: 280px; box-shadow: var(--shadow-sm); }
+    .asset-overview__body { display: grid; gap: 12px; }
+    .asset-subtitle { font-size: 12px; text-transform: uppercase; letter-spacing: 0.28em; color: var(--brand-strong); }
+    .asset-price { font-size: 18px; font-weight: 600; color: var(--brand-strong); }
+    .asset-description { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+    .gallery-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+    .gallery-grid img { width: 100%; height: 160px; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+    .panel { padding: 22px; border-radius: var(--radius-lg); background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(148, 163, 184, 0.25); box-shadow: var(--shadow-sm); }
+    .panel-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+    .panel-title { margin: 0; font-size: 18px; font-weight: 600; }
+    .panel-body { display: grid; gap: 18px; }
+    .control-inline { display: grid; gap: 10px; }
+    .control-inline__group { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .control-inline__group input { min-width: 160px; }
+    .calendar-actions { display: inline-flex; gap: 10px; }
+    .btn-icon { width: 38px; height: 38px; padding: 0; border-radius: var(--radius-sm); }
+    .calendar-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .calendar-table th { padding: 10px 8px; text-transform: uppercase; letter-spacing: 0.08em; background: rgba(37, 99, 235, 0.08); color: var(--brand-strong); }
+    .calendar-table td { width: calc(100% / 7); padding: 10px 6px; border: 1px solid rgba(148, 163, 184, 0.22); cursor: pointer; transition: background 0.18s ease, transform 0.18s ease; }
+    .calendar-table td:hover:not(.booked):not(.past) { background: rgba(37, 99, 235, 0.12); transform: translateY(-1px); }
+    .calendar-table td.booked { background: rgba(148, 163, 184, 0.65); color: #f8fafc; cursor: not-allowed; text-decoration: line-through; }
+    .calendar-table td.past { background: rgba(226, 232, 240, 0.6); color: #94a3b8; cursor: not-allowed; text-decoration: line-through; }
+    .calendar-table td.range { background: rgba(37, 99, 235, 0.18); }
+    .calendar-table td.range-start,
+    .calendar-table td.range-end { background: rgba(37, 99, 235, 0.28); color: var(--brand-strong); font-weight: 600; }
+    .day-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 62px; }
+    .day-num { font-weight: 600; }
+    .day-price { font-size: 11px; color: var(--brand-strong); }
+    .calendar-table td.custom-rate .day-price { color: var(--accent); font-weight: 600; }
+    .toggle-group { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; font-size: 13px; }
+    .toggle { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); }
+    .toggle input { accent-color: var(--brand); }
+    .manual-range { display: grid; gap: 16px; }
+    @media (min-width: 560px) {
+      .manual-range { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .flex-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+    .range-info { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .note { padding: 10px 14px; border-radius: var(--radius-sm); font-size: 13px; border: 1px solid transparent; }
+    .note-warn { background: #fef9c3; border-color: #fde68a; color: #92400e; }
+    .note-error { background: #fee2e2; border-color: #fecaca; color: #b91c1c; }
+    .message { font-size: 13px; margin-top: 10px; }
+    .message-success { color: #047857; }
+    .message-error { color: #b91c1c; }
+    .summary-bar { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; margin-top: 12px; }
+    .summary-info { display: grid; gap: 6px; font-size: 14px; color: var(--text-muted); }
+    .summary-info strong { color: var(--text); }
+    .pricing-list { display: grid; gap: 4px; font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+    .stack-sm { display: grid; gap: 12px; }
+    .chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: rgba(37, 99, 235, 0.08); color: var(--brand-strong); }
+    .chip-success { background: #dcfce7; color: #047857; }
+    .chip-warning { background: #fef3c7; color: #92400e; }
+    .chip-muted { background: #e2e8f0; color: #475569; }
+    .chip-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    .chip-button { border: none; border-radius: 999px; padding: 6px 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.18s ease; }
+    .chip-button.chip-primary { background: linear-gradient(135deg, var(--brand), var(--brand-strong)); color: #fff; box-shadow: 0 12px 24px -18px rgba(37, 99, 235, 0.7); }
+    .chip-button.chip-primary:hover { transform: translateY(-1px); }
+    .chip-button.chip-danger { background: linear-gradient(135deg, #f87171, #dc2626); color: #fff; box-shadow: 0 12px 24px -18px rgba(220, 38, 38, 0.6); }
+    .chip-button.chip-danger:hover { transform: translateY(-1px); }
+    .chip-button.chip-muted { background: #e2e8f0; color: #475569; }
+    .chip-button:disabled { cursor: not-allowed; opacity: 0.7; }
+    .booking-card { padding: 16px 18px; border-radius: var(--radius-md); border: 1px solid rgba(148, 163, 184, 0.3); background: rgba(255, 255, 255, 0.96); box-shadow: var(--shadow-sm); display: grid; gap: 10px; }
+    .booking-card--compact { padding: 14px 16px; }
+    .booking-card__status { display: flex; justify-content: flex-end; }
+    .booking-card__row { display: flex; justify-content: space-between; gap: 14px; font-size: 13px; color: var(--text-muted); }
+    .booking-card__row span:first-child { font-weight: 600; color: var(--text); }
+    .nav-info { font-size: 14px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="container">
+      <nav class="navbar booking-navbar">
+        <a href="index.html" class="brand">
+          <span class="brand-mark">RR</span>
+          Renard's Roost
+        </a>
+        <div class="nav-actions">
+          <span id="userInfo" class="nav-info">Not logged in</span>
+          <button type="button" id="logoutBtn" class="btn btn-ghost" style="display:none;">Dang xuat</button>
+          <a id="loginBtn" href="cardlogin.html" class="btn btn-primary">Dang nhap</a>
+        </div>
+      </nav>
+
+      <main class="booking-shell">
+        <section id="assetInfo" class="surface hidden">
+          <div class="asset-overview">
+            <img id="assetImage" src="" alt="Selected asset" class="asset-image hidden" loading="lazy" />
+            <div class="asset-overview__body">
+              <span id="assetSubtitle" class="asset-subtitle"></span>
+              <h2 id="assetTitle" class="section-title"></h2>
+              <p id="assetPrice" class="asset-price"></p>
+              <p id="assetDescription" class="asset-description"></p>
+            </div>
+          </div>
+        </section>
+
+        <section id="descriptionSection" class="surface">
+          <h3 class="section-title">Khong gian thu gian</h3>
+          <p class="section-note">
+            Don gian hoa hanh trinh dat phong voi giao dien thong minh, thong tin ro rang ve gia va chinh sach.
+            Moi khu vuc duoc bo tri gon gang de ban theo doi trang thai ngay dat va gia linh hoat.
+          </p>
+        </section>
+
+        <section id="imagesSection" class="surface">
+          <h3 class="section-title">Thu vien hinh anh</h3>
+          <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=900&q=80" alt="Ngoai that" loading="lazy" />
+            <img src="https://images.unsplash.com/photo-1486304873000-235643847519?auto=format&fit=crop&w=900&q=80" alt="Phong ngu" loading="lazy" />
+            <img src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=900&q=80" alt="Phong khach" loading="lazy" />
+            <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=900&q=80" alt="San vuon" loading="lazy" />
+          </div>
+        </section>
+
+        <section id="adminView" class="surface hidden">
+          <div class="stack">
+            <div class="panel">
+              <div class="panel-header">
+                <h3 class="panel-title">Nightly rate</h3>
+              </div>
+              <div class="panel-body">
+                <div class="control-inline">
+                  <label for="nightlyRateInput">Gia co ban (VND)</label>
+                  <div class="control-inline__group">
+                    <input type="number" id="nightlyRateInput" step="1000" placeholder="500000" />
+                    <button type="button" onclick="saveRate()" class="btn btn-primary">Luu</button>
+                  </div>
+                </div>
+                <p id="rateMsg" class="section-note">Current rate loaded from server.</p>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <div>
+                  <h3 class="panel-title">Calendar</h3>
+                  <p class="section-note">Ngay da dat se bi khoa.</p>
+                </div>
+                <div class="calendar-actions">
+                  <button type="button" id="adminPrev" class="btn btn-ghost btn-icon">&lt;</button>
+                  <button type="button" id="adminNext" class="btn btn-ghost btn-icon">&gt;</button>
+                </div>
+              </div>
+              <p id="adminMonthLabel" class="section-note"></p>
+              <table class="calendar-table">
+                <thead>
+                  <tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+                </thead>
+                <tbody id="adminCalendarBody"></tbody>
+              </table>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <h3 class="panel-title">All bookings</h3>
+                <button type="button" onclick="reloadAllBookings()" class="btn btn-ghost">Refresh</button>
+              </div>
+              <div id="allBookings" class="stack-sm"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="userView" class="surface hidden">
+          <div class="panel">
+            <div class="panel-header">
+              <h3 class="panel-title">Dat phong cua ban</h3>
+            </div>
+            <div class="panel-body">
+              <div class="toggle-group">
+                <span class="section-note" style="margin:0;">Chon ngay:</span>
+                <label class="toggle">
+                  <input type="radio" name="dateMode" value="calendar" id="modeCalendar" checked />
+                  Tren lich
+                </label>
+                <label class="toggle">
+                  <input type="radio" name="dateMode" value="manual" id="modeManual" />
+                  Nhap thu cong
+                </label>
+              </div>
+
+              <div id="manualDateWrap" class="manual-range hidden">
+                <div class="control-inline">
+                  <label for="manualStartDate">Ngay den</label>
+                  <input type="date" id="manualStartDate" />
+                </div>
+                <div class="control-inline">
+                  <label for="manualEndDate">Ngay tra</label>
+                  <input type="date" id="manualEndDate" />
+                </div>
+              </div>
+
+              <div class="flex-line">
+                <div class="control-inline" style="max-width: 220px;">
+                  <label for="noVisitors">So khach</label>
+                  <input id="noVisitors" type="number" min="1" value="1" />
+                </div>
+                <div class="calendar-actions">
+                  <button type="button" id="userPrev" class="btn btn-ghost btn-icon">&lt;</button>
+                  <button type="button" id="userNext" class="btn btn-ghost btn-icon">&gt;</button>
+                </div>
+              </div>
+
+              <p id="userMonthLabel" class="section-note"></p>
+              <table class="calendar-table">
+                <thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>
+                <tbody id="userCalendarBody"></tbody>
+              </table>
+
+              <div class="range-info">
+                <div id="rangeInfo" class="note note-warn hidden"></div>
+                <button type="button" id="clearRangeBtn" class="chip-button chip-muted hidden">Clear</button>
+              </div>
+
+              <div class="summary-bar">
+                <div class="summary-info">
+                  <div><span>Gia du tinh:</span> <strong id="computedPrice">-</strong></div>
+                  <div id="nightsInfo"></div>
+                  <div id="dailyPriceList" class="pricing-list"></div>
+                </div>
+                <button type="button" id="bookNowBtn" class="btn btn-primary" disabled>Dat ngay</button>
+              </div>
+
+              <div id="formMsg" class="message"></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h4 class="panel-title">Dat lich cua toi</h4>
+              <button type="button" onclick="loadMyBookings()" class="btn btn-ghost">Refresh</button>
+            </div>
+            <div id="myBookings" class="stack-sm"></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">&copy; <span id="bookingYear"></span> Renard's Roost. Smart and clean journey.</footer>
+    </div>
+  </div>
+
+<script>
+/* ===== CONFIG & AUTH ===== */
+// Resolve API base that works for local dev and production (GitHub Pages + Railway).
+  // Priority: ?api=... override > GitHub Pages default (Railway) > dynamic host:port (dev)
+  const params = new URLSearchParams(window.location.search);
+  const API_OVERRIDE = params.get('api');
+  const API_PORT = params.get('port') || '8000';
+  const HOSTNAME = (window.location.hostname && window.location.hostname !== '') ? window.location.hostname : '127.0.0.1';
+  const PROTOCOL = (window.location.protocol && window.location.protocol.startsWith('http')) ? window.location.protocol : 'http:';
+  const PROD_API = 'https://hiiennggithubio-production.up.railway.app';
+  const API_BASE = API_OVERRIDE || (HOSTNAME === 'hiienng.github.io' ? PROD_API : `${PROTOCOL}//${HOSTNAME}:${API_PORT}`);
+  const PRODUCT_ID_PARAM = params.get('product_id');
+  const ORIGINAL_TITLE = document.title;
+function getToken(){ return localStorage.getItem("access_token"); }
+function isAdmin(){ return localStorage.getItem("user_is_admin") === "true"; }
+function getEmail(){ return localStorage.getItem("user_email"); }
+function logout(){
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("user_email");
+  localStorage.removeItem("user_is_admin");
+  location.reload();
+}
+
+/* ===== ELEMENTS ===== */
+const userInfoEl = document.getElementById("userInfo");
+const logoutBtn = document.getElementById("logoutBtn");
+const loginBtn = document.getElementById("loginBtn");
+const adminView = document.getElementById("adminView");
+const userView = document.getElementById("userView");
+const bookNowBtn = document.getElementById("bookNowBtn");
+const manualWrap = document.getElementById("manualDateWrap");
+const manualStartInput = document.getElementById("manualStartDate");
+const manualEndInput = document.getElementById("manualEndDate");
+const dateModeRadios = document.querySelectorAll('input[name="dateMode"]');
+const dailyPriceList = document.getElementById("dailyPriceList");
+const assetInfoSection = document.getElementById("assetInfo");
+const assetImageEl = document.getElementById("assetImage");
+const assetTitleEl = document.getElementById("assetTitle");
+const assetSubtitleEl = document.getElementById("assetSubtitle");
+const assetPriceEl = document.getElementById("assetPrice");
+const assetDescriptionEl = document.getElementById("assetDescription");
+
+/* ===== STATE ===== */
+let bookingsCache = [];
+let nightlyRate = 0;
+let dailyRates = {};
+let userMonth = new Date().getMonth();
+let userYear = new Date().getFullYear();
+let adminMonth = new Date().getMonth();
+let adminYear = new Date().getFullYear();
+let selStart = null;
+let selEnd = null;
+let dateMode = "calendar";
+const selectedProductId = PRODUCT_ID_PARAM || null;
+let selectedProduct = null;
+
+/* ===== INIT ===== */
+document.addEventListener("DOMContentLoaded", async () => {
+  if(getToken()){
+    userInfoEl.textContent = getEmail() + (isAdmin() ? " (admin)" : "");
+    logoutBtn.style.display = "inline";
+    loginBtn.style.display = "none";
+  } else {
+    userInfoEl.textContent = "Not logged in";
+  }
+
+  await loadSelectedProduct();
+  await loadRate();
+  await loadDailyRates();
+  await loadBookingsCache();
+
+  if(isAdmin()){
+    adminView.classList.remove("hidden");
+    bindAdminCalendarNav();
+    renderAdminCalendar();
+    renderAllBookings();
+  } else if (getToken()){
+    userView.classList.remove("hidden");
+    bindUserCalendarNav();
+    renderUserCalendar();
+    updateComputedPrice();
+    loadMyBookings();
+  }
+
+  dateModeRadios.forEach(radio => {
+    radio.addEventListener("change", () => {
+      if(!radio.checked) return;
+      dateMode = radio.value;
+      if(dateMode === "manual"){
+        if(manualWrap) manualWrap.classList.remove("hidden");
+        populateManualInputs();
+      } else {
+        if(manualWrap) manualWrap.classList.add("hidden");
+      }
+    });
+  });
+  if(manualStartInput) manualStartInput.addEventListener("change", handleManualInputChange);
+  if(manualEndInput) manualEndInput.addEventListener("change", handleManualInputChange);
+
+  populateManualInputs();
+
+  // bind book button
+  bookNowBtn.addEventListener("click", submitBooking);
+});
+
+/* ===== RATE ===== */
+async function loadRate(){
+  try {
+    const res = await fetch(`${API_BASE}/rate`);
+    const data = await res.json();
+    if(res.ok){
+      nightlyRate = parseFloat(data.nightly_rate);
+      const r = document.getElementById("rateDisplay");
+      if(r) r.textContent = "Nightly rate: " + nightlyRate.toLocaleString() + " VND";
+      const ri = document.getElementById("nightlyRateInput");
+      if(ri) ri.value = nightlyRate;
+    } else {
+      nightlyRate = 500000;
+    }
+  } catch {
+    nightlyRate = 500000;
+  }
+}
+async function loadDailyRates(){
+  dailyRates = {};
+  try {
+    const res = await fetch(`${API_BASE}/daily-rates`);
+    const data = await res.json();
+    if(res.ok && Array.isArray(data)){
+      data.forEach(entry => {
+        if(entry?.rate_date && entry?.price !== undefined && entry?.price !== null){
+          const val = parseFloat(entry.price);
+          if(!Number.isNaN(val)){
+            dailyRates[entry.rate_date] = val;
+          }
+        }
+      });
+    }
+  } catch {
+    dailyRates = {};
+  }
+}
+
+async function loadSelectedProduct(){
+  if(!selectedProductId){
+    renderSelectedProduct(null);
+    return;
+  }
+  try {
+    const res = await fetch(`${API_BASE}/public-products/${selectedProductId}`);
+    if(!res.ok){
+      renderSelectedProduct(null);
+      return;
+    }
+    selectedProduct = await res.json();
+    renderSelectedProduct(selectedProduct);
+  } catch {
+    renderSelectedProduct(null);
+  }
+}
+
+function renderSelectedProduct(product){
+  if(!assetInfoSection) return;
+  if(!product){
+    assetInfoSection.classList.add("hidden");
+    if(assetImageEl){
+      assetImageEl.src = "";
+      assetImageEl.classList.add("hidden");
+    }
+    if(assetTitleEl) assetTitleEl.textContent = "";
+    if(assetSubtitleEl) assetSubtitleEl.textContent = "";
+    if(assetPriceEl) assetPriceEl.textContent = "";
+    if(assetDescriptionEl) assetDescriptionEl.textContent = "";
+    document.title = ORIGINAL_TITLE;
+    return;
+  }
+  assetInfoSection.classList.remove("hidden");
+  const parts = [];
+  if(product.main_type) parts.push(product.main_type);
+  if(product.sub_type) parts.push(product.sub_type);
+  if(assetTitleEl) assetTitleEl.textContent = parts.length ? parts.join(" - ") : "Selected Asset";
+  if(assetSubtitleEl) assetSubtitleEl.textContent = product.quantity_type ? `ÄÆ¡n vá»‹: ${product.quantity_type}` : "";
+  if(assetPriceEl){
+    assetPriceEl.textContent = product.price ? `GiÃ¡ tham kháº£o: ${Number(product.price).toLocaleString("vi-VN")} VND` : "";
+  }
+  if(assetDescriptionEl) assetDescriptionEl.textContent = product.description || "";
+  if(assetImageEl){
+    if(product.image_url){
+      assetImageEl.src = product.image_url;
+      assetImageEl.classList.remove("hidden");
+    } else {
+      assetImageEl.src = "";
+      assetImageEl.classList.add("hidden");
+    }
+  }
+  document.title = product.main_type ? `${product.main_type} | Booking` : ORIGINAL_TITLE;
+}
+async function saveRate(){
+  const msg = document.getElementById("rateMsg");
+  msg.textContent = "Saving...";
+  const val = parseFloat(document.getElementById("nightlyRateInput").value);
+  if(isNaN(val) || val <= 0){
+    msg.textContent = "Invalid value";
+    msg.className = "message message-error";
+    return;
+  }
+  try{
+    const res = await fetch(`${API_BASE}/rate`, {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer " + getToken()
+      },
+      body: JSON.stringify({ nightly_rate: val })
+    });
+    const data = await res.json();
+    if(!res.ok){
+      msg.textContent = data.detail || "Error";
+      msg.className = "message message-error";
+      return;
+    }
+    nightlyRate = parseFloat(data.nightly_rate);
+    msg.textContent = "Updated!";
+    msg.className = "message message-success";
+    renderAdminCalendar();
+    renderUserCalendar();
+    updateComputedPrice();
+  } catch {
+    msg.textContent = "Error";
+    msg.className = "message message-error";
+  }
+}
+
+/* ===== BOOKINGS CACHE ===== */
+async function loadBookingsCache(){
+  try {
+    let res;
+    if(isAdmin() && getToken()){
+      res = await fetch(`${API_BASE}/all-bookings`, {
+        headers: { "Authorization": "Bearer " + getToken() }
+      });
+    } else {
+      res = await fetch(`${API_BASE}/public-bookings`);
+    }
+    const data = await res.json();
+    if(res.ok) bookingsCache = data;
+    else bookingsCache = [];
+  } catch {
+    bookingsCache = [];
+  }
+}
+
+/* ===== CALENDAR (SHARED) ===== */
+function buildCalendar(year, month, targetBodyId, labelId, selectable=false, mode="user"){
+  const body = document.getElementById(targetBodyId);
+  const label = document.getElementById(labelId);
+  label.textContent = new Date(year, month, 1).toLocaleString("en-US",{month:"long",year:"numeric"});
+
+  // Build booked set
+  const booked = new Set();
+  bookingsCache.forEach(b=>{
+    if(!b.start_date || !b.end_date) return;
+    const s = new Date(b.start_date); const e = new Date(b.end_date);
+    s.setHours(0,0,0,0); e.setHours(0,0,0,0);
+    for(let d=new Date(s); d<e; d.setDate(d.getDate()+1)){
+      booked.add(d.toISOString().split("T")[0]);
+    }
+  });
+
+  const first = new Date(year, month, 1);
+  const last = new Date(year, month+1, 0);
+  const firstWeekday = first.getDay();
+  const days = last.getDate();
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  let html = "";
+  let dayCounter = 1;
+  const cells = Math.ceil((firstWeekday + days)/7) * 7;
+
+  for(let i=0;i<cells;i++){
+    if(i%7===0) html += "<tr>";
+    if(i<firstWeekday || dayCounter>days){
+      html += "<td></td>";
+    } else {
+      const cur = new Date(year, month, dayCounter);
+      cur.setHours(0,0,0,0);
+      const iso = cur.toISOString().split("T")[0];
+      let cls = [];
+      if(cur < today) cls.push("past");
+      else if(booked.has(iso)) cls.push("booked");
+
+      // user highlight
+      if(mode==="user" && selStart){
+        if(selStart === iso) cls.push("range-start");
+        if(selEnd === iso) cls.push("range-end");
+        if(selEnd && cur >= new Date(selStart) && cur <= new Date(selEnd) && iso !== selStart && iso !== selEnd){
+          cls.push("range");
+        }
+      }
+
+      const hasCustomRate = Object.prototype.hasOwnProperty.call(dailyRates, iso);
+      if(hasCustomRate) cls.push("custom-rate");
+      const priceLabel = formatPriceLabel(iso);
+      const cellClasses = cls.join(" ");
+      html += `<td class="${cellClasses}" data-iso="${iso}">
+        <div class="day-cell">
+          <div class="day-num">${dayCounter}</div>
+          <div class="day-price">${priceLabel}</div>
+        </div>
+      </td>`;
+      dayCounter++;
+    }
+    if(i%7===6) html += "</tr>";
+  }
+  body.innerHTML = html;
+
+  if(selectable){
+    [...body.querySelectorAll("td[data-iso]")].forEach(td=>{
+      if(td.classList.contains("booked") || td.classList.contains("past")) return;
+      td.addEventListener("click", ()=>onSelectDate(td.getAttribute("data-iso")));
+    });
+  }
+  if(mode === "admin"){
+    [...body.querySelectorAll("td[data-iso]")].forEach(td=>{
+      const iso = td.getAttribute("data-iso");
+      if(!iso || td.classList.contains("past")) return;
+      td.addEventListener("click", ()=>onAdminPriceClick(iso));
+    });
+  }
+}
+
+/* ===== RANGE VALIDATION ===== */
+function getBookedSet(){
+  const booked = new Set();
+  bookingsCache.forEach(b=>{
+    if(!b.start_date || !b.end_date) return;
+    const s = new Date(b.start_date); const e = new Date(b.end_date);
+    s.setHours(0,0,0,0); e.setHours(0,0,0,0);
+    for(let d=new Date(s); d<e; d.setDate(d.getDate()+1)){
+      booked.add(d.toISOString().split("T")[0]);
+    }
+  });
+  return booked;
+}
+function rangeHasBooked(startIso, endIso){
+  if(!startIso || !endIso) return false;
+  const set = getBookedSet();
+  const s = new Date(startIso + "T00:00:00");
+  const e = new Date(endIso + "T00:00:00");
+  for(let d=new Date(s); d<e; d.setDate(d.getDate()+1)){
+    const iso = d.toISOString().split("T")[0];
+    if(set.has(iso)) return true;
+  }
+  return false;
+}
+
+function getPriceForDay(iso){
+  if(!iso) return nightlyRate;
+  const override = dailyRates[iso];
+  if(override !== undefined && override !== null){
+    return override;
+  }
+  return nightlyRate;
+}
+
+function formatPriceLabel(iso){
+  const price = getPriceForDay(iso);
+  if(!price) return "";
+  return price.toLocaleString("vi-VN");
+}
+
+function calculateSelectionTotal(){
+  if(!selStart || !selEnd) return 0;
+  const s = new Date(selStart + "T00:00:00");
+  const e = new Date(selEnd + "T00:00:00");
+  let total = 0;
+  for(let d=new Date(s); d<e; d.setDate(d.getDate()+1)){
+    const iso = d.toISOString().split("T")[0];
+    total += getPriceForDay(iso);
+  }
+  return total;
+}
+
+async function onAdminPriceClick(iso){
+  if(!iso || !isAdmin() || !getToken()) return;
+  const override = Object.prototype.hasOwnProperty.call(dailyRates, iso) ? dailyRates[iso] : "";
+  const hint = override !== "" ? override : "";
+  const input = prompt(`GiÃ¡ cho ngÃ y ${iso} (VND). Äá»ƒ trá»‘ng Ä‘á»ƒ dÃ¹ng giÃ¡ máº·c Ä‘á»‹nh ${nightlyRate.toLocaleString()} VND`, hint);
+  if(input === null) return;
+  const value = input.trim();
+  try {
+    if(value === ""){
+      const res = await fetch(`${API_BASE}/daily-rates/${iso}`, {
+        method: "DELETE",
+        headers:{ "Authorization":"Bearer " + getToken() }
+      });
+      if(!res.ok){
+        const data = await res.json().catch(()=>({}));
+        alert(data.detail || "XÃ³a giÃ¡ tháº¥t báº¡i");
+        return;
+      }
+    } else {
+      const normalized = value.replace(/[^0-9]/g, "");
+      const num = parseFloat(normalized);
+      if(Number.isNaN(num) || num <= 0){
+        alert("GiÃ¡ khÃ´ng há»£p lá»‡");
+        return;
+      }
+      const res = await fetch(`${API_BASE}/daily-rates`, {
+        method: "POST",
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization":"Bearer " + getToken()
+        },
+        body: JSON.stringify({ rate_date: iso, price: num })
+      });
+      if(!res.ok){
+        const data = await res.json().catch(()=>({}));
+        alert(data.detail || "LÆ°u giÃ¡ tháº¥t báº¡i");
+        return;
+      }
+    }
+    await loadDailyRates();
+    renderAdminCalendar();
+    renderUserCalendar();
+    updateComputedPrice();
+  } catch {
+    alert("Network error");
+  }
+}
+
+/* ===== ADMIN CALENDAR ===== */
+function bindAdminCalendarNav(){
+  document.getElementById("adminPrev").addEventListener("click", ()=>{
+    adminMonth--; if(adminMonth<0){adminMonth=11;adminYear--;}
+    renderAdminCalendar();
+  });
+  document.getElementById("adminNext").addEventListener("click", ()=>{
+    adminMonth++; if(adminMonth>11){adminMonth=0;adminYear++;}
+    renderAdminCalendar();
+  });
+}
+function renderAdminCalendar(){
+  buildCalendar(adminYear, adminMonth, "adminCalendarBody", "adminMonthLabel", false, "admin");
+}
+function renderAllBookings(){
+  const wrap = document.getElementById("allBookings");
+  if(!bookingsCache.length){
+    wrap.innerHTML = '<p class="section-note">Chua co dat lich.</p>';
+    return;
+  }
+  wrap.innerHTML = bookingsCache.map(b=>`
+    <article class="booking-card booking-card--compact">
+      <div class="booking-card__row"><span>ID</span><span>${b.booking_id}</span></div>
+      <div class="booking-card__row"><span>Email</span><span>${b.email}</span></div>
+      <div class="booking-card__row"><span>From</span><span>${b.start_date}</span></div>
+      <div class="booking-card__row"><span>To</span><span>${b.end_date}</span></div>
+      <div class="booking-card__row"><span>Guests</span><span>${b.no_visitors ?? '-'}</span></div>
+      <div class="booking-card__row"><span>Value</span><span>${b.payment_value ?? '-'}</span></div>
+    </article>
+  `).join("");
+}
+async function reloadAllBookings(){
+  await loadBookingsCache();
+  renderAdminCalendar();
+  renderAllBookings();
+}
+
+/* ===== USER CALENDAR ===== */
+function bindUserCalendarNav(){
+  document.getElementById("userPrev").addEventListener("click", ()=>{
+    userMonth--; if(userMonth<0){userMonth=11; userYear--;}
+    renderUserCalendar();
+  });
+  document.getElementById("userNext").addEventListener("click", ()=>{
+    userMonth++; if(userMonth>11){userMonth=0; userYear++;}
+    renderUserCalendar();
+  });
+  document.getElementById("clearRangeBtn").addEventListener("click", ()=>{
+    selStart = null;
+    selEnd = null;
+    populateManualInputs();
+    updateRangeInfo();
+    renderUserCalendar();
+    updateComputedPrice();
+  });
+}
+function renderUserCalendar(){
+  buildCalendar(userYear, userMonth, "userCalendarBody", "userMonthLabel", true, "user");
+  updateRangeInfo();
+}
+function populateManualInputs(){
+  if(!manualStartInput || !manualEndInput) return;
+  manualStartInput.value = selStart || "";
+  manualEndInput.value = selEnd || "";
+}
+function handleManualInputChange(){
+  if(dateMode !== "manual") return;
+  const manualStart = manualStartInput ? manualStartInput.value : "";
+  const manualEnd = manualEndInput ? manualEndInput.value : "";
+
+  selStart = manualStart || null;
+  selEnd = manualEnd || null;
+
+  if(selStart){
+    const startDate = new Date(selStart + "T00:00:00");
+    if(!isNaN(startDate.getTime())){
+      userYear = startDate.getFullYear();
+      userMonth = startDate.getMonth();
+    }
+  } else {
+    selEnd = null;
+  }
+
+  if(selStart && selEnd){
+    const startDate = new Date(selStart + "T00:00:00");
+    const endDate = new Date(selEnd + "T00:00:00");
+    if(isNaN(endDate.getTime()) || endDate <= startDate){
+      selEnd = null;
+    }
+  }
+
+  populateManualInputs();
+  renderUserCalendar();
+  updateRangeInfo();
+  updateComputedPrice();
+}
+function onSelectDate(iso){
+  if(!selStart){
+    selStart = iso; selEnd = null;
+  } else if(selStart && !selEnd){
+    if(new Date(iso) < new Date(selStart)){
+      selEnd = selStart;
+      selStart = iso;
+    } else {
+      selEnd = iso;
+    }
+  } else {
+    selStart = iso; selEnd = null;
+  }
+  renderUserCalendar();
+  updateRangeInfo();
+  updateComputedPrice();
+  populateManualInputs();
+}
+function updateRangeInfo(){
+  const info = document.getElementById("rangeInfo");
+  const clearBtn = document.getElementById("clearRangeBtn");
+  if(!selStart){
+    info.classList.add("hidden");
+    clearBtn.classList.add("hidden");
+    return;
+  }
+  clearBtn.classList.remove("hidden");
+  info.classList.remove("hidden");
+  if(selStart && !selEnd){
+    info.textContent = "Start: " + selStart + " (select end date)";
+    info.className = "note note-warn";
+  } else {
+    const invalid = rangeHasBooked(selStart, selEnd);
+    if(invalid){
+      info.textContent = "Range overlaps booked dates";
+      info.className = "note note-error";
+    } else {
+      info.textContent = "Range: " + selStart + " -> " + selEnd;
+      info.className = "note note-warn";
+    }
+  }
+}
+
+/* ===== PRICE CALC ===== */
+function calcNights(){
+  if(!selStart || !selEnd) return 0;
+// Round to full days: difference between calendar dates only
+  const s = new Date(selStart + "T00:00:00");
+  const e = new Date(selEnd + "T00:00:00");
+  const diff = e.getTime() - s.getTime();
+  if(diff <= 0) return 0;
+  return Math.floor(diff / (1000*3600*24));
+}
+function updateComputedPrice(){
+  const nights = calcNights();
+  const priceEl = document.getElementById("computedPrice");
+  const nightsInfo = document.getElementById("nightsInfo");
+  const bookBtn = document.getElementById("bookNowBtn");
+  const invalid = selStart && selEnd ? rangeHasBooked(selStart, selEnd) : false;
+  if(!nights || invalid){
+    priceEl.textContent = "-";
+    nightsInfo.textContent = invalid ? "Range overlaps booked dates" : "";
+    if(dailyPriceList) dailyPriceList.innerHTML = "";
+    bookBtn.setAttribute("disabled", "disabled");
+    return;
+  }
+  const total = calculateSelectionTotal();
+  priceEl.textContent = total.toLocaleString("vi-VN") + " VND";
+  nightsInfo.textContent = `(${nights} nights)`;
+  if(dailyPriceList){
+    const startDate = new Date(selStart + "T00:00:00");
+    const rows = [];
+    for(let i=0; i<nights; i++){
+      const day = new Date(startDate);
+      day.setDate(startDate.getDate() + i);
+      const iso = day.toISOString().split("T")[0];
+      const label = day.toLocaleDateString("vi-VN", { weekday: "short", month: "short", day: "numeric" });
+      const price = getPriceForDay(iso);
+      const custom = Object.prototype.hasOwnProperty.call(dailyRates, iso);
+      rows.push(`<div>${label}: ${price.toLocaleString("vi-VN")} VND${custom ? ' *' : ''}</div>`);
+    }
+    dailyPriceList.innerHTML = rows.join("");
+  }
+  bookBtn.removeAttribute("disabled");
+}
+
+/* ===== SUBMIT BOOKING (using selStart/selEnd + noVisitors) ===== */
+async function submitBooking(e){
+  // e can be Event (from click) or undefined
+  if(!getToken()){
+    window.location.href = "cardlogin.html";
+    return;
+  }
+  const formMsg = document.getElementById("formMsg");
+  formMsg.textContent = "Submitting...";
+  formMsg.className = "small-muted";
+
+  if(!selStart || !selEnd){
+    formMsg.textContent = "Please select a start and end date.";
+    return;
+  }
+  const nights = calcNights();
+  if(nights <= 0){
+    formMsg.textContent = "Invalid date range.";
+    return;
+  }
+  if(rangeHasBooked(selStart, selEnd)){
+    formMsg.textContent = "Selected range overlaps booked dates.";
+    formMsg.className = "message message-error";
+    return;
+  }
+  const total = calculateSelectionTotal();
+  if(total <= 0){
+    formMsg.textContent = "Total price unavailable.";
+    formMsg.className = "message message-error";
+    return;
+  }
+  const visitors = parseInt(document.getElementById("noVisitors").value || "1");
+  const body = {
+    start_date: new Date(selStart + "T00:00:00").toISOString(),
+    end_date: new Date(selEnd + "T00:00:00").toISOString(),
+    no_visitors: visitors,
+    no_day: nights,
+    payment_value: total.toFixed(2)
+  };
+  try {
+    const res = await fetch(`${API_BASE}/book`, {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer " + getToken()
+      },
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if(!res.ok){
+      formMsg.textContent = data.detail || "Failed";
+      formMsg.className = "message message-error";
+      return;
+    }
+    formMsg.textContent = "Booking created (ID: " + data.booking_id + ")";
+    formMsg.className = "message message-success";
+    // reset selection so calendar updates
+    selStart = null; selEnd = null;
+    await loadBookingsCache();
+    renderUserCalendar();
+    loadMyBookings();
+    updateComputedPrice();
+  } catch {
+    formMsg.textContent = "Network error";
+    formMsg.className = "message message-error";
+  }
+}
+
+/* ===== MY BOOKINGS (USER) ===== */
+async function loadMyBookings(){
+  const wrap = document.getElementById("myBookings");
+  wrap.innerHTML = '<p class="section-note">Dang tai...</p>';
+  try {
+    const res = await fetch(`${API_BASE}/my-bookings`, {
+      headers:{ "Authorization":"Bearer " + getToken() }
+    });
+    const data = await res.json();
+    if(!res.ok){
+      wrap.innerHTML = `<p class="message message-error">${data.detail || 'Error'}</p>`;
+      return;
+    }
+    if(!data.length){
+      wrap.innerHTML = '<p class="section-note">Chua co dat lich.</p>';
+      return;
+    }
+    wrap.innerHTML = data.map(b=>{
+      const createdRaw = b.created_at;
+      const created = createdRaw ? new Date(createdRaw) : null;
+      const hasCreated = created && !isNaN(created.getTime());
+      const now = new Date();
+      const expireAt = hasCreated ? new Date(created.getTime() + 10*60*1000) : null;
+      const remainingMs = expireAt ? (expireAt - now) : Number.POSITIVE_INFINITY;
+      const isPaid = b.payment_flag === true;
+      const canPay = !isPaid && remainingMs > 0;
+
+      const rightCorner = isPaid
+        ? `<span class="chip chip-success">PAID</span>`
+        : canPay
+          ? `<div class="chip-row">
+               <span class="chip chip-warning" data-expire="${expireAt ? expireAt.toISOString() : ''}">${expireAt ? '10:00' : 'WAITING'}</span>
+               <button class="chip-button chip-primary" data-action="pay" data-id="${b.booking_id}">Pay</button>
+               <button class="chip-button chip-danger" data-action="cancel" data-id="${b.booking_id}">Cancel</button>
+             </div>`
+          : `<span class="chip chip-muted">EXPIRED</span>`;
+
+      return `
+      <article class="booking-card">
+        <div class="booking-card__status">${rightCorner}</div>
+        <div class="booking-card__row"><span>ID</span><span>${b.booking_id}</span></div>
+        <div class="booking-card__row"><span>Email</span><span>${b.email}</span></div>
+        <div class="booking-card__row"><span>From</span><span>${b.start_date}</span></div>
+        <div class="booking-card__row"><span>To</span><span>${b.end_date}</span></div>
+        <div class="booking-card__row"><span>Guests</span><span>${b.no_visitors ?? '-'}</span></div>
+        <div class="booking-card__row"><span>Days</span><span>${b.no_day ?? '-'}</span></div>
+        <div class="booking-card__row"><span>Amount</span><span>${b.payment_value ?? '-'}</span></div>
+      </article>`;
+    }).join("");
+
+    // Bind actions & countdown
+    wrap.querySelectorAll('[data-action="pay"]').forEach(btn=>{
+      btn.addEventListener('click', ()=>doPay(btn.getAttribute('data-id')));
+    });
+    wrap.querySelectorAll('[data-action="cancel"]').forEach(btn=>{
+      btn.addEventListener('click', ()=>doCancel(btn.getAttribute('data-id')));
+    });
+    startCountdowns(wrap);
+  } catch {
+    wrap.innerHTML = '<p class="message message-error">Error</p>';
+  }
+}
+function startCountdowns(container){
+  const els = container.querySelectorAll('[data-expire]');
+  if(!els.length) return;
+  function tick(){
+    const now = new Date();
+    els.forEach(el=>{
+      const exp = el.getAttribute('data-expire');
+      if(!exp) return;
+      const t = new Date(exp);
+      let diff = Math.max(0, Math.floor((t - now)/1000));
+      const m = String(Math.floor(diff/60)).padStart(2,'0');
+      const s = String(diff%60).padStart(2,'0');
+      el.textContent = `${m}:${s}`;
+      if(diff === 0){ el.textContent = '00:00'; }
+    });
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+async function doPay(bookingId){
+  try{
+    const res = await fetch(`${API_BASE}/bookings/${bookingId}/pay`,{
+      method:'POST',
+      headers:{ 'Authorization': 'Bearer ' + getToken() }
+    });
+    if(!res.ok){
+      const d = await res.json();
+      alert(d.detail || 'Payment failed');
+      return;
+    }
+    loadMyBookings();
+  } catch{
+    alert('Network error');
+  }
+}
+async function doCancel(bookingId){
+  if(!confirm('Cancel this booking?')) return;
+  try{
+    const res = await fetch(`${API_BASE}/bookings/${bookingId}`,{
+      method:'DELETE',
+      headers:{ 'Authorization': 'Bearer ' + getToken() }
+    });
+    if(!res.ok){
+      const d = await res.json();
+      alert(d.detail || 'Cancel failed');
+      return;
+    }
+    loadMyBookings();
+  } catch{
+    alert('Network error');
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+  document.getElementById("bookingYear").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
